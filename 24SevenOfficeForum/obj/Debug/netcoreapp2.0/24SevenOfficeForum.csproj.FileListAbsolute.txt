@@ -1,0 +1,8 @@
+C:\24SevenForum\24SevenOfficeForum\bin\Debug\netcoreapp2.0\24SevenOfficeForum.deps.json
+C:\24SevenForum\24SevenOfficeForum\bin\Debug\netcoreapp2.0\24SevenOfficeForum.runtimeconfig.json
+C:\24SevenForum\24SevenOfficeForum\bin\Debug\netcoreapp2.0\24SevenOfficeForum.runtimeconfig.dev.json
+C:\24SevenForum\24SevenOfficeForum\bin\Debug\netcoreapp2.0\24SevenOfficeForum.dll
+C:\24SevenForum\24SevenOfficeForum\obj\Debug\netcoreapp2.0\24SevenOfficeForum.csprojResolveAssemblyReference.cache
+C:\24SevenForum\24SevenOfficeForum\obj\Debug\netcoreapp2.0\24SevenOfficeForum.csproj.CoreCompileInputs.cache
+C:\24SevenForum\24SevenOfficeForum\obj\Debug\netcoreapp2.0\24SevenOfficeForum.AssemblyInfoInputs.cache
+C:\24SevenForum\24SevenOfficeForum\obj\Debug\netcoreapp2.0\24SevenOfficeForum.AssemblyInfo.cs
