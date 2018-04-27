@@ -7,7 +7,6 @@ class Sidebar extends Component{
         return(
             <div className="Sidebar">
             <Link to="/"><p>Hjem</p></Link>
-            <Link to="/kategori/1"><p>Test</p></Link>
             {this.props.categories.map(
                 (c, key) => {return <Link to={"/"+c.id} key={key}><p>{c.category}</p></Link>}
             )}

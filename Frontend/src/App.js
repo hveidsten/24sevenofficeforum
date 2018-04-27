@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
+import axios from '../node_modules/axios/dist/axios';
 import './App.css';
 import Sidebar from './Components/Sidebar';
 import Header from './Components/Header';
@@ -18,9 +19,8 @@ constructor(props){
 
 fetchData(){
   const url = "https://5adf192bbf932f0014d11b7c.mockapi.io/kategorier";
-fetch(url)
-.then(response => response.json())
-.then(json => this.setState({data:json}))
+axios.get(url)
+.then(response => this.setState({data: response.data}))
 }
 
 componentWillMount(){
@@ -32,18 +32,16 @@ componentWillMount(){
     return (
        <BrowserRouter>
       <div className="App">
-     
         <Header />
         <Sidebar categories={this.state.data} />
-
         <div className="Content" >
-        <Route path="/1" render={(props) => <Category data={this.state.data[0]}  {...props} />}/>
-        <Route path="/2" render={(props) => <Category data={this.state.data[1]} {...props} />}/>
-        <Route path="/question/:categoryid/:questionid" render={(props) => <Question data={this.state.data} {...props} />}/>
+
+        <Route exact path="/" render={() => <h2>Dette er forside som kanskje skal vise siste poster.</h2>}/>
+        <Route exact path="/1" render={(props) => <Category data={this.state.data[0]}  {...props} />}/>
+        <Route exact path="/2" render={(props) => <Category data={this.state.data[1]} {...props} />}/>
+        <Route path="/:categoryid/:questionid" render={(props) => <Question data={this.state.data} {...props} />}/>
         </div>
-
       </div>
-
       </BrowserRouter>
     
     );
