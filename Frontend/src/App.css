@@ -13,7 +13,6 @@
 .Content{
   grid-column: span 10;
   padding: 3rem;
-  font-size: 3rem;
   max-height: calc(100vh - 50px);
   overflow-y: auto;
 }
@@ -22,6 +21,7 @@
 
 /*Sidebar start */
 .Sidebar{
+  padding:1rem;
   grid-column: span 2;
   border-right:solid;
   max-height: calc(100vh - 50px);
