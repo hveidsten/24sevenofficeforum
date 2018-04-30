@@ -6,8 +6,8 @@ class Sidebar extends Component{
     render(){
         return(
             <div className="Sidebar">
-            <NavLink exact to="/" activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>Hjem</NavLink>
-            <hr/>
+            <NavLink exact to="/" activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>Hjem<hr/></NavLink>
+            
             {this.props.categories.map(
                 (c, key) => {return <NavLink to={"/"+c.id} key={key} activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>{c.category}<hr/></NavLink>}
                 
