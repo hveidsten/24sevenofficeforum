@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace _24SevenOfficeForum.Models
 {
@@ -11,7 +13,7 @@ namespace _24SevenOfficeForum.Models
             Question = new HashSet<Question>();
         }
 
-		[Key]
+		
         public int Id { get; set; }
 
         public int? Upvote { get; set; }

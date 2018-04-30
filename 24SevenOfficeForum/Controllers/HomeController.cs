@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using _24SevenOfficeForum.models;
 using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Controllers
 {
-    [Produces("application/json")]
+	[Produces("application/json")]
     [Route("api/Home")]
     public class HomeController : Controller
     {
@@ -25,7 +20,7 @@ namespace _24SevenOfficeForum.Controllers
         }
 
         // GET: api/Home/5
-        [HttpGet("{id}", Name = "Get")]
+       /* [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
             return "value";
@@ -47,6 +42,6 @@ namespace _24SevenOfficeForum.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }

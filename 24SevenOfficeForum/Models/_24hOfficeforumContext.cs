@@ -1,18 +1,17 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using _24SevenOfficeForum.Migrations;
+using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Models
 {
-    public partial class _24hOfficeforumContext : DbContext
+    public class _24hOfficeforumContext : DbContext
     {
 		
 
-		public virtual DbSet<Answer> Answer { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Question> Question { get; set; }
-	    
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,13 +22,22 @@ namespace _24SevenOfficeForum.Models
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+	    public virtual DbSet<Answer> Answer { get; set; }
+	    public virtual DbSet<Category> Category { get; set; }
+	    public virtual DbSet<Question> Question { get; set; }
+	    
+
+
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Answer>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+	            entity.Property(e => e.Id).ValueGeneratedNever();
+				
+	            entity.Property(e => e.Body).IsUnicode(false);
 
-                entity.Property(e => e.Body).IsUnicode(false);
+
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -55,5 +63,10 @@ namespace _24SevenOfficeForum.Models
                     .HasConstraintName("FK_Question_Answer");
             });
         }
+	    
+
+
+
+		public DbSet<_24SevenOfficeForum.Models.Answer> Answer_1 { get; set; }
     }
 }
