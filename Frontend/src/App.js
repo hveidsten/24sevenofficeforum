@@ -40,6 +40,7 @@ componentWillMount(){
         <Route exact path="/" render={() => <h2>Dette er forside som kanskje skal vise siste poster.</h2>}/>
         <Route exact path="/1" render={(props) => <Category data={this.state.data[0]}  {...props} />}/>
         <Route exact path="/2" render={(props) => <Category data={this.state.data[1]} {...props} />}/>
+        <Route exact path="/3" render={(props) => <Category data={this.state.data[2]} {...props} />}/>
         <Route path="/:categoryid/:questionid" render={(props) => <Question data={this.state.data} {...props} />}/>
         </div>
       </div>

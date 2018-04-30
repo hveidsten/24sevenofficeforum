@@ -23,9 +23,12 @@
 .Sidebar{
   padding:1rem;
   grid-column: span 2;
-  border-right:solid;
   max-height: calc(100vh - 50px);
+  background-color: #404040;
  
+}
+.Sidebar a {
+  color: #ffffff;
 }
 
 /*Sidebar slutt */
@@ -34,4 +37,11 @@
 .Header {
   grid-column: span 12;
   background-color:#445566;
+  color: #ffffff;
+}
+/*Header slutt */
+
+a {
+  text-decoration: none;
+  color: black;
 }

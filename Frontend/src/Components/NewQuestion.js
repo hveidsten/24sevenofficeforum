@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import axios from '../../node_modules/axios/dist/axios';
 
 class NewQuestion extends Component{
     constructor(props) {
@@ -19,11 +20,11 @@ class NewQuestion extends Component{
       }
     
       handleSubmit(event) {
-      /*  axios.put('https://5adf192bbf932f0014d11b7c.mockapi.io/kategorier/', {  
-            heading: this.state.questionHeading,
-            body: this.state.questionBody
+        /*axios.post('https://5adf192bbf932f0014d11b7c.mockapi.io/kategorier/3', {  
+           questions: [{heading: this.state.questionHeading,
+            body: this.state.questionBody}]
           })
-*/
+          */
         alert(this.state.questionHeading + " " + this.state.questionBody);
         event.preventDefault();
       }
