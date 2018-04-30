@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, NavLink } from 'react-router-dom';
 import '../App.css';
 
 class Sidebar extends Component{
     render(){
         return(
             <div className="Sidebar">
-            <Link to="/"><p>Hjem</p></Link>
+            <NavLink exact to="/" activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>Hjem<hr/></NavLink>
+            
             {this.props.categories.map(
-                (c, key) => {return <Link to={"/"+c.id} key={key}><p>{c.category}</p></Link>}
+                (c, key) => {return <NavLink to={"/"+c.id} key={key} activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>{c.category}<hr/></NavLink>}
+                
             )}
             
             </div>

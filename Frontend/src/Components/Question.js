@@ -16,7 +16,7 @@ class Question extends Component{
                <div> 
                  <h2>{this.props.data[catId].questions[questionId].heading}</h2>
                  <h3>{this.props.data[catId].questions[questionId].body}</h3>
-                    {this.props.data[catId].questions[questionId].answers.map((q, key) => <h4 key={key}>{q}</h4>)}
+                    {this.props.data[catId].questions[questionId].answers.map((q, key) => <p key={key}>{q}</p>)}
                  </div>
               );
           }        

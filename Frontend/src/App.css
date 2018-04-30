@@ -5,6 +5,7 @@
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: 50px auto;
     height:100vh;
+    font-family: 'Roboto', sans-serif;
 
 }
 /*Wrapper slutt */
@@ -23,10 +24,14 @@
 .Sidebar{
   padding:1rem;
   grid-column: span 2;
-  border-right:solid;
   max-height: calc(100vh - 50px);
+  background-color: #404040;
  
 }
+.Sidebar a {
+  color: #C4C4C4;
+}
+
 
 /*Sidebar slutt */
 
@@ -34,4 +39,16 @@
 .Header {
   grid-column: span 12;
   background-color:#445566;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem 0 1rem;
+}
+/*Header slutt */
+
+a {
+  text-decoration: none;
+  color: black;
 }
