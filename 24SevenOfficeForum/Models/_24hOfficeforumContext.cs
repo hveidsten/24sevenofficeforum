@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using _24SevenOfficeForum.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using _24SevenOfficeForum.Migrations;
-using _24SevenOfficeForum.Models;
 
-namespace _24SevenOfficeForum.Models
+namespace _24SevenOfficeForum
 {
     public class _24hOfficeforumContext : DbContext
     {
-		
+        public virtual DbSet<Answer> Answer { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Question> Question { get; set; }
 
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
@@ -22,51 +18,54 @@ namespace _24SevenOfficeForum.Models
             }
         }
 
-	    public virtual DbSet<Answer> Answer { get; set; }
-	    public virtual DbSet<Category> Category { get; set; }
-	    public virtual DbSet<Question> Question { get; set; }
-	    
-
-
-
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Answer>(entity =>
             {
-	            entity.Property(e => e.Id).ValueGeneratedNever();
-				
-	            entity.Property(e => e.Body).IsUnicode(false);
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
+                entity.Property(e => e.Body)
+                    .IsRequired()
+                    .IsUnicode(false);
 
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.Answer)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Answer_Question");
             });
 
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.CategoryName).IsUnicode(false);
+                entity.Property(e => e.CategoryName)
+                    .IsRequired()
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Description).IsUnicode(false);
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Body).IsUnicode(false);
+                entity.Property(e => e.Body)
+                    .IsRequired()
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Header).IsUnicode(false);
+                entity.Property(e => e.Header)
+                    .IsRequired()
+                    .IsUnicode(false);
 
-                entity.HasOne(d => d.QuestionNavigation)
+                entity.HasOne(d => d.Category)
                     .WithMany(p => p.Question)
-                    .HasForeignKey(d => d.QuestionId)
-                    .HasConstraintName("FK_Question_Answer");
+                    .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Question_Category");
             });
         }
-	    
-
-
-
-		public DbSet<_24SevenOfficeForum.Models.Answer> Answer_1 { get; set; }
     }
 }
