@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace _24SevenOfficeForum.Models
+﻿namespace _24SevenOfficeForum.Models
 {
     public class Answer
     {

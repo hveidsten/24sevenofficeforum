@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Controllers
 {
-    [Produces("application/json")]
+	[Produces("application/json")]
     [Route("api/Categories")]
     public class CategoriesController : Controller
     {
@@ -22,6 +22,7 @@ namespace _24SevenOfficeForum.Controllers
 
         // GET: api/Categories
         [HttpGet]
+		[EnableCors("AllowAll")]
         public IEnumerable<Category> GetCategory()
         {
             return _context.Category;

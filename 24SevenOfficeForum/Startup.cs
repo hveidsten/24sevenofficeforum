@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum
 {
@@ -20,7 +19,8 @@ namespace _24SevenOfficeForum
         {
 	        services.AddDbContext<_24hOfficeforumContext>();
 			services.AddMvc();
-        }
+			services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -29,8 +29,10 @@ namespace _24SevenOfficeForum
             {
                 app.UseDeveloperExceptionPage();
             }
-
+	        
             app.UseMvc();
+	        app.UseCors("AllowAll");
         }
+
     }
 }

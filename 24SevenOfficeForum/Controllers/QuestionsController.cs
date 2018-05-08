@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +10,7 @@ namespace _24SevenOfficeForum.Controllers
 {
 	[Produces("application/json")]
     [Route("api/Questions")]
+
     public class QuestionsController : Controller
     {
         private readonly _24hOfficeforumContext _context;
@@ -25,7 +24,7 @@ namespace _24SevenOfficeForum.Controllers
        
 		[HttpGet]
 	    public async Task<IEnumerable<Question>> Get()
-	    {
+		{
 		    var questions = await _context.Question.Include(x => x.Answer).ToListAsync();
 
 			//This releases the self reference between question and answer
