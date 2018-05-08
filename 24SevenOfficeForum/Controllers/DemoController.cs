@@ -100,31 +100,13 @@ namespace _24SevenOfficeForum.Controllers
 
      
         [HttpPost]
-        public async Task<IActionResult> PostQuestion([FromBody] Question question)
+        public async Task<IActionResult> PostQuestion([FromBody]Question question)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             _context.Question.Add(question);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (QuestionExists(question.Id))
-                {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _context.SaveChanges();
 
-            return CreatedAtAction("GetQuestion", new { id = question.Id }, question);
+
+            return Ok(question);
         }
 
      
