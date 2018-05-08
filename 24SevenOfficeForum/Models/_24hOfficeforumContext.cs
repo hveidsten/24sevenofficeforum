@@ -1,19 +1,21 @@
-﻿using _24SevenOfficeForum.Models;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace _24SevenOfficeForum
+namespace _24SevenOfficeForum.Models
 {
-    public class _24hOfficeforumContext : DbContext
+    public partial class _24hOfficeforumContext : DbContext
     {
         public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Question> Question { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-				#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=24hOfficeforum;Trusted_Connection=True;");
             }
         }
@@ -67,7 +69,5 @@ namespace _24SevenOfficeForum
                     .HasConstraintName("FK_Question_Category");
             });
         }
-
-        public DbSet<_24SevenOfficeForum.Models.SearchViewModel> SearchViewModel { get; set; }
     }
 }

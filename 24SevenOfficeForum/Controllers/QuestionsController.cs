@@ -56,7 +56,7 @@ namespace _24SevenOfficeForum.Controllers
 		    return questions;
 	    }
 
-	    [HttpGet("{catId/qId}")]
+	    [HttpGet("{catId}/{qId}")]
 	    public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
 	    {
 		    var question = await _context.Question.Where(x => x.CategoryId == catId && x.Id == qId).FirstOrDefaultAsync();
@@ -104,30 +104,37 @@ namespace _24SevenOfficeForum.Controllers
         [HttpPost]
         public async Task<IActionResult> PostQuestion([FromBody] Question question)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	        _context.Question.Add(question);
+	        _context.SaveChanges();
 
-            _context.Question.Add(question);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (QuestionExists(question.Id))
-                {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetQuestion", new { id = question.Id }, question);
-        }
+	        return Ok(question);
+
+
+			//if (!ModelState.IsValid)
+			//{
+			//    return BadRequest(ModelState);
+			//}
+			//
+			//_context.Question.Add(question);
+			//try
+			//{
+			//    await _context.SaveChangesAsync();
+			//}
+			//catch (DbUpdateException)
+			//{
+			//    if (QuestionExists(question.Id))
+			//    {
+			//        return new StatusCodeResult(StatusCodes.Status409Conflict);
+			//    }
+			//    else
+			//    {
+			//        throw;
+			//    }
+			//}
+			//
+			//return CreatedAtAction("GetQuestion", new { id = question.Id });
+		}
 
         // DELETE: api/Questions/5
 		

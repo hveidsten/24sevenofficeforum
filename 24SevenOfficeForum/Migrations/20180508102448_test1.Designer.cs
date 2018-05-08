@@ -9,12 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using _24SevenOfficeForum.Models;
 
+
 namespace _24SevenOfficeForum.Migrations
 {
     [DbContext(typeof(_24hOfficeforumContext))]
-    partial class _24hOfficeforumContextModelSnapshot : ModelSnapshot
+    [Migration("20180508102448_test1")]
+    partial class test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
