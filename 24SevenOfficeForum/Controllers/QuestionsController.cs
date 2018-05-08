@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Clauses;
 using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Controllers
 {
 	[Produces("application/json")]
     [Route("api/Questions")]
+
     public class QuestionsController : Controller
     {
         private readonly _24hOfficeforumContext _context;
@@ -25,7 +26,7 @@ namespace _24SevenOfficeForum.Controllers
        
 		[HttpGet]
 	    public async Task<IEnumerable<Question>> Get()
-	    {
+		{
 		    var questions = await _context.Question.Include(x => x.Answer).ToListAsync();
 
 			//This releases the self reference between question and answer
@@ -39,30 +40,31 @@ namespace _24SevenOfficeForum.Controllers
 		    return questions;
 	    }
 
+	    [HttpGet("{catId}")]
+	    public async Task<IEnumerable<Question>> GetQuestions([FromRoute] int catId)
+	    {
+		    var questions = await _context.Question.Where(x => x.CategoryId == catId).ToListAsync();
 
-		// GET: api/Questions/5
-		[HttpGet("{id}")]
-        public async Task<Question> GetQuestion([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return null;
-            }
+		    foreach (var question in questions)
+		    {
+			    foreach (var answer in question.Answer)
+			    {
+				    answer.Question = null;
+			    }
+		    }
 
-	        var answer = _context.Question
-		        .Include(x => x.Answer)
-		        .FirstOrDefaultAsync(m => m.Id == id);
+		    return questions;
+	    }
 
-	        return await answer;
+	    [HttpGet("{catId/qId}")]
+	    public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
+	    {
+		    var question = await _context.Question.Where(x => x.CategoryId == catId && x.Id == qId).FirstOrDefaultAsync();
+		  
+			return question;
 
-			/*var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
-            if (question == null)
-            {
-                return NotFound();
-            }
-            return Ok(question);*/
-        }
-
+	    }
+		
         // PUT: api/Questions/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)

@@ -67,5 +67,7 @@ namespace _24SevenOfficeForum
                     .HasConstraintName("FK_Question_Category");
             });
         }
+
+        public DbSet<_24SevenOfficeForum.Models.SearchViewModel> SearchViewModel { get; set; }
     }
 }
