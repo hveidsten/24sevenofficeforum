@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-import axios from '../node_modules/axios/dist/axios';
-
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import './App.css';
 import Sidebar from './Components/Sidebar';
 import Header from './Components/Header';
-import Category from './Components/Category';
 import Question from './Components/Question';
 import MainContent from './Components/MainContent';
 
@@ -61,8 +58,7 @@ componentDidMount(){
         <Route exact path="/" render={() => <h2>Dette er forside som kanskje skal vise siste poster.</h2>}/>
         {this.state.categories.map(
           (c, key) => {
-            console.log(c);
-            return <Route key={key} exact path={"/"+c.split(' ').join('_')} render={(props) => <MainContent activeCategory={c}  {...props} />}/>
+            return <Route key={key} exact path={"/"+c.split(' ').join('_')} render={(props) => <MainContent activeCategory={key}  {...props} />}/>
                
             
           }

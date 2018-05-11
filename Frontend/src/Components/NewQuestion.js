@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import '../App.css';
-import axios from '../../node_modules/axios/dist/axios';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {createPost} from '../Actions/postActions';
 
 class NewQuestion extends Component{
     constructor(props) {
         super(props);
         this.state = {questionHeading: '', questionBody: ''};
     
-        this.handleChangeBody = this.handleChangeBody.bind(this);
-        this.handleChangeHeading = this.handleChangeHeading.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
     
-      handleChangeHeading(event) {
-        this.setState({questionHeading: event.target.value});
+      handleChange(event) {
+        this.setState({[event.target.name]: event.target.value});
       }
-      handleChangeBody(event) {
-        this.setState({questionBody: event.target.value});
-      }
+   
     
       handleSubmit(event) {
         /*axios.post('https://5adf192bbf932f0014d11b7c.mockapi.io/kategorier/3', {  
@@ -25,21 +24,29 @@ class NewQuestion extends Component{
             body: this.state.questionBody}]
           })
           */
-        alert(this.state.questionHeading + " " + this.state.questionBody);
-        event.preventDefault();
+         event.preventDefault();
+         const post = {
+          header: this.state.questionHeading,
+          body: this.state.questionBody
+      }
+      this.props.createPost(post);
+       
+       
       }
     render() {
                return(
                  <form onSubmit={this.handleSubmit}>
        
-          <input type="text" value={this.state.questionHeading} onChange={this.handleChangeHeading} />
-          <input type="text" value={this.state.questionBody} onChange={this.handleChangeBody} />
+          <input type="text" name="questionHeading" value={this.state.questionHeading} onChange={this.handleChange} />
+          <input type="text" name="questionBody" value={this.state.questionBody} onChange={this.handleChange} />
         
         <input type="submit" value="Post" />
       </form>
               );
           }        
 }
+NewQuestion.prototypes = {
+  createPost: PropTypes.func.isRequired
+}
 
-
-export default NewQuestion;
+export default connect(null, {createPost} )(NewQuestion);
