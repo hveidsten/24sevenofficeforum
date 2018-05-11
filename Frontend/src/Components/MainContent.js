@@ -34,7 +34,11 @@ class MainContent extends Component{
      else{ return(
                <div> 
               {this.props.posts.data.map(
-                    (c, key) => {return <Link to={this.props.match.path+"/"+c.id} key={key}><h2>{c.header}</h2></Link>
+                    (c, key) => {return <Link to={this.props.match.path+"/"+c.id} key={key}><div>
+                        <h2>{c.header}</h2>
+                        <h4>{c.body.substring(0,15)}</h4>
+                        <hr/>
+                        </div></Link>
                    }
               )}
               { this.state.showQuestionForm && (<NewQuestion />) }

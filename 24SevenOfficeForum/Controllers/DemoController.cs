@@ -39,7 +39,7 @@ namespace _24SevenOfficeForum.Controllers
 	    }
 
 
-        [HttpGet("{catId}")]
+        /*[HttpGet("{catId}")]
         public async Task<IEnumerable<Question>> GetQuestions([FromRoute] int catId)
         {
 
@@ -53,13 +53,13 @@ namespace _24SevenOfficeForum.Controllers
                 }
             }
             return questions;
-        }
+        }*/
 
 
-        [HttpGet("{catId}/{qId}")]
+        [HttpGet("{qId}")]
         public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
         {
-            var question = await _context.Question.Where(q => q.CategoryId == catId && q.Id == qId).FirstOrDefaultAsync();
+            var question = await _context.Question.Where(q => q.Id == qId).Include(a => a.Answer).FirstOrDefaultAsync();
             
             return question;
         }

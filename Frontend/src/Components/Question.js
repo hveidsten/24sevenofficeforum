@@ -21,7 +21,7 @@ class Question extends Component{
                <div> 
                    <h2>{this.props.post.data.header}</h2>
                    <p>{this.props.post.data.body}</p>
-                  
+                   {this.props.post.data.answer.map(a => <div>{a.body}</div>)}
                  </div>
               );
           }   
