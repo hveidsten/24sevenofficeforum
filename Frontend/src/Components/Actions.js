@@ -3,7 +3,6 @@ export const fetchDataRequest = () => {
 }
 
 export const fetchDataSuccess = (payload) => {
-    
     return {type: 'FETCH_DATA_SUCCESS', payload}
 }
 
