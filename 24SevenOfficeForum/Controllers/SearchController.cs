@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Controllers
 {
- /*   [Produces("application/json")]
+  /*  [Produces("application/json")]
     [Route("api/Search")]
     public class SearchController : Controller
     {
@@ -17,6 +18,9 @@ namespace _24SevenOfficeForum.Controllers
         {
             _context = context;
         }
+
+
+
 
         // GET: api/Search
         [HttpGet]
@@ -43,7 +47,7 @@ namespace _24SevenOfficeForum.Controllers
                 return BadRequest(ModelState);
             }
 
-            var searchViewModel = await _context.SearchViewModel.SingleOrDefaultAsync(m => m.sId == id);
+            var searchViewModel = await _context.SearchViewModel.SingleOrDefaultAsync(m => m.Id == id);
 
             if (searchViewModel == null)
             {
@@ -62,7 +66,7 @@ namespace _24SevenOfficeForum.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != searchViewModel.sId)
+            if (id != searchViewModel.Id)
             {
                 return BadRequest();
             }
@@ -100,7 +104,7 @@ namespace _24SevenOfficeForum.Controllers
             _context.SearchViewModel.Add(searchViewModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSearchViewModel", new { id = searchViewModel.sId }, searchViewModel);
+            return CreatedAtAction("GetSearchViewModel", new { id = searchViewModel.Id }, searchViewModel);
         }
 
         // DELETE: api/Search/5
@@ -112,7 +116,7 @@ namespace _24SevenOfficeForum.Controllers
                 return BadRequest(ModelState);
             }
 
-            var searchViewModel = await _context.SearchViewModel.SingleOrDefaultAsync(m => m.sId == id);
+            var searchViewModel = await _context.SearchViewModel.SingleOrDefaultAsync(m => m.Id == id);
             if (searchViewModel == null)
             {
                 return NotFound();
@@ -126,7 +130,7 @@ namespace _24SevenOfficeForum.Controllers
 
         private bool SearchViewModelExists(int id)
         {
-            return _context.SearchViewModel.Any(e => e.sId == id);
+            return _context.SearchViewModel.Any(e => e.Id == id);
         }
     }*/
 }

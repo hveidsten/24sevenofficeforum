@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Remotion.Linq.Clauses;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Controllers
@@ -57,13 +55,19 @@ namespace _24SevenOfficeForum.Controllers
 	    }
 
 	    [HttpGet("{catId}/{qId}")]
-	    public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
+	    public async Task<IEnumerable<Question>>GetQuestion([FromRoute] int catId, int qId)
 	    {
-		    var question = await _context.Question.Where(x => x.CategoryId == catId && x.Id == qId).FirstOrDefaultAsync();
-		  
-			return question;
+		    var showQuestion = await _context.Question.Include(x => x.Answer)
+				.Where(x => x.CategoryId == catId && x.Id == qId).FirstOrDefaultAsync();
 
-	    }
+			foreach (var question in showQuestion)
+				foreach (var answer in question.Answer)
+				{
+					answer.Question = null;
+				}
+
+		    return showQuestion;
+		}
 		
         // PUT: api/Questions/5
         [HttpPut("{id}")]

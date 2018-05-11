@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _24SevenOfficeForum.Models
 {
-	public class SearchViewModel
+	/*public class SearchViewModel
     {
 		[Key]
-		public int sId { get; set; }
+		public int Id { get; set; }
 		public IList<Question> Questions { get; set; }
 		public IList<Answer> Answers { get; set; }
 
@@ -18,5 +18,5 @@ namespace _24SevenOfficeForum.Models
 			Answers = new List<Answer>();
 			
 		}
-	}
+	}*/
 }

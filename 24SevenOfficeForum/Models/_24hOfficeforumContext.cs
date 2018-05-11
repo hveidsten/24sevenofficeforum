@@ -1,15 +1,15 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace _24SevenOfficeForum.Models
 {
-    public partial class _24hOfficeforumContext : DbContext
+	public partial class _24hOfficeforumContext : DbContext
     {
         public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Question> Question { get; set; }
+		//public virtual DbSet<SearchViewModel> SearchViewModel { get; set; }
 
+        // Unable to generate entity type for table 'dbo.Question'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -52,8 +52,6 @@ namespace _24SevenOfficeForum.Models
 
             modelBuilder.Entity<Question>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Body)
                     .IsRequired()
                     .IsUnicode(false);

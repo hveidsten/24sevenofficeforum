@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace _24SevenOfficeForum.Models
 {
-    public partial class Question
+    public class Question
     {
         public Question()
         {
