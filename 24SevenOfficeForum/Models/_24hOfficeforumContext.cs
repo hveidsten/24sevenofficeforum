@@ -7,7 +7,7 @@ namespace _24SevenOfficeForum.Models
         public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Question> Question { get; set; }
-		//public virtual DbSet<SearchViewModel> SearchViewModel { get; set; }
+		
 
         // Unable to generate entity type for table 'dbo.Question'. Please see the warning messages.
 
@@ -15,7 +15,9 @@ namespace _24SevenOfficeForum.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+				#pragma warning disable 1030
+				#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+				#pragma warning restore 1030
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=24hOfficeforum;Trusted_Connection=True;");
             }
         }

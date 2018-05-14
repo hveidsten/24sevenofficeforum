@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Controllers
@@ -37,7 +36,7 @@ namespace _24SevenOfficeForum.Controllers
 		    }
 		    return questions;
 	    }
-
+		
 	    [HttpGet("{catId}")]
 	    public async Task<IEnumerable<Question>> GetQuestions([FromRoute] int catId)
 	    {
@@ -50,23 +49,16 @@ namespace _24SevenOfficeForum.Controllers
 				    answer.Question = null;
 			    }
 		    }
-
 		    return questions;
 	    }
 
 	    [HttpGet("{catId}/{qId}")]
-	    public async Task<IEnumerable<Question>>GetQuestion([FromRoute] int catId, int qId)
+	    public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
 	    {
-		    var showQuestion = await _context.Question.Include(x => x.Answer)
+		    var question = await _context.Question.Include(x => x.Answer)
 				.Where(x => x.CategoryId == catId && x.Id == qId).FirstOrDefaultAsync();
 
-			foreach (var question in showQuestion)
-				foreach (var answer in question.Answer)
-				{
-					answer.Question = null;
-				}
-
-		    return showQuestion;
+		    return question;
 		}
 		
         // PUT: api/Questions/5
@@ -141,7 +133,6 @@ namespace _24SevenOfficeForum.Controllers
 		}
 
         // DELETE: api/Questions/5
-		
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
         {
