@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-
-import './App.css';
-import Sidebar from './Components/Sidebar';
-import Header from './Components/Header';
-import Question from './Components/Question';
-import MainContent from './Components/MainContent';
-
-
 import {Provider, connect} from 'react-redux';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 
+import './App.css';
+
+import Sidebar from './Components/Sidebar';
+import {Header} from './Components/PresentationalComponents';
 import rootReducer from './Reducers';
+import QuestionsListContainer from './Components/QuestionsListContainer';
+import QuestionContainer from './Components/QuestionContainer';
 
 const store = createStore(rootReducer, {}, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
@@ -58,14 +56,13 @@ componentDidMount(){
         <Route exact path="/" render={() => <h2>Dette er forside som kanskje skal vise siste poster.</h2>}/>
         {this.state.categories.map(
           (c, key) => {
-            return <Route key={key} exact path={"/"+c.split(' ').join('_')} render={(props) => <MainContent activeCategory={key}  {...props} />}/>
+            return <Route key={key} exact path={"/"+c.split(' ').join('_')} render={(props) => <QuestionsListContainer activeCategory={key}  {...props} />}/>
                
-            
           }
         )}
 
       
-        <Route path="/:categoryid/:questionid" render={(props) => <Question data={this.state.data} {...props} />}/>
+        <Route path="/:categoryid/:questionid" render={(props) => <QuestionContainer data={this.state.data} {...props} />}/>
         </div>
       </div>
       </BrowserRouter>

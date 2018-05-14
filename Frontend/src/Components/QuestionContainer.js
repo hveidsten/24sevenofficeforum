@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchPost} from '../Actions/postActions';
 
+import  {QuestionInList} from './PresentationalComponents';
 
-class Question extends Component{
+
+class QuestionContainer extends Component{
     componentWillMount(){
         this.props.fetchPost(this.props.match.params.questionid);
         console.log("api/questions/"+this.props.match.params.questionid);
@@ -21,7 +23,7 @@ class Question extends Component{
                <div> 
                    <h2>{this.props.post.data.header}</h2>
                    <p>{this.props.post.data.body}</p>
-                   {this.props.post.data.answer.map(a => <div>{a.body}</div>)}
+                   {this.props.post.data.answer.map((a, key) => <div key={key}>{a.body}</div>)}
                  </div>
               );
           }   
@@ -33,9 +35,6 @@ const mapStateToProps = state => ({
     post: state.posts.item
 })
 
-export default connect(mapStateToProps, {fetchPost})(Question);
+export default connect(mapStateToProps, {fetchPost})(QuestionContainer);
 
 
-/*  <h2>{this.props.data[catId].questions[questionId].heading}</h2>
-                 <h3>{this.props.data[catId].questions[questionId].body}</h3>
-                    {this.props.data[catId].questions[questionId].answers.map((q, key) => <p key={key}>{q}</p>)}*/

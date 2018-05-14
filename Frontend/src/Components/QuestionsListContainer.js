@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchPosts} from '../Actions/postActions';
 
-
-import NewQuestion from './NewQuestion';
+import NewQuestion from '../Components/NewQuestion';
+import  {QuestionInList} from './PresentationalComponents';
 
 class MainContent extends Component{
 
@@ -34,11 +34,10 @@ class MainContent extends Component{
      else{ return(
                <div> 
               {this.props.posts.data.map(
-                    (c, key) => {return <Link to={this.props.match.path+"/"+c.id} key={key}><div>
-                        <h2>{c.header}</h2>
-                        <h4>{c.body.substring(0,15)}</h4>
-                        <hr/>
-                        </div></Link>
+                    (c, key) => {return <Link to={this.props.match.path+"/"+c.id} key={key}>
+                    
+                        <QuestionInList heading={c.header} body={c.body}/>
+                       </Link>
                    }
               )}
               { this.state.showQuestionForm && (<NewQuestion />) }
@@ -50,17 +49,6 @@ class MainContent extends Component{
 }
 
 
-
-/* <h2>{this.props.activeCategory}</h2>
-                   {this.props.data.questions.map((q, key) => <Link to={this.props.data.id + "/" +q.id} key={key}><h3>{q.heading}</h3> <p>{q.body}</p><hr/></Link>)}
-                    { this.state.showQuestionForm && (<NewQuestion />) }
-                    <button onClick={this._showQuestionForm.bind()}>Nytt spørsmål</button>
-
-MainContent.propTypes = {
-    fetchPost: PropTypes.func.isRequired,
-    posts: PropTypes.array.isRequired
-}
- */
 const mapStateToProps = state => ({
     posts: state.posts.items
 })
