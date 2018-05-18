@@ -19,11 +19,6 @@ class NewQuestion extends Component{
    
     
       handleSubmit(event) {
-        /*axios.post('https://5adf192bbf932f0014d11b7c.mockapi.io/kategorier/3', {  
-           questions: [{heading: this.state.questionHeading,
-            body: this.state.questionBody}]
-          })
-          */
          event.preventDefault();
          const post = {
           header: this.state.questionHeading,

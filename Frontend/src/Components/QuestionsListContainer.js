@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+
 import {connect} from 'react-redux';
 import {fetchPosts} from '../Actions/postActions';
 
 import NewQuestion from '../Components/NewQuestion';
-import  {QuestionInList} from './PresentationalComponents';
+import  QuestionInList from './QuestionInList';
 
-class MainContent extends Component{
+class QuestionsListContainer extends Component{
 
     constructor() {
         super(); 
@@ -23,21 +22,29 @@ class MainContent extends Component{
       }
 
       componentWillMount(){
-          console.log(this.props.activeCategory+1);
-        this.props.fetchPosts(this.props.activeCategory+1);
+          if(this.props.match.params.searchQuery){
+            this.props.fetchPosts(`search?id=${this.props.match.params.searchQuery}`);
+            console.log(`search?id=${this.props.match.params.searchQuery}`);
+          }else{
+           
+            this.props.fetchPosts(`questions/${this.props.activeCategory+1}`);
+          }
+          
+          
+       
     }
 
 
     render() {
-       console.log(this.props);
+      console.log(this.props.match.params.searchQuery);
         if(!this.props.posts || !this.props.posts.data.length ===0){return <h2>Vent</h2>;}
      else{ return(
                <div> 
               {this.props.posts.data.map(
-                    (c, key) => {return <Link to={this.props.match.path+"/"+c.id} key={key}>
-                    
-                        <QuestionInList heading={c.header} body={c.body}/>
-                       </Link>
+                    (c, key) => {
+                        return (
+                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={this.props.match.path+"/"+c.id} votes={c.upvote} key={key}/>
+                    )
                    }
               )}
               { this.state.showQuestionForm && (<NewQuestion />) }
@@ -53,4 +60,4 @@ const mapStateToProps = state => ({
     posts: state.posts.items
 })
 
-export default connect(mapStateToProps, {fetchPosts})(MainContent);
+export default connect(mapStateToProps, {fetchPosts})(QuestionsListContainer);

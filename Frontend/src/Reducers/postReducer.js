@@ -1,4 +1,4 @@
-import {FETCH_POSTS,FETCH_POST, NEW_POST} from '../Actions/types'
+import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST} from '../Actions/types'
 
 const initialState = {
     
@@ -20,6 +20,11 @@ export default function(state = initialState, action){
         
         case NEW_POST: return {
             ...state,
+            item: action.payload
+        }
+
+        case EDIT_POST: return {
+            
             item: action.payload
         }
 

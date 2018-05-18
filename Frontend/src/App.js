@@ -22,29 +22,8 @@ constructor(props){
   }
 }
 
-
-
-
-/*fetchData(){
-  const url = "https://5adf192bbf932f0014d11b7c.mockapi.io/kategorier";
-axios.get(url)
-.then(response => this.setState({data: response.data}))
-}
-componentDidMount(){
-  this.props.fetchPost();
-}
-*/
-
   render() {
 
-   /* const postItem = this.props.posts.map(
-      post => (
-          <div key={post.id}>
-              <h3>{post.title}</h3>
-              <p>{post.body}</p>
-              </div>
-      ));*/
-    
     return (
         <Provider store={store}>
        <BrowserRouter>
@@ -61,8 +40,9 @@ componentDidMount(){
           }
         )}
 
-      
-        <Route path="/:categoryid/:questionid" render={(props) => <QuestionContainer data={this.state.data} {...props} />}/>
+       <Route exact path="/sok/:kat/:searchQuery/" render={(props) => <QuestionsListContainer  {...props} />}/>
+        <Route exact path="/:categoryid/:questionid" render={(props) => <QuestionContainer {...props} />}/>
+       
         </div>
       </div>
       </BrowserRouter>

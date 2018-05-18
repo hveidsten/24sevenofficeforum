@@ -1,4 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import {fetchPosts} from '../Actions/postActions';
+import {connect} from 'react-redux';
+import {Link } from 'react-router-dom';
 
 class Search extends Component {
     constructor(props){
@@ -8,7 +11,6 @@ class Search extends Component {
           }
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
@@ -16,24 +18,25 @@ class Search extends Component {
     this.setState({query: event.target.value});
   }
 
- handleSubmit(event) {
-    //TODO: Bytte ut med en faktisk søkefunksjon.
-    alert("Du har søkt etter: " + this.state.query);
-    event.preventDefault();
-  }
+
  render() {
    return (
-     <form  onSubmit={this.handleSubmit}>
+     <form>
        <input
          placeholder="Søk: "
          value={this.state.query}
          onChange={this.handleChange}
        />
-       <input type="submit" value="søk"/>
+       <Link to={`/sok/alt/${this.state.query}`}><button>søk</button></Link>
       
      </form>
    )
  }
 }
 
-export default Search
+
+const mapStateToProps = state => ({
+  posts: state.posts.items
+})
+
+export default connect(mapStateToProps, {fetchPosts})(Search);
