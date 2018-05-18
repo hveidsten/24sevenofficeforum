@@ -17,31 +17,20 @@ namespace _24SevenOfficeForum.Controllers
             _context = context;
         }
 
-
 		 //GET: api/Search
-		[HttpGet]		
+		[HttpGet]
 		[Produces("application/json")]
 		public IEnumerable<Question> GetSearch(string id)
 		{
-
-
 		   string searchString = id;
 			var search = from m in _context.Question.Include(x => x.Answer)
 			where m.Body.Contains(searchString) ||
 				      m.Header.Contains(searchString) ||
 					 m.Answer.Any(a => a.Body.Contains(searchString))
-					 //m.Category(z => z.CategoryName.Contains(searchString))
 				select m;
 
 			if (!string.IsNullOrEmpty(searchString))
 			{
-				//var searchAgain = from d in _context.Category
-				//	where d.CategoryName.Contains(searchString) ||
-				//	      d.Description.Contains(searchString)
-				//	select d;
-				//
-				//
-				//return searchAgain;
 			}
 			return search;
 		}

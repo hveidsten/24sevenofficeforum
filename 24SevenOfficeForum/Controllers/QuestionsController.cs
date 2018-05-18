@@ -40,12 +40,10 @@ namespace _24SevenOfficeForum.Controllers
 			foreach (var question in questions)
 			{
 				foreach (var answer in question.Answer)
-				{
 					answer.Question = null;
-				}
 			}
 
-			return questions;		
+			return questions;
 		}
 
 		[HttpGet("{catId}")]
@@ -53,6 +51,7 @@ namespace _24SevenOfficeForum.Controllers
 		{
 			var questions = await _context.Question.Where(x => x.CategoryId == catId).Include(x => x.Answer).ToListAsync();
 
+			//This releases the self reference between question and answer
 			foreach (var question in questions)
 			{
 				foreach (var answer in question.Answer)
