@@ -17,7 +17,7 @@ namespace _24SevenOfficeForum.Models
         public int AnswerId { get; set; }
         public int CategoryId { get; set; }
 
-        public Category Category { get; set; }
+        public   Category Category { get; set; }
         public ICollection<Answer> Answer { get; set; }
     }
 }

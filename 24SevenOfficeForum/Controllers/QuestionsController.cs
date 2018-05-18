@@ -8,103 +8,114 @@ using _24SevenOfficeForum.Models;
 namespace _24SevenOfficeForum.Controllers
 {
 	[Produces("application/json")]
-    [Route("api/Questions")]
+	[Route("api/Questions")]
 
-    public class QuestionsController : Controller
-    {
-        private readonly _24hOfficeforumContext _context;
+	public class QuestionsController : Controller
+	{
+		private readonly _24hOfficeforumContext _context;
 
-        public QuestionsController(_24hOfficeforumContext context)
-        {
-            _context = context;
+		public QuestionsController(_24hOfficeforumContext context)
+		{
+			_context = context;
 		}
 
-        // GET: api/Questions
-       
+		// GET: api/Questions
 		[HttpGet]
-	    public async Task<IEnumerable<Question>> Get()
+		public async Task<IEnumerable<Question>> Get(string searchString, int? page)
 		{
-		    var questions = await _context.Question.Include(x => x.Answer).ToListAsync();
+			if (searchString != null)
+			{
+				page = 1;
+			}
+
+			if (page == null) page = 1;
+			int pageSize = 10;
+			int skipRows = (page.Value - 1) * pageSize;
+			var questions = await _context.Question
+				.Skip(skipRows)
+				.Take(pageSize)
+				.Include(x => x.Answer).AsNoTracking().ToListAsync();
 
 			//This releases the self reference between question and answer
-		    foreach (var question in questions)
-		    {
-			    foreach (var answer in question.Answer)
-			    {
-				    answer.Question = null;
-			    }
-		    }
-		    return questions;
-	    }
-		
-	    [HttpGet("{catId}")]
-	    public async Task<IEnumerable<Question>> GetQuestions([FromRoute] int catId)
-	    {
-		    var questions = await _context.Question.Where(x => x.CategoryId == catId).ToListAsync();
+			foreach (var question in questions)
+			{
+				foreach (var answer in question.Answer)
+				{
+					answer.Question = null;
+				}
+			}
 
-		    foreach (var question in questions)
-		    {
-			    foreach (var answer in question.Answer)
-			    {
-				    answer.Question = null;
-			    }
-		    }
-		    return questions;
-	    }
+			return questions;		
+		}
 
-	    [HttpGet("{catId}/{qId}")]
-	    public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
-	    {
-		    var question = await _context.Question.Include(x => x.Answer)
+		[HttpGet("{catId}")]
+		public async Task<IEnumerable<Question>> GetQuestions([FromRoute] int catId)
+		{
+			var questions = await _context.Question.Where(x => x.CategoryId == catId).Include(x => x.Answer).ToListAsync();
+
+			foreach (var question in questions)
+			{
+				foreach (var answer in question.Answer)
+				{
+					answer.Question = null;
+				}
+			}
+			return questions;
+		}
+
+		[HttpGet("{catId}/{qId}")]
+		public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
+		{
+			var question = await _context.Question.Include(x => x.Answer)
 				.Where(x => x.CategoryId == catId && x.Id == qId).FirstOrDefaultAsync();
 
-		    return question;
+			return question;
 		}
-		
-        // PUT: api/Questions/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (id != question.Id)
-            {
-                return BadRequest();
-            }
+		// PUT: api/Questions/5
+		[HttpPut("{id}")]
+		public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            _context.Entry(question).State = EntityState.Modified;
+			if (id != question.Id)
+			{
+				return BadRequest();
+			}
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!QuestionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+			_context.Entry(question).State = EntityState.Modified;
 
-            return NoContent();
-        }
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!QuestionExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
 
-        // POST: api/Questions
-        [HttpPost]
-        public async Task<IActionResult> PostQuestion([FromBody] Question question)
-        {
-	        _context.Question.Add(question);
-	        _context.SaveChanges();
+			return NoContent();
+		}
+
+		// POST: api/Questions
+		[HttpPost]
+		public async Task<IActionResult> PostQuestion([FromBody] Question question)
+		{
+			_context.Question.Add(question);
+			_context.SaveChanges();
 
 
-	        return Ok(question);
+			return Ok(question);
 
 
 			//if (!ModelState.IsValid)
@@ -132,30 +143,30 @@ namespace _24SevenOfficeForum.Controllers
 			//return CreatedAtAction("GetQuestion", new { id = question.Id });
 		}
 
-        // DELETE: api/Questions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+		// DELETE: api/Questions/5
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
-            if (question == null)
-            {
-                return NotFound();
-            }
+			var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
+			if (question == null)
+			{
+				return NotFound();
+			}
 
-            _context.Question.Remove(question);
-            await _context.SaveChangesAsync();
+			_context.Question.Remove(question);
+			await _context.SaveChangesAsync();
 
-            return Ok(question);
-        }
+			return Ok(question);
+		}
 
-        private bool QuestionExists(int id)
-        {
-            return _context.Question.Any(e => e.Id == id);
-        }
-    }
+		private bool QuestionExists(int id)
+		{
+			return _context.Question.Any(e => e.Id == id);
+		}
+	}
 }

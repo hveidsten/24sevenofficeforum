@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -23,26 +19,31 @@ namespace _24SevenOfficeForum.Controllers
 
 
 		 //GET: api/Search
-		[HttpGet]
+		[HttpGet]		
 		[Produces("application/json")]
-		public IEnumerable<Question> GetSearchViewModel(string id)
+		public IEnumerable<Question> GetSearch(string id)
 		{
+
+
 		   string searchString = id;
 			var search = from m in _context.Question.Include(x => x.Answer)
 			where m.Body.Contains(searchString) ||
 				      m.Header.Contains(searchString) ||
 					 m.Answer.Any(a => a.Body.Contains(searchString))
+					 //m.Category(z => z.CategoryName.Contains(searchString))
 				select m;
 
-			
+			if (!string.IsNullOrEmpty(searchString))
+			{
+				//var searchAgain = from d in _context.Category
+				//	where d.CategoryName.Contains(searchString) ||
+				//	      d.Description.Contains(searchString)
+				//	select d;
+				//
+				//
+				//return searchAgain;
+			}
 			return search;
-
-			//if (!string.IsNullOrEmpty(searchString))
-			//{				
-			//search = search.Where(s => s.Header.Contains(searchString));
-			//
-			//}
-
 		}
 
 		/*// GET: api/Search/5
