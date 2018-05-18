@@ -30,8 +30,7 @@ class QuestionsListContainer extends Component{
             this.props.fetchPosts(`questions/${this.props.activeCategory+1}`);
           }
           
-          
-       
+      
     }
 
 
@@ -47,8 +46,9 @@ class QuestionsListContainer extends Component{
                     )
                    }
               )}
-              { this.state.showQuestionForm && (<NewQuestion />) }
-                    <button onClick={this._showQuestionForm.bind()}>Nytt spørsmål</button>
+            
+                    <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt spørsmål</span>
+                    { this.state.showQuestionForm && (<NewQuestion />) }
                   </div>
             );
           }

@@ -5,8 +5,22 @@ import {connect} from 'react-redux';
 import {fetchPost} from '../Actions/postActions';
 
 import {editPost} from '../Actions/postActions'
+import NewQuestion from './NewQuestion';
 
 class QuestionContainer extends Component{
+
+    
+    constructor() {
+        super(); 
+        this.state = { showQuestionForm: false }
+        
+      }
+
+      _showQuestionForm = () => {
+        this.setState({
+            showQuestionForm: !this.state.showQuestionForm
+        });
+      }
    
     componentDidMount(){
         console.log(this.props);
@@ -33,7 +47,7 @@ componentDidUpdate(){
         else{
           
         return(
-               
+              <div> 
             <div className="questionContainer">
             <div className="voteCounter" >
             <h3 onClick={(e) => this.handleVote(e,1,this.props.match.params.questionid)}>▲</h3>
@@ -45,10 +59,13 @@ componentDidUpdate(){
             <h2>{this.props.post.header}</h2>
             <p>{this.props.post.body}</p>
             {this.props.post.answer.map((a, key) => <div key={key}>{a.body}</div>)}
+          
            </div>
-            <hr/>
+           
          </div>
-
+            <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
+                    { this.state.showQuestionForm && (<NewQuestion  />) }
+            </div>
                 
               );
           }   
