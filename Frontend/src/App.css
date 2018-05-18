@@ -1,3 +1,4 @@
+
 /*Wrapper start */
 .App{
   
@@ -51,4 +52,32 @@
 a {
   text-decoration: none;
   color: black;
+}
+
+.questionContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1rem;
+}
+
+.voteCounter{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 3rem 0 0;
+
+}
+.voteCounter h3 {
+  margin:0;
+}
+
+.addPostButton{
+  background-color:green;
+  color:white;
+  padding:0.5rem;
+  border: 25%;
+}
+.newQuestionForm{
+  padding:1rem;
 }

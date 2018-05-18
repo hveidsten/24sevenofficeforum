@@ -19,11 +19,6 @@ class NewQuestion extends Component{
    
     
       handleSubmit(event) {
-        /*axios.post('https://5adf192bbf932f0014d11b7c.mockapi.io/kategorier/3', {  
-           questions: [{heading: this.state.questionHeading,
-            body: this.state.questionBody}]
-          })
-          */
          event.preventDefault();
          const post = {
           header: this.state.questionHeading,
@@ -35,13 +30,18 @@ class NewQuestion extends Component{
       }
     render() {
                return(
+                 <div className="newQuestionForm">
                  <form onSubmit={this.handleSubmit}>
-       
+       <label for="questionHeading">Overskrift: </label>
           <input type="text" name="questionHeading" value={this.state.questionHeading} onChange={this.handleChange} />
-          <input type="text" name="questionBody" value={this.state.questionBody} onChange={this.handleChange} />
-        
+          <br/>
+          <label for="questionBody">Spørsmål: </label>
+          <textarea rows="10" cols="25" name="questionBody" value={this.state.questionBody} onChange={this.handleChange} />
+          <br/>   
+         
         <input type="submit" value="Post" />
       </form>
+      </div>
               );
           }        
 }
