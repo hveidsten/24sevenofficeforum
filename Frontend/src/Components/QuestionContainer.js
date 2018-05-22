@@ -27,9 +27,6 @@ class QuestionContainer extends Component{
         this.props.fetchPost(this.props.match.params.questionid);
     }
 
-componentDidUpdate(){
-    console.log("Oppdaterte!");
-}
 
  handleVote(e,up){
      let vote = this.props.post;
@@ -42,11 +39,12 @@ componentDidUpdate(){
  
 
     render() { 
-        console.log(this);
+      
         if(this.props.post == undefined){ return <h2>Vent</h2>;}
         else{
-          
+            console.log(this.props);
         return(
+            
               <div> 
             <div className="questionContainer">
             <div className="voteCounter" >

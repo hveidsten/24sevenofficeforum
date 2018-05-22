@@ -11,7 +11,7 @@ export const fetchPosts = (ApiPath) => (dispatch) => {
 }
 
 export const fetchPost = (id) => (dispatch) => {
-   
+   console.log("fetch id: "+id);
     axios.get(`http://localhost:62152/demo/${id}`)
     
    .then(response => dispatch({

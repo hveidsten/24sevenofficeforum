@@ -12,7 +12,6 @@ class QuestionsListContainer extends Component{
     constructor() {
         super(); 
         this.state = { showQuestionForm: false }
-        
       }
 
       _showQuestionForm = () => {
@@ -24,7 +23,6 @@ class QuestionsListContainer extends Component{
       componentWillMount(){
           if(this.props.match.params.searchQuery){
             this.props.fetchPosts(`search?id=${this.props.match.params.searchQuery}`);
-            console.log(`search?id=${this.props.match.params.searchQuery}`);
           }else{
            
             this.props.fetchPosts(`questions/${this.props.activeCategory+1}`);
@@ -35,20 +33,19 @@ class QuestionsListContainer extends Component{
 
 
     render() {
-      console.log(this.props.match.params.searchQuery);
         if(!this.props.posts || !this.props.posts.data.length ===0){return <h2>Vent</h2>;}
-     else{ return(
+      else{ console.log(this.props.posts.data[0].categoryId); return(
                <div> 
               {this.props.posts.data.map(
                     (c, key) => {
                         return (
-                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={this.props.match.path+"/"+c.id} votes={c.upvote} key={key}/>
+                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={this.props.match.url+"/"+c.id} votes={c.upvote} key={key}/>
                     )
                    }
               )}
             
                     <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt spørsmål</span>
-                    { this.state.showQuestionForm && (<NewQuestion />) }
+                    { this.state.showQuestionForm && (<NewQuestion catId={this.props.posts.data[0].categoryId} />) }
                   </div>
             );
           }

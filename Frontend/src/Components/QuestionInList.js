@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 class QuestionInList extends React.Component{
 
     render(){
-    console.log(this.props.posts.data);
     return (
         <div className="questionContainer">
             <div className="voteCounter" >

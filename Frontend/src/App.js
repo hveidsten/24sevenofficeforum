@@ -42,6 +42,7 @@ constructor(props){
 
        <Route exact path="/sok/:kat/:searchQuery/" render={(props) => <QuestionsListContainer  {...props} />}/>
         <Route exact path="/:categoryid/:questionid" render={(props) => <QuestionContainer {...props} />}/>
+        <Route exact path="/sok/:kat/:searchQuery/:questionid" render={(props) => <QuestionContainer {...props} />}/>
        
         </div>
       </div>
