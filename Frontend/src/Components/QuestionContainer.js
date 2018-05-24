@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchPost} from '../Actions/postActions';
 
-import {editPost} from '../Actions/postActions'
+import {editPost} from '../Actions/postActions';
+import {deletePost} from '../Actions/postActions';
 import NewQuestion from './NewQuestion';
 
 class QuestionContainer extends Component{
@@ -23,7 +24,6 @@ class QuestionContainer extends Component{
       }
    
     componentDidMount(){
-        console.log(this.props);
         this.props.fetchPost(this.props.match.params.questionid);
     }
 
@@ -36,6 +36,11 @@ class QuestionContainer extends Component{
      this.forceUpdate();
  }   
  
+ deletePost(e){
+    this.props.deletePost(this.props.post.id);
+    this.props.history.goBack();
+  
+ }
  
 
     render() { 
@@ -62,6 +67,8 @@ class QuestionContainer extends Component{
            
          </div>
             <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
+                   
+                    <span className="addPostButton" style={{background:"red"}}onClick={(e) => this.deletePost(e)}>Fjern spørsmål</span>
                     { this.state.showQuestionForm && (<NewQuestion  />) }
             </div>
                 
@@ -80,4 +87,4 @@ const mapStateToProps = state => (
 );
 
 
-export default connect(mapStateToProps, {fetchPost, editPost})(QuestionContainer);
+export default connect(mapStateToProps, {fetchPost, editPost, deletePost})(QuestionContainer);

@@ -26,11 +26,11 @@ export const fetchPost = (id) => (dispatch) => {
 
 export const createPost = (postData) => (dispatch) => {
 
-        console.log(postData);
+        
     axios.post('http://localhost:62152/api/questions',postData)
-    .then(data => dispatch({
+    .then(response => dispatch({
         type:NEW_POST,
-        payload: data
+        payload: response
     }));
 
 }
@@ -42,6 +42,11 @@ dispatch({
     type:EDIT_POST,
     payload: postData
 });
-
 }
 
+export const deletePost = (id, match) => (dispatch) => {
+console.log(match);
+    axios.delete('http://localhost:62152/api/questions/'+id);
+  
+ }
+    

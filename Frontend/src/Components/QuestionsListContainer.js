@@ -33,13 +33,14 @@ class QuestionsListContainer extends Component{
 
 
     render() {
+      
         if(!this.props.posts || !this.props.posts.data.length ===0){return <h2>Vent</h2>;}
-      else{ console.log(this.props.posts.data[0].categoryId); return(
+      else{ return(
                <div> 
               {this.props.posts.data.map(
                     (c, key) => {
                         return (
-                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={this.props.match.url+"/"+c.id} votes={c.upvote} key={key}/>
+                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={this.props.match.path+"/"+c.id} votes={c.upvote} key={key}/>
                     )
                    }
               )}

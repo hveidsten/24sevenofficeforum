@@ -20,18 +20,27 @@ class NewQuestion extends Component{
     
       handleSubmit(event) {
          event.preventDefault();
+         this.setState({postHasBeenPosted: true});
          const post = {
           header: this.state.questionHeading,
           body: this.state.questionBody,
           categoryId: this.props.catId,
           upvote: 0
       }
+      console.log(this.props);
       console.log(post);
       this.props.createPost(post);
-      window.location.reload();
+  
        
       }
-    render() {
+
+     handlePosted(){
+      this.state = {questionHeading: '', questionBody: '', postHasBeenPosted: false};
+      console.log(this.props);
+      window.location.reload()
+     }
+
+    render() {       if(this.state.postHasBeenPosted && this.props.post != undefined){this.handlePosted();}
                return(
                  <div className="newQuestionForm">
                  <form onSubmit={this.handleSubmit}>
@@ -48,8 +57,9 @@ class NewQuestion extends Component{
               );
           }        
 }
-NewQuestion.prototypes = {
-  createPost: PropTypes.func.isRequired
+const mapStateToProps = state => (
+  {
+  post: state.posts.item
 }
-
-export default connect(null, {createPost} )(NewQuestion);
+);
+export default connect(mapStateToProps, {createPost} )(NewQuestion);
