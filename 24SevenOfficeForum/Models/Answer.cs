@@ -9,6 +9,7 @@ namespace _24SevenOfficeForum.Models
         public int? Upvote { get; set; }
         public string Body { get; set; }
         public int QuestionId { get; set; }
+        public DateTime? AnswerCreated { get; set; }
 
         public Question Question { get; set; }
     }

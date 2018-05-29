@@ -21,9 +21,38 @@ namespace _24SevenOfficeForum.Controllers
 
         // GET: api/Answers
         [HttpGet]
-        public IEnumerable<Answer> GetAnswer()
+        public async Task <IEnumerable<Answer>> GetAnswer(string searchString, int? page, string sortOrder, bool ascending)
         {
-            return _context.Answer;
+			var sort = _context.Answer.AsQueryable();
+			if (sortOrder == null)
+			{
+				sortOrder = "created_desc";
+			}
+			if (ascending)
+			{
+				if (sortOrder == "created_asc") sort = sort.OrderBy(x => x.AnswerCreated);
+				else if (sortOrder == "Id_asc") sort = sort.OrderBy(x => x.Id);
+			}
+			else
+			{
+				if (sortOrder == "created_desc") sort = sort.OrderByDescending(x => x.AnswerCreated);
+				else if (sortOrder == "Id_desc") sort = sort.OrderByDescending(x => x.Id);
+			}
+
+			if (searchString != null)
+			{
+				page = 1;
+			}
+
+			if (page == null) page = 1;
+			int pageSize = 10;
+			int skipRows = (page.Value - 1) * pageSize;
+			var answers = await _context.Answer
+				.Skip(skipRows)
+				.Take(pageSize)			
+				.AsNoTracking().ToListAsync();
+
+			return answers;
         }
 
         // GET: api/Answers/5
@@ -84,29 +113,34 @@ namespace _24SevenOfficeForum.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAnswer([FromBody] Answer answer)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+			_context.Answer.Add(answer);
+			_context.SaveChanges();
 
-            _context.Answer.Add(answer);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AnswerExists(answer.Id))
-                {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
-                {
-                    throw;
-                }
-            }
+			return Ok(answer);
 
-            return CreatedAtAction("GetAnswer", new { id = answer.Id }, answer);
+			//if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+			//
+            //_context.Answer.Add(answer);
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    if (AnswerExists(answer.Id))
+            //    {
+            //        return new StatusCodeResult(StatusCodes.Status409Conflict);
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+			//
+            //return CreatedAtAction("GetAnswer", new { id = answer.Id }, answer);
         }
 
         // DELETE: api/Answers/5
@@ -134,5 +168,22 @@ namespace _24SevenOfficeForum.Controllers
         {
             return _context.Answer.Any(e => e.Id == id);
         }
+
+
+		[HttpPatch("{id}")]
+		public async Task<IActionResult> PatchAnswer(int Id, [FromBody] PatchAnswer model)
+		{
+			var answer = await _context.Answer.FirstOrDefaultAsync(x => x.Id == Id);
+			if (answer == null)
+				return BadRequest("Kan ikke oppdatere svar");
+			else
+			{
+				if (model.Body != null) answer.Body = model.Body;
+
+				await _context.SaveChangesAsync();
+			}
+
+			return Ok();
+		}
     }
 }

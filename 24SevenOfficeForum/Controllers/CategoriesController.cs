@@ -86,30 +86,32 @@ namespace _24SevenOfficeForum.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCategory([FromBody] Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            _context.Category.Add(category);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CategoryExists(category.Id))
-                {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
-        }
+			//_context.Category.Add(category);
+			//_context.SaveChanges();
+			//return Ok(category);
+			if (!ModelState.IsValid)
+			{
+			    return BadRequest(ModelState);
+			}
+			_context.Category.Add(category);
+			try
+			{
+			    await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateException)
+			{
+			    if (CategoryExists(category.Id))
+			    {
+			        return new StatusCodeResult(StatusCodes.Status409Conflict);
+			    }
+			    else
+			    {
+			        throw;
+			    }
+			}
+			return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+		}
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]

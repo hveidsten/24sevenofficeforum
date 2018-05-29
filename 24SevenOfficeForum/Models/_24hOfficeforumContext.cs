@@ -1,23 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace _24SevenOfficeForum.Models
 {
-	public partial class _24hOfficeforumContext : DbContext
+    public partial class _24hOfficeforumContext : DbContext
     {
         public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Question> Question { get; set; }
-		
-
-        // Unable to generate entity type for table 'dbo.Question'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-				#pragma warning disable 1030
-				#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-				#pragma warning restore 1030
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=24hOfficeforum;Trusted_Connection=True;");
             }
         }
@@ -26,7 +23,7 @@ namespace _24SevenOfficeForum.Models
         {
             modelBuilder.Entity<Answer>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.AnswerCreated).HasColumnType("datetime");
 
                 entity.Property(e => e.Body)
                     .IsRequired()
@@ -41,8 +38,6 @@ namespace _24SevenOfficeForum.Models
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.CategoryName)
                     .IsRequired()
                     .IsUnicode(false);
@@ -61,6 +56,8 @@ namespace _24SevenOfficeForum.Models
                 entity.Property(e => e.Header)
                     .IsRequired()
                     .IsUnicode(false);
+
+                entity.Property(e => e.QuestionCreated).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Question)
