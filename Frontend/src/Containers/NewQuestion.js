@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import '../App.css';
 import {connect} from 'react-redux';
 import {createPost} from '../Actions/postActions';
+import { Redirect } from 'react-router';
 
 class NewQuestion extends Component{
     constructor(props) {
         super(props);
-        this.state = {questionHeading: '', questionBody: '', categoryId:"1"};
+        this.state = {questionHeading: '', questionBody: '', categoryId:"1",postHasBeenPosted:false};
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,8 +18,7 @@ class NewQuestion extends Component{
         this.setState({[event.target.name]: event.target.value});
         console.log(this.state);
       }
-   
-    
+
       handleSubmit(event) {
          event.preventDefault();
          this.setState({postHasBeenPosted: true});
@@ -28,20 +28,19 @@ class NewQuestion extends Component{
           categoryId: this.state.categoryId,
           upvote: 0
       }
-      
-      console.log(post);
+
       this.props.createPost(post,"questions");
-  
-       
+    
       }
 
-     handlePosted(){
+  
+
+   /*  handlePosted(){
       this.state = {questionHeading: '', questionBody: '', postHasBeenPosted: false};
       console.log( this.props.post);
-      this.props.history.push("/nytt/"+this.props.post.id);
-     }
+     }*/
 
-    render() {     if(this.state.postHasBeenPosted && this.props.post != undefined){this.handlePosted();}
+    render() {    
                return(
                  <div className="newQuestionForm">
                  <form onSubmit={this.handleSubmit}>
@@ -55,14 +54,27 @@ class NewQuestion extends Component{
          <select size="10" name="categoryId" onInput={this.handleChange}>{this.props.categories.map((c,key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}</select>
         <input type="submit" value="Post" />
       </form>
+  
+      {this.props.post && this.state.postHasBeenPosted && <Redirect from={this.props.match.path} to={this.props.categories.find(c => c.id===this.props.post.categoryId).categoryName.split(' ').join('_')+"/"+this.props.post.id} />}
       </div>
+
+
               );
           }        
 }
+
+const mapDispatchToProps = (dispatch) => {
+  
+  return {
+    createPost: (a,b) => dispatch(createPost(a,b))
+  };
+};
+
 const mapStateToProps = state => (
   {
-  post: state.posts.item,
-  categories: state.category.allCategories
+  post: state.posts.activeQuestion,
+  categories: state.category.allCategories,
+  activeCategory: state.category.currentCategory
 }
 );
-export default connect(mapStateToProps, {createPost} )(NewQuestion);
+export default connect(mapStateToProps, mapDispatchToProps )(NewQuestion);

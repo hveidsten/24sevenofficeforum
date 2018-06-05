@@ -9,13 +9,13 @@ export default function(state = initialState, action){
         case FETCH_POSTS: 
         return {
             ...state,
-            allQuestionsInCategory: action.payload
+            allQuestionsInCategory: [...action.payload]
         }
 
         case FETCH_POST: 
         return {
             ...state,
-            activeQuestion: {...action.payload}
+            activeQuestion: action.payload
         }
         
         case NEW_POST: return {
@@ -34,8 +34,8 @@ export default function(state = initialState, action){
         }
 
         case DELETE_POST: return {
-            
-            activeQuestion: action.payload
+            ...state,
+           // allQuestionsInCategory: [...state.allQuestionsInCategory.filter(q => q.id !==action.payload)]
         }
 
         default: return state;

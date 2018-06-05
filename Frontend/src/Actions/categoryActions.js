@@ -12,11 +12,10 @@ export const fetchAllCategories = () => (dispatch) => {
     
 }))}
 
-export const fetchSingleCategory = () => (dispatch) => {
-    axios.get(`http://localhost:62152/api/questions/1/1`)
+export const fetchSingleCategory = (id) => (dispatch) => {
+    axios.get(`http://localhost:62152/api/categories/${id}`)
    .then(response => dispatch({
     type: FETCH_SINGLE_CATEGORY,
-    payload: {
-        currentCategory:response.data
-    }
+    payload: response.data
+    
 }))}

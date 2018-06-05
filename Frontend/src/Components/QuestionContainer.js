@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchPost} from '../Actions/postActions';
 import AddAnswerContainer from '../Containers/AddAnswerContainer';
@@ -12,7 +12,7 @@ class QuestionContainer extends Component{
     
     constructor() {
         super(); 
-        this.state = { showQuestionForm: false }
+        this.state = { showQuestionForm: false, Deleted:false }
         
       }
 
@@ -39,14 +39,17 @@ class QuestionContainer extends Component{
  
  deletePost(e){
     this.props.deletePost(this.props.post.id);
-    //ENDRES
-    this.props.history.push("../");
+    this.setState({Deleted:true});
  }
  
 
     render() { 
-      
+        if(this.state.Deleted){return(
+            <Redirect to={"../"+this.props.match.params.categoryid} />
+        );}
+        
         if(this.props.post == undefined){ return <h2>Vent</h2>;}
+        
         else{
             console.log(this.props);
         return(
