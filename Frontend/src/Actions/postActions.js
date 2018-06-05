@@ -13,7 +13,6 @@ export const fetchPosts = (ApiPath) => (dispatch) => {
 export const fetchPost = (id) => (dispatch) => {
    console.log("fetch id: "+id);
     axios.get(`http://localhost:62152/demo/${id}`)
-    
    .then(response => dispatch({
   type: FETCH_POST,
   payload: response.data
@@ -24,10 +23,9 @@ export const fetchPost = (id) => (dispatch) => {
 
 }
 
-export const createPost = (postData) => (dispatch) => {
+export const createPost = (postData,postUrl) => (dispatch) => {
 
-        
-    axios.post('http://localhost:62152/api/questions',postData)
+    axios.post('http://localhost:62152/api/'+postUrl,postData)
     .then(response => dispatch({
         type:NEW_POST,
         payload: response
@@ -45,8 +43,6 @@ dispatch({
 }
 
 export const deletePost = (id, match) => (dispatch) => {
-console.log(match);
-    axios.delete('http://localhost:62152/api/questions/'+id);
-  
+    axios.delete('http://localhost:62152/api/questions/'+id).then(fetchPosts());
  }
     

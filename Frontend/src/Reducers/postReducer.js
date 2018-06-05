@@ -9,28 +9,28 @@ export default function(state = initialState, action){
         case FETCH_POSTS: 
         return {
             ...state,
-            items: action.payload
+            allQuestionsInCategory: action.payload
         }
 
         case FETCH_POST: 
         return {
             ...state,
-            item: action.payload
+            activeQuestion: {...action.payload}
         }
         
         case NEW_POST: return {
             ...state,
-            item: action.payload.data
+            activeQuestion: action.payload.data
         }
 
         case EDIT_POST: return {
-            
-            item: action.payload
+            ...state,
+            activeQuestion: {...action.payload}
         }
 
         case DELETE_POST: return {
             
-            item: action.payload
+            activeQuestion: action.payload
         }
 
         default: return state;

@@ -1,56 +1,61 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import {Provider, connect} from 'react-redux';
-import {createStore, applyMiddleware, compose} from 'redux';
-import thunk from 'redux-thunk';
-
+import { connect} from 'react-redux';
 import './App.css';
 
 import Sidebar from './Components/Sidebar';
 import {Header} from './Components/PresentationalComponents';
-import rootReducer from './Reducers';
+import NewQuestion from './Containers/NewQuestion.js';
+
 import QuestionsListContainer from './Components/QuestionsListContainer';
 import QuestionContainer from './Components/QuestionContainer';
 
-const store = createStore(rootReducer, {}, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+import {fetchAllCategories} from './Actions/categoryActions';
+import SidebarContainer from './Containers/SidebarContainer';
+import MainContentContainer from './Containers/MainContentContainer';
+
 
 class App extends Component {
-constructor(props){
-  super(props);
-  this.state={
-    categories: ["Kategori 1","Kategori 2","Kategori 3","Kategori 4",]
-  }
+
+componentWillMount(){
+ this.props.fetchAllCategories();
 }
 
+
   render() {
+if(this.props.categories){
 
     return (
-        <Provider store={store}>
+      
        <BrowserRouter>
       <div className="App">
         <Header />
-        <Sidebar categories={this.state.categories} />
+        <SidebarContainer />
         <div className="Content" >
-
-        <Route exact path="/" render={() => <h2>Dette er forside som kanskje skal vise siste poster.</h2>}/>
-        {this.state.categories.map(
-          (c, key) => {
-            return <Route key={key} exact path={"/"+c.split(' ').join('_')} render={(props) => <QuestionsListContainer activeCategory={key}  {...props} />}/>
-               
-          }
-        )}
-
-       <Route exact path="/sok/:kat/:searchQuery/" render={(props) => <QuestionsListContainer  {...props} />}/>
-        <Route exact path="/:categoryid/:questionid" render={(props) => <QuestionContainer {...props} />}/>
-        <Route exact path="/sok/:kat/:searchQuery/:questionid" render={(props) => <QuestionContainer {...props} />}/>
        
-        </div>
+<Route exact path="/" render={() => <h2>Dette er forside som kanskje skal vise siste poster.</h2>}/>
+{this.props.categories.map(
+  (c, key) => {
+    return <Route key={key} exact path={"/"+c.categoryName.split(' ').join('_')} render={(props) => <QuestionsListContainer activeCategory={c.id}  {...props} />}/>
+    
+  }
+)}
+
+<Route exact path="/sok/:kat/:searchQuery/" render={(props) => <QuestionsListContainer  {...props} />}/>
+<Route exact path="/:categoryid/:questionid" render={(props) => <QuestionContainer {...props} />}/>
+<Route exact path="/sok/:kat/:searchQuery/:questionid" render={(props) => <QuestionContainer {...props} />}/>
+<Route exact path="/nytt_sporsmal" render={(props) => <NewQuestion {...props} />}/>
+
+</div>
       </div>
       </BrowserRouter>
-    </Provider>
+ 
     );
+  }else{return <h3>Vent</h3>}
   }
+
 }
+
 
 function mapDispatchToProps(dispatch) {
   return { 
@@ -59,11 +64,13 @@ function mapDispatchToProps(dispatch) {
 } 
 
 function mapStateToProps(state) { 
+  console.log(state);
   return {
-    	data: state
+    	categories: state.category.allCategories
     }; 
+    
 } 
 
 export default connect( 
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps, {fetchAllCategories}
 )(App);

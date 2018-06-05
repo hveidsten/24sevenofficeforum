@@ -3,10 +3,9 @@ import '../App.css';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {fetchPost} from '../Actions/postActions';
-
+import AddAnswerContainer from '../Containers/AddAnswerContainer';
 import {editPost} from '../Actions/postActions';
 import {deletePost} from '../Actions/postActions';
-import NewQuestion from './NewQuestion';
 
 class QuestionContainer extends Component{
 
@@ -33,13 +32,15 @@ class QuestionContainer extends Component{
      if(up==1){vote.upvote++;}
      else if(up==0){vote.upvote--;}
      this.props.editPost(vote);
-     this.forceUpdate();
+        console.log(this.props.post.upvote);
+       
+     
  }   
  
  deletePost(e){
     this.props.deletePost(this.props.post.id);
-    this.props.history.goBack();
-  
+    //ENDRES
+    this.props.history.push("../");
  }
  
 
@@ -58,7 +59,7 @@ class QuestionContainer extends Component{
             <h3 onClick={(e) => this.handleVote(e,0, this.props.match.params.questionid)}>▼</h3>
             </div>
 
-           <div  className="questionText">
+           <div className="questionText">
             <h2>{this.props.post.header}</h2>
             <p>{this.props.post.body}</p>
             {this.props.post.answer.map((a, key) => <div key={key}>{a.body}</div>)}
@@ -68,8 +69,8 @@ class QuestionContainer extends Component{
          </div>
             <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
                    
-                    <span className="addPostButton" style={{background:"red"}}onClick={(e) => this.deletePost(e)}>Fjern spørsmål</span>
-                    { this.state.showQuestionForm && (<NewQuestion  />) }
+                  <span className="addPostButton" style={{background:"red"}}onClick={(e) => this.deletePost(e)}>Fjern spørsmål</span>
+                  { this.state.showQuestionForm && (<AddAnswerContainer />) }
             </div>
                 
               );
@@ -82,7 +83,7 @@ class QuestionContainer extends Component{
 
 const mapStateToProps = state => (
     {
-    post: state.posts.item
+    post: state.posts.activeQuestion
 }
 );
 
