@@ -1,4 +1,4 @@
-import {FETCH_POSTS, NEW_POST, FETCH_POST, EDIT_POST} from './types'
+import {FETCH_POSTS, NEW_POST, FETCH_POST, EDIT_POST,NEW_ANSWER} from './types'
 import axios from 'axios';
 
 export const fetchPosts = (ApiPath) => (dispatch) => {
@@ -28,7 +28,17 @@ export const createPost = (postData,postUrl) => (dispatch) => {
     axios.post('http://localhost:62152/api/'+postUrl,postData)
     .then(response => dispatch({
         type:NEW_POST,
-        payload: response
+        payload: response.data
+    }));
+
+}
+
+export const createAnswer = (postData,postUrl) => (dispatch) => {
+
+    axios.post('http://localhost:62152/api/'+postUrl,postData)
+    .then(response => dispatch({
+        type:NEW_ANSWER,
+        payload: response.data
     }));
 
 }

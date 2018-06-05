@@ -70,16 +70,14 @@ class QuestionContainer extends Component{
             <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
                    
                   <span className="addPostButton" style={{background:"red"}}onClick={(e) => this.deletePost(e)}>Fjern spørsmål</span>
-                  { this.state.showQuestionForm && (<AddAnswerContainer />) }
+                  { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
             </div>
                 
               );
           }   
         }     
 }
-/* <h2>{this.props.post.data.header}</h2>
-                   <p>{this.props.post.data.body}</p>
-                   {this.props.post.data.answer.map((a, key) => <div key={key}>{a.body}</div>)}*/ 
+
 
 const mapStateToProps = state => (
     {

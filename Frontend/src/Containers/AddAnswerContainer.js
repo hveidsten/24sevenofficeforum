@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import {connect} from 'react-redux';
-import {createPost} from '../Actions/postActions';
+import {createAnswer} from '../Actions/postActions';
 
 class AddAnswerContainer extends Component{
     constructor(props) {
@@ -34,8 +34,8 @@ class AddAnswerContainer extends Component{
          upvote: 0
      } 
      console.log(post);
-     this.props.createPost(post,"answers");
- 
+     this.props.createAnswer(post,"answers");
+     this.props.hideForm();
      }
 
 
@@ -57,4 +57,4 @@ const mapStateToProps = state => (
 }
 );
 
-export default connect(mapStateToProps, {createPost} )(AddAnswerContainer);
+export default connect(mapStateToProps, {createAnswer} )(AddAnswerContainer);
