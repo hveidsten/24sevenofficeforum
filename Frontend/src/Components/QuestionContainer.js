@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
-import {fetchPost} from '../Actions/postActions';
 import AddAnswerContainer from '../Containers/AddAnswerContainer';
-import {editPost} from '../Actions/postActions';
-import {deletePost} from '../Actions/postActions';
+import {editPost, deletePost, deleteAnswer,fetchPost} from '../Actions/postActions';
 
 class QuestionContainer extends Component{
 
@@ -47,14 +45,14 @@ class QuestionContainer extends Component{
         if(this.state.Deleted){return(
             <Redirect to={"../"+this.props.match.params.categoryid} />
         );}
-        
+
         if(this.props.post == undefined){ return <h2>Vent</h2>;}
         
         else{
             console.log(this.props);
         return(
             
-              <div> 
+             <div> 
             <div className="questionContainer">
             <div className="voteCounter" >
             <h3 onClick={(e) => this.handleVote(e,1,this.props.match.params.questionid)}>▲</h3>
@@ -65,14 +63,13 @@ class QuestionContainer extends Component{
            <div className="questionText">
             <h2>{this.props.post.header}</h2>
             <p>{this.props.post.body}</p>
-            {this.props.post.answer.map((a, key) => <div key={key}>{a.body}</div>)}
+            {this.props.post.answer.map((a, key) => <div key={key}><hr/><a onClick={() => this.props.deleteAnswer(a.id)} >fjern</a> {a.body}</div>)}
           
            </div>
            
          </div>
             <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
-                   
-                  <span className="addPostButton" style={{background:"red"}}onClick={(e) => this.deletePost(e)}>Fjern spørsmål</span>
+            <span className="addPostButton" style={{background:"red"}}onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</span>
                   { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
             </div>
                 
@@ -81,6 +78,15 @@ class QuestionContainer extends Component{
         }     
 }
 
+const mapDispatchToProps = (dispatch) => {
+  
+    return {
+        fetchPost: (a) => dispatch(fetchPost(a)),
+        editPost: (a) => dispatch(editPost(a)),
+        deletePost: (a) => dispatch(deletePost(a)),
+        deleteAnswer: (a) => dispatch(deleteAnswer(a))
+    };
+  };
 
 const mapStateToProps = state => (
     {
@@ -89,4 +95,4 @@ const mapStateToProps = state => (
 );
 
 
-export default connect(mapStateToProps, {fetchPost, editPost, deletePost})(QuestionContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionContainer);

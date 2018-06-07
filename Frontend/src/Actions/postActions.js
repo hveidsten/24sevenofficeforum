@@ -1,4 +1,4 @@
-import {FETCH_POSTS, NEW_POST, FETCH_POST, EDIT_POST,NEW_ANSWER,DELETE_POST} from './types'
+import {FETCH_POSTS, NEW_POST, FETCH_POST, EDIT_POST,NEW_ANSWER,DELETE_POST,DELETE_ANSWER} from './types'
 import axios from 'axios';
 
 export const fetchPosts = (ApiPath) => (dispatch) => {
@@ -28,8 +28,9 @@ export const createPost = (postData,postUrl) => (dispatch) => {
     .then(response => dispatch({
         type:NEW_POST,
         payload: response.data
-    }));
-    return Promise.resolve;
+    })
+    
+    );
 }
 
 export const createAnswer = (postData,postUrl) => (dispatch) => {
@@ -58,4 +59,13 @@ export const deletePost = (id) => (dispatch) => {
         });
     });
  }
-    
+ 
+ export const deleteAnswer = (id) => (dispatch) => {
+    axios.delete('http://localhost:62152/api/answers/'+id)
+    .then(response => {
+        dispatch({
+            type:DELETE_ANSWER,
+            payload: id
+        });
+    });
+ }

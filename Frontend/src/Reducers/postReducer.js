@@ -1,4 +1,4 @@
-import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER} from '../Actions/types'
+import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER,DELETE_ANSWER} from '../Actions/types'
 
 const initialState = {
     
@@ -15,12 +15,12 @@ export default function(state = initialState, action){
         case FETCH_POST: 
         return {
             ...state,
-            activeQuestion: action.payload
+            activeQuestion: {...action.payload, hasBeenPosted:false}
         }
         
         case NEW_POST: return {
             ...state,
-            activeQuestion: {...action.payload}
+            activeQuestion: {...action.payload, hasBeenPosted:true}
         }
 
         case NEW_ANSWER: return {
@@ -38,6 +38,10 @@ export default function(state = initialState, action){
             allQuestionsInCategory: [...state.allQuestionsInCategory.filter(q => q.id !==action.payload)]
         }
 
+        case DELETE_ANSWER: return {
+            ...state,
+            activeQuestion: {...state.activeQuestion, answer: [...state.activeQuestion.answer.filter(a => a.id !==action.payload)]}
+        }
         default: return state;
     }
 }

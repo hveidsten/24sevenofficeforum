@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 class NewQuestion extends Component{
     constructor(props) {
         super(props);
-        this.state = {questionHeading: '', questionBody: '', categoryId:"1",postHasBeenPosted:false};
+        this.state = {questionHeading: '', questionBody: '', categoryId:"1"};
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,12 +16,12 @@ class NewQuestion extends Component{
       handleChange(event) {
         
         this.setState({[event.target.name]: event.target.value});
-        console.log(this.state);
+        
       }
 
       handleSubmit(event) {
          event.preventDefault();
-         this.setState({postHasBeenPosted: true});
+         
          const post = {
           header: this.state.questionHeading,
           body: this.state.questionBody,
@@ -32,13 +32,6 @@ class NewQuestion extends Component{
       this.props.createPost(post,"questions");
     
       }
-
-  
-
-   /*  handlePosted(){
-      this.state = {questionHeading: '', questionBody: '', postHasBeenPosted: false};
-      console.log( this.props.post);
-     }*/
 
     render() {    
                return(
@@ -55,9 +48,8 @@ class NewQuestion extends Component{
         <input type="submit" value="Post" />
       </form>
   
-      {this.props.post && this.state.postHasBeenPosted && <Redirect from={this.props.match.path} to={this.props.categories.find(c => c.id===this.props.post.categoryId).categoryName.split(' ').join('_')+"/"+this.props.post.id} />}
+      {this.props.post && this.props.post.hasBeenPosted && <Redirect to={this.props.categories.find(c => c.id===this.props.post.categoryId).categoryName.split(' ').join('_')+"/"+this.props.post.id} />}
       </div>
-
 
               );
           }        
