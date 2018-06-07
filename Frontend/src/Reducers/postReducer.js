@@ -35,7 +35,7 @@ export default function(state = initialState, action){
 
         case DELETE_POST: return {
             ...state,
-           // allQuestionsInCategory: [...state.allQuestionsInCategory.filter(q => q.id !==action.payload)]
+            allQuestionsInCategory: [...state.allQuestionsInCategory.filter(q => q.id !==action.payload)]
         }
 
         default: return state;

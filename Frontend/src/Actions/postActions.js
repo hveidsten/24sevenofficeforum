@@ -50,10 +50,12 @@ dispatch({
 }
 
 export const deletePost = (id) => (dispatch) => {
-    axios.delete('http://localhost:62152/api/questions/'+id);
-    dispatch({
-        type:DELETE_POST,
-        payload: id
+    axios.delete('http://localhost:62152/api/questions/'+id)
+    .then(response => {
+        dispatch({
+            type:DELETE_POST,
+            payload: id
+        });
     });
  }
     
