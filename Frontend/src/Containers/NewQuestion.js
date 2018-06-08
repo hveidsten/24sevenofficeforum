@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 class NewQuestion extends Component{
     constructor(props) {
         super(props);
-        this.state = {questionHeading: '', questionBody: '', categoryId:"1"};
+        this.state = {questionHeading: '', questionBody: '', categoryId:this.props.activeCategory.id};
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

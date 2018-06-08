@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import Search from './Search';
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 class QuestionInList extends React.Component{
@@ -16,10 +16,10 @@ class QuestionInList extends React.Component{
             
             </div>
 
-            <Link to={this.props.linkToQuestion} className="questionText">
+            <NavLink to={this.props.linkToQuestion} className="questionText">
             <h2>{this.props.heading}</h2>
             <p>{this.props.body}</p>
-            </Link>
+            </NavLink>
             <hr/>
          </div>
 

@@ -63,11 +63,14 @@ class QuestionContainer extends Component{
            <div className="questionText">
             <h2>{this.props.post.header}</h2>
             <p>{this.props.post.body}</p>
-            {this.props.post.answer.map((a, key) => <div key={key}><hr/><a onClick={() => this.props.deleteAnswer(a.id)} >fjern</a> {a.body}</div>)}
+          
           
            </div>
            
          </div>
+
+          {this.props.post.answer.map((a, key) => <div key={key}><hr/><a onClick={() => this.props.deleteAnswer(a.id)} >fjern</a> {a.body}</div>)}
+          <br/>
             <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
             <span className="addPostButton" style={{background:"red"}}onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</span>
                   { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
