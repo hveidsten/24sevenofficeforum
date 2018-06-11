@@ -9,7 +9,7 @@ import NewQuestionContainer from './Containers/NewQuestionContainer';
 import QuestionsListContainer from './Components/QuestionsListContainer';
 import QuestionContainer from './Components/QuestionContainer';
 
-import {fetchAllCategories} from './Actions/categoryActions';
+import {fetchAllCategories, fetchSingleCategory} from './Actions/categoryActions';
 import SidebarContainer from './Containers/SidebarContainer';
 //import MainContentContainer from './Containers/MainContentContainer';
 
@@ -32,7 +32,7 @@ if(this.props.categories){
         <SidebarContainer />
         <div className="Content" >
        
-<Route exact path="/" render={() => <h2>Dette er forside som kanskje skal vise siste poster.</h2>}/>
+<Route exact path="/" render={() =>  {this.props.fetchSingleCategory(0); return <h2>Dette er forside som kanskje skal vise siste poster.</h2>}}/>
 {this.props.categories.map(
   (c, key) => {
     return <Route key={key} exact path={"/"+c.categoryName.split(' ').join('_')} render={(props) => <QuestionsListContainer activeCategory={c.id}  {...props} />}/>
@@ -65,5 +65,5 @@ function mapStateToProps(state) {
 } 
 
 export default connect( 
-  mapStateToProps, {fetchAllCategories}
+  mapStateToProps, {fetchSingleCategory,fetchAllCategories}
 )(App);

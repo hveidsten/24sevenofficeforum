@@ -6,12 +6,12 @@ import Sidebar from '../Components/Sidebar';
 class SidebarContainer extends Component {
 
   render() {
-    
-    if(this.props.category){ 
+   
+    if(this.props.categories){ 
        return (
          
       <div className="Sidebar">
-        <Sidebar categories={this.props.category} />
+        <Sidebar categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />
       </div>
 
     );
@@ -21,6 +21,8 @@ class SidebarContainer extends Component {
 }
 
 const mapStateToProps = state => {
- return ({category: state.category.allCategories});
+ return ({categories: state.category.allCategories,
+  currentCategoryId: state.category.currentCategory? state.category.currentCategory.id : 0
+});
 }
 export default connect(mapStateToProps,{fetchAllCategories},null,{ pure: false})(SidebarContainer);

@@ -13,9 +13,19 @@ export const fetchAllCategories = () => (dispatch) => {
 }))}
 
 export const fetchSingleCategory = (id) => (dispatch) => {
+    if(id>0){
     axios.get(`http://localhost:62152/api/categories/${id}`)
    .then(response => dispatch({
     type: FETCH_SINGLE_CATEGORY,
     payload: response.data
     
-}))}
+})
+
+)}
+
+else{
+    dispatch({
+        type: FETCH_SINGLE_CATEGORY,
+        payload: {}
+})
+}}

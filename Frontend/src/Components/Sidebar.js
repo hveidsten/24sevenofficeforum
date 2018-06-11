@@ -9,7 +9,7 @@ class Sidebar extends Component{
             <NavLink exact to="/" activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>Hjem<hr/></NavLink>
             
             {this.props.categories.map(
-                (c, key) => {return <NavLink exact to={"/"+c.categoryName.split(' ').join('_')} key={key} activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>{c.categoryName}<hr/></NavLink>})}
+                (c, key) => {return <NavLink exact to={"/"+c.categoryName.split(' ').join('_')} key={key}  style={this.props.currentCategoryId===c.id?{ color: '#ffffff', fontWeight: 'bold'}:{}}>{c.categoryName}<hr/></NavLink>})}
             
             </div>
         );
