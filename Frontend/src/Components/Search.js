@@ -27,7 +27,7 @@ class Search extends Component {
          value={this.state.query}
          onChange={this.handleChange}
        />
-       <Link to={`../../sok/alt/${this.state.query}`}><button>søk</button></Link>
+       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={() => this.props.fetchPosts(`search?id=${this.state.query}`)}>søk</button></Link>
       
      </form>
    )
