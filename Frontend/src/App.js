@@ -3,16 +3,15 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect} from 'react-redux';
 import './App.css';
 
-import Sidebar from './Components/Sidebar';
-import {Header} from './Components/PresentationalComponents';
-import NewQuestion from './Containers/NewQuestion.js';
+import {Header} from './Components/Header';
+import NewQuestionContainer from './Containers/NewQuestionContainer';
 
 import QuestionsListContainer from './Components/QuestionsListContainer';
 import QuestionContainer from './Components/QuestionContainer';
 
 import {fetchAllCategories} from './Actions/categoryActions';
 import SidebarContainer from './Containers/SidebarContainer';
-import MainContentContainer from './Containers/MainContentContainer';
+//import MainContentContainer from './Containers/MainContentContainer';
 
 
 class App extends Component {
@@ -44,7 +43,7 @@ if(this.props.categories){
 <Route exact path="/sok/:kat/:searchQuery" render={(props) => <QuestionsListContainer  {...props} />}/>
 <Route exact path="/:categoryid/:questionid" render={(props) => <QuestionContainer {...props} />}/>
 <Route exact path="/sok/:kat/:searchQuery/:questionid" render={(props) => <QuestionContainer {...props} />}/>
-<Route exact path="/nytt_sporsmal" render={(props) => <NewQuestion {...props} />}/>
+<Route exact path="/nytt_sporsmal" render={(props) => <NewQuestionContainer {...props} />}/>
 
 </div>
       </div>
@@ -56,12 +55,6 @@ if(this.props.categories){
 
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return { 
-    	actions: dispatch
-    };
-} 
 
 function mapStateToProps(state) { 
 

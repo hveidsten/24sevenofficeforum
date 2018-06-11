@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from '../Containers/AddAnswerContainer';
 import {editPost, deletePost, deleteAnswer,fetchPost} from '../Actions/postActions';
@@ -27,8 +27,8 @@ class QuestionContainer extends Component{
 
  handleVote(e,up){
      let vote = this.props.post;
-     if(up==1){vote.upvote++;}
-     else if(up==0){vote.upvote--;}
+     if(up===1){vote.upvote++;}
+     else if(up===0){vote.upvote--;}
      this.props.editPost(vote);
         console.log(this.props.post.upvote);
        
@@ -46,7 +46,7 @@ class QuestionContainer extends Component{
             <Redirect to={"../"+this.props.match.params.categoryid} />
         );}
 
-        if(this.props.post == undefined){ return <h2>Vent</h2>;}
+        if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
         else{
         return(

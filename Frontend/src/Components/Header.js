@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import Search from './Search';
+import SearchContainer from '../Containers/SearchContainer';
 import { Link } from 'react-router-dom';
 
 
@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 export const Header = ({heading, body, answers}) => {
     return (
             <div className="Header">
-               <h3> 24SevenOffice forum</h3>
-               <Search />
+               <Link to="" style={{color:"white"}}><h3> 24SevenOffice forum</h3></Link>
+               <SearchContainer />
 
             </div>
 
