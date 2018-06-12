@@ -25,4 +25,4 @@ const mapStateToProps = state => {
   currentCategoryId: state.category.currentCategory? state.category.currentCategory.id : 0
 });
 }
-export default connect(mapStateToProps,{fetchAllCategories},null,{ pure: false})(SidebarContainer);
+export default connect(mapStateToProps,{fetchAllCategories},null)(SidebarContainer);
