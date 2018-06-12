@@ -16,7 +16,7 @@ import SidebarContainer from './Containers/SidebarContainer';
 
 class App extends Component {
 
-componentWillMount(){
+componentDidMount(){
  this.props.fetchAllCategories();
 }
 
