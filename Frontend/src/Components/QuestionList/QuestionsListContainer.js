@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../App.css';
+
 
 import {connect} from 'react-redux';
-import {fetchPosts} from '../Actions/postActions';
+import {fetchPosts} from '../../Actions/postActions';
 import {Link} from 'react-router-dom';
-import {fetchSingleCategory} from '../Actions/categoryActions';
+import {fetchSingleCategory} from '../../Actions/categoryActions';
 import  QuestionInList from './QuestionInList';
 
 class QuestionsListContainer extends Component{

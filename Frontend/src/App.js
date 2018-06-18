@@ -4,12 +4,12 @@ import { connect} from 'react-redux';
 import './App.css';
 
 import {Header} from './Header/Header';
-import {Home} from './Home/HomeComponent';
-import SidebarContainer from './Sidebar/SidebarContainer';
-import NewQuestionContainer from './MainContent/NewQuestionContainer';
+import {Home} from './Components/Home/HomeComponent';
+import SidebarContainer from './Components/Sidebar/SidebarContainer';
+import NewQuestionContainer from './Components/NewQuestion/NewQuestionContainer';
 
-import QuestionsListContainer from './MainContent/QuestionsListContainer';
-import QuestionContainer from './MainContent/QuestionContainer';
+import QuestionsListContainer from './Components/QuestionList/QuestionsListContainer';
+import QuestionContainer from './Components/SingleQuestion/QuestionContainer';
 
 import {fetchAllCategories, fetchSingleCategory} from './Actions/categoryActions';
 

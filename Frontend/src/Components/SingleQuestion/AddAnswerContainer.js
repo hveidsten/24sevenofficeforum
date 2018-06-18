@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import '../App.css';
 import {connect} from 'react-redux';
-import {createAnswer} from '../Actions/postActions';
+import {createAnswer} from '../../Actions/postActions';
 
 class AddAnswerContainer extends Component{
     constructor(props) {

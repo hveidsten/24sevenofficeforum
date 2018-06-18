@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../App.css';
+
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
-import {editPost, deletePost, deleteAnswer,fetchPost} from '../Actions/postActions';
+import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
 
 class QuestionContainer extends Component{
 

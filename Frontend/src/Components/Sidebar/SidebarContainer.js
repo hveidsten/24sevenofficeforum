@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import '../App.css';
-import {fetchAllCategories} from '../Actions/categoryActions';
+
+import {fetchAllCategories} from '../../Actions/categoryActions';
 import SidebarComponent from './SidebarComponent';
 class SidebarContainer extends Component {
 
