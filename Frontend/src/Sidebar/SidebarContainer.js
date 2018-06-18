@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import '../App.css';
 import {fetchAllCategories} from '../Actions/categoryActions';
-import Sidebar from '../Components/Sidebar';
+import SidebarComponent from './SidebarComponent';
 class SidebarContainer extends Component {
 
   render() {
@@ -11,7 +11,7 @@ class SidebarContainer extends Component {
        return (
          
       <div className="Sidebar">
-        <Sidebar categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />
+        <SidebarComponent categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />
       </div>
 
     );

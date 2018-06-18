@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect} from 'react-redux';
 import './App.css';
 
-import {Header} from './Components/Header';
-import NewQuestionContainer from './Containers/NewQuestionContainer';
+import {Header} from './Header/Header';
+import {Home} from './Home/HomeComponent';
+import SidebarContainer from './Sidebar/SidebarContainer';
+import NewQuestionContainer from './MainContent/NewQuestionContainer';
 
-import QuestionsListContainer from './Components/QuestionsListContainer';
-import QuestionContainer from './Components/QuestionContainer';
+import QuestionsListContainer from './MainContent/QuestionsListContainer';
+import QuestionContainer from './MainContent/QuestionContainer';
 
 import {fetchAllCategories, fetchSingleCategory} from './Actions/categoryActions';
-import SidebarContainer from './Containers/SidebarContainer';
+
 //import MainContentContainer from './Containers/MainContentContainer';
 
 
@@ -25,30 +27,32 @@ componentDidMount(){
 if(this.props.categories){
 
     return (
-      
-       <BrowserRouter>
+      <BrowserRouter>
+   
       <div className="App">
         <Header />
         <SidebarContainer />
         <div className="Content" >
-       
+        <Switch>
 <Route exact path="/" render={() =>  {this.props.fetchSingleCategory(0); return <h2>Dette er forside som kanskje skal vise siste poster.</h2>}}/>
+
 {this.props.categories.map(
   (c, key) => {
-    return <Route key={key} exact path={"/"+c.categoryName.split(' ').join('_')} render={(props) => <QuestionsListContainer activeCategory={c.id}  {...props} />}/>
-    
-  }
-)}
+    return <Route key={key} exact path={"/"+c.categoryName.replace(' ','_')} 
+    render={(props) => <QuestionsListContainer activeCategory={c.id}  {...props} />}/>
+    }
+  )
+}
 
-<Route exact path="/sok/:kat/:searchQuery" render={(props) => <QuestionsListContainer  {...props} />}/>
-<Route exact path="/:categoryid/:questionid" render={(props) => <QuestionContainer {...props} />}/>
-<Route exact path="/sok/:kat/:searchQuery/:questionid" render={(props) => <QuestionContainer {...props} />}/>
-<Route exact path="/nytt_sporsmal" render={(props) => <NewQuestionContainer {...props} />}/>
-
+{/*<Route exact path="/sok/:kat/:searchQuery" render={(props) => <QuestionsListContainer  {...props} />}/>*/}
+<Route exact path="/sok/:kat/:searchQuery"  component={QuestionsListContainer}/>
+<Route exact path="/:categoryid/:questionid" component={QuestionContainer}/>
+<Route exact path="/nytt_sporsmal" component={NewQuestionContainer} />
+</Switch>
 </div>
       </div>
+     
       </BrowserRouter>
- 
     );
   }else{return <h3>Vent</h3>}
   }

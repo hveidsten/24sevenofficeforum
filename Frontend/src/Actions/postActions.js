@@ -43,6 +43,7 @@ export const createAnswer = (postData,postUrl) => (dispatch) => {
 }
 
 export const editPost = (postData) => (dispatch) => {
+
 axios.put('http://localhost:62152/demo/'+postData.id,postData);
 dispatch({
     type:EDIT_POST,
@@ -51,6 +52,7 @@ dispatch({
 }
 
 export const deletePost = (id) => (dispatch) => {
+
     axios.delete('http://localhost:62152/api/questions/'+id)
     .then(response => {
         dispatch({
@@ -61,6 +63,7 @@ export const deletePost = (id) => (dispatch) => {
  }
  
  export const deleteAnswer = (id) => (dispatch) => {
+     
     axios.delete('http://localhost:62152/api/answers/'+id)
     .then(response => {
         dispatch({
