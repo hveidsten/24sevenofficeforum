@@ -58,7 +58,7 @@ class NewQuestion extends Component{
 const mapDispatchToProps = (dispatch) => {
   
   return {
-    createPost: (a,b) => dispatch(createPost(a,b))
+    createPost: (post,path) => dispatch(createPost(post,path))
   };
 };
 

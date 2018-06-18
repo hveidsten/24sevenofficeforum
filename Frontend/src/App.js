@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect} from 'react-redux';
 import './App.css';
 
-import {Header} from './Header/Header';
+import {Header} from './Components/Header/Header';
 import {Home} from './Components/Home/HomeComponent';
 import SidebarContainer from './Components/Sidebar/SidebarContainer';
 import NewQuestionContainer from './Components/NewQuestion/NewQuestionContainer';

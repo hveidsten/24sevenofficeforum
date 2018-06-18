@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {fetchPosts} from '../Actions/postActions';
+import {fetchPosts} from '../../Actions/postActions';
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
 
