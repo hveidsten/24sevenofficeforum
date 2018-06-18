@@ -1,5 +1,14 @@
-import {FETCH_POSTS, NEW_POST, FETCH_POST, EDIT_POST,NEW_ANSWER,DELETE_POST,DELETE_ANSWER} from './types'
+
 import axios from 'axios';
+
+export const FETCH_POSTS = "FETCH_POSTS";
+export const NEW_POST = "NEW_POST";
+export const FETCH_POST = "FETCH_POST";
+export const EDIT_POST = "EDIT_POST";
+export const DELETE_POST = "DELETE_POST";
+export const NEW_ANSWER = "NEW_ANSWER";
+export const DELETE_ANSWER = "DELETE_ANSWER";
+
 
 export const fetchPosts = (ApiPath) => (dispatch) => {
           axios.get(`http://localhost:62152/api/${ApiPath}`)
@@ -63,7 +72,7 @@ export const deletePost = (id) => (dispatch) => {
  }
  
  export const deleteAnswer = (id) => (dispatch) => {
-     
+
     axios.delete('http://localhost:62152/api/answers/'+id)
     .then(response => {
         dispatch({

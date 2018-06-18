@@ -53,11 +53,13 @@ class QuestionContainer extends Component{
             
              <div> 
             <div className="questionContainer">
-            <div className="voteCounter" >
+
+            {  this.props.user.isLoggedIn &&  
+            (<div className="voteCounter" >
             <h3 onClick={(e) => this.handleVote(e,1,this.props.match.params.questionid)}>▲</h3>
             <h3>{this.props.post.upvote}</h3>
             <h3 onClick={(e) => this.handleVote(e,0, this.props.match.params.questionid)}>▼</h3>
-            </div>
+            </div>)}
 
            <div className="questionText">
             <h2>{this.props.post.header}</h2>
@@ -72,9 +74,12 @@ class QuestionContainer extends Component{
 
           <br/>
 
-            <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
-            <span className="addPostButton" style={{background:"red"}}onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</span>
+           {this.props.user.isLoggedIn? <div> <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
+            <span className="addPostButton" style={{background:"red"}}onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</span></div>:""}
+
                   { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
+
+                  
             </div>
                 
               );
@@ -94,7 +99,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => (
     {
-    post: state.posts.activeQuestion
+    post: state.posts.activeQuestion,
+    user:state.user
 }
 );
 

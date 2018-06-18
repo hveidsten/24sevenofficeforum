@@ -21,7 +21,7 @@ class Search extends Component {
 
  render() {
    return (
-     <form>
+     <form className="search">
        <input
          placeholder="Søk: "
          value={this.state.query}

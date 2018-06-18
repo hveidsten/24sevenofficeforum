@@ -32,7 +32,7 @@ class QuestionsListContainer extends Component{
                    }
               )}
             
-                   <Link to='./nytt_sporsmal'> <span className="addPostButton">Nytt spørsmål</span></Link>
+                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <span className="addPostButton">Nytt spørsmål</span></Link>:""}
                    
                   </div>
             );
@@ -43,7 +43,8 @@ class QuestionsListContainer extends Component{
 
 const mapStateToProps = state => ({
             categories: state.category.allCategories,
-            posts: state.posts.allQuestionsInCategory
+            posts: state.posts.allQuestionsInCategory,
+            user:state.user
 });
 
 export default connect(mapStateToProps, {fetchPosts, fetchSingleCategory})(QuestionsListContainer);

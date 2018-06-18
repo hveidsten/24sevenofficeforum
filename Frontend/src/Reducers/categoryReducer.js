@@ -1,5 +1,5 @@
-import {FETCH_ALL_CATEGORIES} from '../Actions/categoryActions';
-import {FETCH_SINGLE_CATEGORY} from '../Actions/categoryActions';
+import {FETCH_ALL_CATEGORIES, FETCH_SINGLE_CATEGORY} from '../Actions/categoryActions';
+
 
 const categoryReducer = (state={},action) => {
     switch(action.type){

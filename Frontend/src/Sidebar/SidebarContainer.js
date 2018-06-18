@@ -9,7 +9,6 @@ class SidebarContainer extends Component {
    
     if(this.props.categories){ 
        return (
-         
       <div className="Sidebar">
         <SidebarComponent categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />
       </div>

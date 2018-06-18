@@ -1,5 +1,4 @@
-import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER,DELETE_ANSWER} from '../Actions/types'
-
+import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER,DELETE_ANSWER} from '../Actions/postActions'
 const initialState = {
     
 }
