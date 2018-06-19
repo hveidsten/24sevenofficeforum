@@ -32,7 +32,6 @@ class AddAnswerContainer extends Component{
          questionId: this.props.post.id,
          upvote: 0
      } 
-     console.log(post);
      this.props.createAnswer(post,"answers");
      this.props.hideForm();
      }
