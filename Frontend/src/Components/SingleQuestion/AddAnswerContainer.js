@@ -24,7 +24,6 @@ class AddAnswerContainer extends Component{
         this.setState({questionBody: event.target.value});
       }
 
-
       handleSubmit(event) {
         event.preventDefault();
         const post = {
@@ -32,6 +31,7 @@ class AddAnswerContainer extends Component{
          questionId: this.props.post.id,
          upvote: 0
      } 
+
      this.props.createAnswer(post,"answers");
      this.props.hideForm();
      }
@@ -41,10 +41,10 @@ class AddAnswerContainer extends Component{
                return(
                  <form onSubmit={this.handleSubmit}>
        
-             <input type="text" value={this.state.questionBody} onChange={this.handleChangeBody} />
-        
-               <input type="submit" value="Post" />
-            </form>
+                    <input type="text" value={this.state.questionBody} onChange={this.handleChangeBody} />
+                    <input type="submit" value="Post" />
+
+                </form>
               );
           }        
 }

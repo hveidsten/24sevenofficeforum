@@ -13,8 +13,6 @@ import QuestionContainer from './Components/SingleQuestion/QuestionContainer';
 
 import {fetchAllCategories, fetchSingleCategory} from './Actions/categoryActions';
 
-//import MainContentContainer from './Containers/MainContentContainer';
-
 
 class App extends Component {
 
@@ -44,21 +42,18 @@ if(this.props.categories){
   )
 }
 
-{/*<Route exact path="/sok/:kat/:searchQuery" render={(props) => <QuestionsListContainer  {...props} />}/>*/}
 <Route exact path="/sok/:kat/:searchQuery"  component={QuestionsListContainer}/>
 <Route exact path="/:categoryid/:questionid" component={QuestionContainer}/>
 <Route exact path="/nytt_sporsmal" component={NewQuestionContainer} />
 </Switch>
 </div>
       </div>
-     
       </BrowserRouter>
     );
   }else{return <h3>Vent</h3>}
   }
 
 }
-
 
 function mapStateToProps(state) { 
 

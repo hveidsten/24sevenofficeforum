@@ -27,7 +27,7 @@ class QuestionsListContainer extends Component{
               {this.props.posts.map(
                     (c, key) => {
                         return (
-                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={"../../"+this.props.categories.find(a => a.id===c.categoryId).categoryName.split(' ').join('_')+"/"+c.id} votes={c.upvote} key={key}/>
+                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={"../../"+this.props.categories.find(a => a.id===c.categoryId).categoryName.replace(' ','_')+"/"+c.id} votes={c.upvote} key={key}/>
                     )
                    }
               )}

@@ -62,11 +62,9 @@ class QuestionContainer extends Component{
             id = {this.props.match.params.categoryid}
             />
            
-           <div className="questionText">
+           <div>
             <h2>{this.props.post.header}</h2>
             <p>{this.props.post.body}</p>
-          
-          
            </div>
            
          </QuestionWrapper>
@@ -75,10 +73,13 @@ class QuestionContainer extends Component{
 
           <br/>
 
-           {this.props.user.isLoggedIn? <div> <Button primary onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
-            <Button className="addPostButton" style={{background:"red"}}onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</Button></div>:""}
+           {this.props.user.isLoggedIn? <div>
+          <Button primary onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
+            <Button className="addPostButton" style={{background:"red"}
+            }onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</Button>
+            </div>:""}
 
-                  { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
+             { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
 
                   
             </div>

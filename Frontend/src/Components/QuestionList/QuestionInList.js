@@ -17,6 +17,7 @@ class QuestionInList extends React.Component{
             <h2>{this.props.heading}</h2>
             <p>{this.props.body}</p>
             </NavLink>
+            
          </QuestionWrapper>
 
        );
