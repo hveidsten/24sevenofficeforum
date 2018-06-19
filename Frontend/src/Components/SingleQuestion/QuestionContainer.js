@@ -6,7 +6,7 @@ import AddAnswerContainer from './AddAnswerContainer';
 import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
 import {QuestionVoteComponent} from './QuestionVoteComponent';
 
-import {Button} from '../CommonStyledComponents';
+import {Button, QuestionWrapper} from '../CommonStyledComponents';
 
 
 
@@ -53,9 +53,8 @@ class QuestionContainer extends Component{
         
         else{
         return(
-            
              <div> 
-            <div className="questionContainer">
+            <QuestionWrapper>
             <QuestionVoteComponent 
             isLoggedIn = {this.props.user.isLoggedIn}
             votes = {this.props.post.upvote}
@@ -70,7 +69,7 @@ class QuestionContainer extends Component{
           
            </div>
            
-         </div>
+         </QuestionWrapper>
 
           {this.props.post.answer.map((a, key) => <div key={key}><hr/><a onClick={() => this.props.deleteAnswer(a.id)} >fjern</a> {a.body}</div>)}
 
