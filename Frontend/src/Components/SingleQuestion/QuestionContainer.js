@@ -4,16 +4,11 @@ import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
 import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
+import {QuestionVoteComponent} from './QuestionVoteComponent';
 
-import styled from 'styled-components';
+import {Button} from '../CommonStyledComponents';
 
-const Button = styled.span`
-  background-color: ${props => props.primary? 'green':'red'};
-  background-color:green;
-  color:white;
-  padding:0.5rem;
-  border: 25%;
-`;
+
 
 class QuestionContainer extends Component{
 
@@ -21,7 +16,7 @@ class QuestionContainer extends Component{
     constructor() {
         super(); 
         this.state = { showQuestionForm: false, Deleted:false }
-        
+        this.handleVote =this.handleVote.bind(this);
       }
 
       _showQuestionForm = () => {
@@ -35,14 +30,12 @@ class QuestionContainer extends Component{
     }
 
 
- handleVote(e,up){
+ handleVote(up,id){
      let vote = this.props.post;
      if(up===1){vote.upvote++;}
      else if(up===0){vote.upvote--;}
-     this.props.editPost(vote);
-        console.log(this.props.post.upvote);
+     this.props.editPost(vote,id);
        
-     
  }   
  
  deletePost(e){
@@ -63,14 +56,13 @@ class QuestionContainer extends Component{
             
              <div> 
             <div className="questionContainer">
-
-            {  this.props.user.isLoggedIn &&  
-            (<div className="voteCounter" >
-            <h3 onClick={(e) => this.handleVote(e,1,this.props.match.params.questionid)}>▲</h3>
-            <h3>{this.props.post.upvote}</h3>
-            <h3 onClick={(e) => this.handleVote(e,0, this.props.match.params.questionid)}>▼</h3>
-            </div>)}
-
+            <QuestionVoteComponent 
+            isLoggedIn = {this.props.user.isLoggedIn}
+            votes = {this.props.post.upvote}
+            handleVote = {this.handleVote}
+            id = {this.props.match.params.categoryid}
+            />
+           
            <div className="questionText">
             <h2>{this.props.post.header}</h2>
             <p>{this.props.post.body}</p>
