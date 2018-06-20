@@ -17,6 +17,7 @@
   padding: 3rem;
   max-height: calc(100vh - 50px);
   overflow-y: auto;
+  background-color:#f7f7f7;
 }
 /*Content slutt */
 

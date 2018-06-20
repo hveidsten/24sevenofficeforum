@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
 import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
 import {QuestionVoteComponent} from './QuestionVoteComponent';
-
 import {Button, QuestionWrapper} from '../CommonStyledComponents';
 
 
@@ -73,11 +72,11 @@ class QuestionContainer extends Component{
 
           <br/>
 
-           {this.props.user.isLoggedIn? <div>
+           {this.props.user.isLoggedIn && ( <div>
           <Button primary onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
             <Button className="addPostButton" style={{background:"red"}
-            }onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</Button>
-            </div>:""}
+            }onClick={ (e) => {if(window.confirm("Sikker på at du vil fjerne spørsmålet?")) {this.deletePost(e)}}}>Fjern spørsmål</Button>
+            </div> )}
 
              { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
 

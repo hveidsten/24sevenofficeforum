@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Button = styled.span`
-  background-color: ${props => props.primary? 'green':'red'};
+  background-color: ${props => props.primary? '#49bd39':'#f04b4b'};
   background-color:green;
   color:white;
   padding:0.5rem;

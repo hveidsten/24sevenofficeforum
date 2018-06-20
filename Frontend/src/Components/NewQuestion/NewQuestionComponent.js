@@ -3,7 +3,7 @@ import React from 'react';
 export const NewQuestionComponent = ({handleSubmit, questionHeading, handleChange, questionBody,categories}) => {
 return(
            <form onSubmit={handleSubmit}>
-               
+
              <label >Overskrift: </label>
             <input type="text" name="questionHeading" value={questionHeading} onChange={handleChange} />
               <br/>
@@ -14,7 +14,7 @@ return(
 
              <label>Kategori: </label>
               <select size="10" name="categoryId" onInput={handleChange}>
-            {categories.map((c,key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
+              {categories.map((c,key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
             </select>
 
              <input type="submit" value="Post" />

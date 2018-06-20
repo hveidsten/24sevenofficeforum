@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export const QuestionVoteComponent = ({isLoggedIn, votes,handleVote, id}) => {
     return(
 
@@ -14,5 +13,4 @@ export const QuestionVoteComponent = ({isLoggedIn, votes,handleVote, id}) => {
             <h3 onClick={() => handleVote(0,id)}>▼</h3>)}
             </div>
     );
-
 }

@@ -26,7 +26,7 @@ export const questionComponent = ({}) => {
           <br/>
 
            {this.props.user.isLoggedIn? <div> <Button primary onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
-            <Button className="addPostButton" style={{background:"red"}}onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</Button></div>:""}
+            <Button className="addPostButton" onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</Button></div>:""}
 
                   { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
 

@@ -59,7 +59,7 @@ function mapStateToProps(state) {
 
   return {
     	categories: state.category.allCategories
-    }; 
+    };
     
 } 
 

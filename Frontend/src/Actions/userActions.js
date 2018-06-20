@@ -5,7 +5,7 @@ export const userIsLoggedIn =  (a) => (dispatch) => {
   type: USER_LOGGEDIN,
   payload: {
     isLoggedIn: a===1?true:false,
-    userName: "Brukernavn"
+    userName: "Herr Testbruker"
   }
 })
 }

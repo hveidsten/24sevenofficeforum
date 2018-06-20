@@ -5,7 +5,7 @@ export const Home = () => {
     return(
         <h2>
             Forside!
-            </h2>
+        </h2>
     );
 
 }
