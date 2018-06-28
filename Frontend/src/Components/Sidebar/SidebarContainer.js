@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
 import {fetchAllCategories} from '../../Actions/categoryActions';
 import SidebarComponent from './SidebarComponent';
+
+
 class SidebarContainer extends Component {
 
   render() {
-   
+   console.log(this.props);
     if(this.props.categories){ 
        return (
       <div className="Sidebar">
@@ -24,4 +25,5 @@ const mapStateToProps = state => {
   currentCategoryId: state.category.currentCategory? state.category.currentCategory.id : 0
 });
 }
+
 export default connect(mapStateToProps,{fetchAllCategories},null)(SidebarContainer);

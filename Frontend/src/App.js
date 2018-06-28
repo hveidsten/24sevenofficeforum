@@ -4,7 +4,7 @@ import { connect} from 'react-redux';
 import './App.css';
 
 import {Header} from './Components/Header/Header';
-import {Home} from './Components/Home/HomeComponent';
+import Home from './Components/Home/HomeContainer';
 import SidebarContainer from './Components/Sidebar/SidebarContainer';
 import NewQuestionContainer from './Components/NewQuestion/NewQuestionContainer';
 
@@ -22,6 +22,7 @@ componentDidMount(){
 
 
   render() {
+
 if(this.props.categories){
 
     return (
@@ -32,7 +33,7 @@ if(this.props.categories){
         <SidebarContainer />
         <div className="Content" >
         <Switch>
-<Route exact path="/" render={() =>  {this.props.fetchSingleCategory(0); return <h2>Dette er forside som kanskje skal vise siste poster.</h2>}}/>
+        <Route exact path="/" component={Home}/>
 
 {this.props.categories.map(
   (c, key) => {

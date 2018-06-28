@@ -11,7 +11,6 @@ class QuestionsListContainer extends Component{
 
      componentDidMount(){
           if(this.props.match.params.searchQuery){
-          
              this.props.fetchPosts(`search?id=${this.props.match.params.searchQuery}`);
           }else{
             this.props.fetchSingleCategory(this.props.activeCategory);
@@ -21,6 +20,7 @@ class QuestionsListContainer extends Component{
 
 
     render() {
+   
         if(!this.props.posts || !this.props.posts.length ===0){return <h2>Vent</h2>;}
       else{ return(
                <div> 

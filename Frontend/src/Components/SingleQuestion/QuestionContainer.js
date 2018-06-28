@@ -4,8 +4,10 @@ import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
 import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
+import {fetchSingleCategory} from '../../Actions/categoryActions';
 import {QuestionVoteComponent} from './QuestionVoteComponent';
 import {Button, QuestionWrapper} from '../CommonStyledComponents';
+
 
 
 
@@ -25,7 +27,8 @@ class QuestionContainer extends Component{
       }
    
     componentDidMount(){
-        this.props.fetchPost(this.props.match.params.questionid);
+        this.props.fetchPost(this.props.match.params.questionid).then
+        (e => this.props.fetchSingleCategory(e.payload.categoryId));
     }
 
 
@@ -94,14 +97,16 @@ const mapDispatchToProps = (dispatch) => {
         fetchPost: (a) => dispatch(fetchPost(a)),
         editPost: (a) => dispatch(editPost(a)),
         deletePost: (a) => dispatch(deletePost(a)),
-        deleteAnswer: (a) => dispatch(deleteAnswer(a))
+        deleteAnswer: (a) => dispatch(deleteAnswer(a)),
+        fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a))
     };
   };
 
 const mapStateToProps = state => (
     {
     post: state.posts.activeQuestion,
-    user:state.user
+    user:state.user,
+    category: state.category.currentCategory
 }
 );
 

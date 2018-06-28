@@ -19,16 +19,15 @@ export const fetchPosts = (ApiPath) => (dispatch) => {
  
 }
 
-export const fetchPost = (id) => (dispatch) => {
+export const fetchPost = (id) => { return (dispatch) => {
+return(
     axios.get(`http://localhost:62152/demo/${id}`)
    .then(response => dispatch({
   type: FETCH_POST,
   payload: response.data
-}))
-.catch(error => {
-    console.log(error)
-});
+})));
 
+}
 }
 
 export const createPost = (postData,postUrl) => (dispatch) => {
