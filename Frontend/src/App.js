@@ -23,7 +23,6 @@ componentDidMount(){
 
   render() {
 
-if(this.props.categories){
 
     return (
       <BrowserRouter>
@@ -35,7 +34,7 @@ if(this.props.categories){
         <Switch>
         <Route exact path="/" component={Home}/>
 
-{this.props.categories.map(
+{this.props.categories && this.props.categories.map(
   (c, key) => {
     return <Route key={key} exact path={"/"+c.categoryName.replace(' ','_')} 
     render={(props) => <QuestionsListContainer activeCategory={c.id}  {...props} />}/>
@@ -51,9 +50,8 @@ if(this.props.categories){
       </div>
       </BrowserRouter>
     );
-  }else{return <h3>Vent</h3>}
   }
-
+  
 }
 
 function mapStateToProps(state) { 

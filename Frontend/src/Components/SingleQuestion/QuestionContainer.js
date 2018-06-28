@@ -9,8 +9,6 @@ import {QuestionVoteComponent} from './QuestionVoteComponent';
 import {Button, QuestionWrapper} from '../CommonStyledComponents';
 
 
-
-
 class QuestionContainer extends Component{
 
     
@@ -27,8 +25,8 @@ class QuestionContainer extends Component{
       }
    
     componentDidMount(){
-        this.props.fetchPost(this.props.match.params.questionid).then
-        (e => this.props.fetchSingleCategory(e.payload.categoryId));
+        this.props.fetchPost(this.props.match.params.questionid).then(e => 
+            this.props.fetchSingleCategory(e.payload.categoryId));
     }
 
 
@@ -54,7 +52,8 @@ class QuestionContainer extends Component{
         if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
         else{
-        return(
+            return(
+                
              <div> 
             <QuestionWrapper>
             <QuestionVoteComponent 
@@ -83,7 +82,6 @@ class QuestionContainer extends Component{
 
              { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
 
-                  
             </div>
                 
               );

@@ -21,7 +21,7 @@ class QuestionsListContainer extends Component{
 
     render() {
    
-        if(!this.props.posts || !this.props.posts.length ===0){return <h2>Vent</h2>;}
+        if(!this.props.posts){return <h2>Vent</h2>;}
       else{ return(
                <div> 
               {this.props.posts.map(

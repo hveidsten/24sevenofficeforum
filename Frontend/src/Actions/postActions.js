@@ -16,7 +16,6 @@ export const fetchPosts = (ApiPath) => (dispatch) => {
         type: FETCH_POSTS,
         payload: response.data
     }))
- 
 }
 
 export const fetchPost = (id) => { return (dispatch) => {
@@ -25,7 +24,8 @@ return(
    .then(response => dispatch({
   type: FETCH_POST,
   payload: response.data
-})));
+}))
+);
 
 }
 }

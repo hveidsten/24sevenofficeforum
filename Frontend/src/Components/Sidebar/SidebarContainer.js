@@ -8,15 +8,15 @@ class SidebarContainer extends Component {
 
   render() {
    console.log(this.props);
-    if(this.props.categories){ 
+  
        return (
       <div className="Sidebar">
-        <SidebarComponent categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />
+        {this.props.categories && <SidebarComponent categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />}
+        
       </div>
 
     );
-    }
-    else{return <h3>vent</h3>}
+   
   }
 }
 
