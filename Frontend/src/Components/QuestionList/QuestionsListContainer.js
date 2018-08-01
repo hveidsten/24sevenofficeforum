@@ -15,13 +15,12 @@ class QuestionsListContainer extends Component{
             this.props.fetchPosts(`questions/${this.props.activeCategory}`);
           }
     } 
-
-
+    
     render() {
         if(!this.props.posts){return <h2>Vent</h2>;}
       else{ return(
                <div> 
-                 <h2>{this.props.categories.find( c => {return c.id === this.props.activeCategory}).categoryName}</h2>
+                 <h2>{this.props.match.params.searchQuery? "Søkeresultater for "+this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
                  <p>Sorter etter: 
                  <select>
                    <option>Dato</option>
@@ -44,6 +43,7 @@ class QuestionsListContainer extends Component{
 
 
 const mapStateToProps = state => ({
+            category: state.category.currentCategory,
             categories: state.category.allCategories,
             posts: state.posts.allQuestionsInCategory,
             user:state.user
