@@ -10,6 +10,7 @@ export const NEW_ANSWER = "NEW_ANSWER";
 export const DELETE_ANSWER = "DELETE_ANSWER";
 
 
+
 export const fetchPosts = (ApiPath) => (dispatch) => {
           axios.get(`http://localhost:62152/api/${ApiPath}`)
          .then(response => dispatch({

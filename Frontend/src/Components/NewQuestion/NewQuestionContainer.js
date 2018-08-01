@@ -10,7 +10,7 @@ class NewQuestion extends Component{
         super(props);
         this.state = {questionHeading: '',
                      questionBody: '', 
-                     categoryId:this.props.activeCategory?this.props.activeCategory.id:1
+                     categoryId: 3
                     };
     
         this.handleChange = this.handleChange.bind(this);

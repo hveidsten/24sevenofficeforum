@@ -13,7 +13,7 @@ return(
              <br/>
 
              <label>Kategori: </label>
-              <select size="10" name="categoryId" onInput={handleChange}>
+              <select size="10" name="categoryId" onChange={handleChange}>
               {categories.map((c,key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
             </select>
 

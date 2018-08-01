@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
+import AnswerComponent from './AnswerComponent';
 import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 import {QuestionVoteComponent} from './QuestionVoteComponent';
@@ -70,8 +71,8 @@ class QuestionContainer extends Component{
            
          </QuestionWrapper>
 
-          {this.props.post.answer.map((a, key) => <div key={key}><hr/><a onClick={() => this.props.deleteAnswer(a.id)} >fjern</a> {a.body}</div>)}
-
+         {this.props.post.answer.map((a, key) => <AnswerComponent answer={a} deleteAnswer={this.props.deleteAnswer}key={key} />)}
+         
           <br/>
 
            {this.props.user.isLoggedIn && ( <div>

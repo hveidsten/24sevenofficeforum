@@ -8,7 +8,6 @@ import {PostSubtext} from './styledComponents';
 class QuestionInList extends React.Component{
 
     render(){
-        console.log(this.props);
     return (
         <QuestionWrapper>
             <div className="voteCounter" >

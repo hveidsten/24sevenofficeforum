@@ -17,14 +17,15 @@ class QuestionsListContainer extends Component{
     } 
 
     render() {
-        if(!this.props.posts || !this.props.categories){return <h2>Vent</h2>;}
+      
+        if(!this.props.questions || !this.props.categories){return <h2>Vent</h2>;}
       else{ return(
                <div> 
                  <h2>{this.props.match.params.searchQuery? "Søkeresultater for "+this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
                  <p>Sorter etter: <select>
                    <option>Dato - nyeste først</option>
                    </select></p>
-              {this.props.posts.map(
+              {this.props.questions.map(
                     (c, key) => {
                         return (
                         <QuestionInList linkToQuestion={"../../"+this.props.categories.find(a => a.id===c.categoryId).categoryName.replace(' ','_')+"/"+c.id} question={c} key={key}/>
@@ -44,7 +45,7 @@ class QuestionsListContainer extends Component{
 const mapStateToProps = state => ({
             category: state.category.currentCategory,
             categories: state.category.allCategories,
-            posts: state.posts.allQuestionsInCategory,
+            questions: state.posts.allQuestionsInCategory,
             user:state.user
 });
 
