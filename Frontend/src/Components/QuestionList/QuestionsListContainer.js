@@ -18,14 +18,14 @@ class QuestionsListContainer extends Component{
 
 
     render() {
-   
         if(!this.props.posts){return <h2>Vent</h2>;}
       else{ return(
                <div> 
-                 <p style={{float:"left"}}>Sorter etter:</p>
-                 <select >
+                 <h2>{this.props.categories.find( c => {return c.id === this.props.activeCategory}).categoryName}</h2>
+                 <p>Sorter etter: 
+                 <select>
                    <option>Dato</option>
-                   </select>
+                   </select></p>
               {this.props.posts.map(
                     (c, key) => {
                         return (
