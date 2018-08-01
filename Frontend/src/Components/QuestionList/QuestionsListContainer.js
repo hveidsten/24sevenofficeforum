@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-
 import {connect} from 'react-redux';
 import {fetchPosts} from '../../Actions/postActions';
 import {Link} from 'react-router-dom';
@@ -24,10 +22,14 @@ class QuestionsListContainer extends Component{
         if(!this.props.posts){return <h2>Vent</h2>;}
       else{ return(
                <div> 
+                 <p style={{float:"left"}}>Sorter etter:</p>
+                 <select >
+                   <option>Dato</option>
+                   </select>
               {this.props.posts.map(
                     (c, key) => {
                         return (
-                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={"../../"+this.props.categories.find(a => a.id===c.categoryId).categoryName.replace(' ','_')+"/"+c.id} votes={c.upvote} key={key}/>
+                        <QuestionInList linkToQuestion={"../../"+this.props.categories.find(a => a.id===c.categoryId).categoryName.replace(' ','_')+"/"+c.id} question={c} key={key}/>
                     )
                    }
               )}

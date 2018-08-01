@@ -4,7 +4,6 @@ import {NavLink } from 'react-router-dom';
 
 class Sidebar extends Component{
     render(){
-        console.log(this.props);
         return(
             <div className="Sidebar">
             <NavLink exact to="/" activeStyle={{ color: '#ffffff', fontWeight: 'bold'}}>Hjem<hr/></NavLink>
