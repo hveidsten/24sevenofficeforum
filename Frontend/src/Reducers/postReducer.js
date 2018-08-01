@@ -1,4 +1,4 @@
-import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER,DELETE_ANSWER} from '../Actions/postActions'
+import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER,DELETE_ANSWER,EDIT_ANSWER} from '../Actions/postActions'
 const initialState = {
     
 }
@@ -41,6 +41,13 @@ export default function(state = initialState, action){
             ...state,
             activeQuestion: {...state.activeQuestion, answer: [...state.activeQuestion.answer.filter(a => a.id !==action.payload)]}
         }
+
+        case EDIT_ANSWER: return {
+            ...state,
+            activeQuestion: {...state.activeQuestion, answer: [...state.activeQuestion.answer.map(c => c.id===action.payload.id? 
+            {...c, body:action.payload.body}: c)] }
+        }
+
         default: return state;
     }
 }

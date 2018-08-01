@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
 import AnswerComponent from './AnswerComponent';
-import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
+import {editPost, deletePost, deleteAnswer,editAnswer,fetchPost} from '../../Actions/postActions';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 import {QuestionVoteComponent} from './QuestionVoteComponent';
 import {Button, QuestionWrapper} from '../CommonStyledComponents';
@@ -71,7 +71,7 @@ class QuestionContainer extends Component{
            
          </QuestionWrapper>
 
-         {this.props.post.answer.map((a, key) => <AnswerComponent answer={a} deleteAnswer={this.props.deleteAnswer}key={key} />)}
+         {this.props.post.answer.map((a, key) => <AnswerComponent answer={a} deleteAnswer={this.props.deleteAnswer} editAnswer={this.props.editAnswer} key={key} />)}
          
           <br/>
 
@@ -97,6 +97,7 @@ const mapDispatchToProps = (dispatch) => {
         editPost: (a) => dispatch(editPost(a)),
         deletePost: (a) => dispatch(deletePost(a)),
         deleteAnswer: (a) => dispatch(deleteAnswer(a)),
+        editAnswer: (a,body) => dispatch(editAnswer(a, body)),
         fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a))
     };
   };

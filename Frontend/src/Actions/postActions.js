@@ -8,6 +8,7 @@ export const EDIT_POST = "EDIT_POST";
 export const DELETE_POST = "DELETE_POST";
 export const NEW_ANSWER = "NEW_ANSWER";
 export const DELETE_ANSWER = "DELETE_ANSWER";
+export const EDIT_ANSWER = "EDIT_ANSWER";
 
 
 
@@ -61,7 +62,6 @@ dispatch({
 }
 
 export const deletePost = (id) => (dispatch) => {
-
     axios.delete('http://localhost:62152/api/questions/'+id)
     .then(response => {
         dispatch({
@@ -72,7 +72,6 @@ export const deletePost = (id) => (dispatch) => {
  }
  
  export const deleteAnswer = (id) => (dispatch) => {
-
     axios.delete('http://localhost:62152/api/answers/'+id)
     .then(response => {
         dispatch({
@@ -80,4 +79,15 @@ export const deletePost = (id) => (dispatch) => {
             payload: id
         });
     });
+ }
+
+ export const editAnswer = (id,body) => (dispatch) => {
+  //  axios.patch('http://localhost:62152/api/answers/'+id,
+  //  {body: body})
+  //  .then(response => {
+        dispatch({
+            type:EDIT_ANSWER,
+            payload: {id:id, body:body}
+        });
+ //   });
  }
