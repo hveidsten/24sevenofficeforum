@@ -16,7 +16,8 @@ class QuestionContainer extends Component{
     constructor() {
         super(); 
         this.state = { showQuestionForm: false, Deleted:false }
-        this.handleVote =this.handleVote.bind(this);
+        this.handleVote = this.handleVote.bind(this);
+        this.deletePost = this.deletePost.bind(this);
       }
 
       _showQuestionForm = () => {
@@ -60,7 +61,8 @@ class QuestionContainer extends Component{
                  user={this.props.user} 
                  question={this.props.post}  
                  handleVote = {this.handleVote}  
-                 categoryId = {this.props.match.params.categoryid}/>
+                 categoryId = {this.props.match.params.categoryid}
+                 deletePost = {this.deletePost}/>
        
 
          {this.props.post.answer.map((a, key) => <AnswerComponent answer={a} deleteAnswer={this.props.deleteAnswer} editAnswer={this.props.editAnswer} key={key} />)}
@@ -68,9 +70,8 @@ class QuestionContainer extends Component{
           <br/>
 
            {this.props.user.isLoggedIn && ( <div>
-          <Button primary onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
-            <Button className="addPostButton" style={{background:"red"}
-            }onClick={ (e) => {if(window.confirm("Sikker på at du vil fjerne spørsmålet?")) {this.deletePost(e)}}}>Fjern spørsmål</Button>
+          <Button color="green" onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
+           
             </div> )}
 
              { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }

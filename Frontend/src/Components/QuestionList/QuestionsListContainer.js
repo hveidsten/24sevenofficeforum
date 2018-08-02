@@ -4,6 +4,7 @@ import {fetchPosts} from '../../Actions/postActions';
 import {Link} from 'react-router-dom';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 import  QuestionInList from './QuestionInList';
+import {Button} from '../CommonStyledComponents';
 
 class QuestionsListContainer extends Component{
 
@@ -33,7 +34,7 @@ class QuestionsListContainer extends Component{
                    }
               )}
             
-                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <span className="addPostButton">Nytt spørsmål</span></Link>:""}
+                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <Button color="green">Nytt spørsmål</Button></Link>:""}
                    
                   </div>
             );

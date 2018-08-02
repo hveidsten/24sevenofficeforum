@@ -8,12 +8,11 @@ return(
 
              <label >Overskrift: </label>
             <input size="50" type="text" name="questionHeading" value={questionHeading} onChange={handleChange} style={{marginBottom:"2em"}} />
-              <br/>
+            <br/>
 
-             <label for="questionBody">Spørsmål: </label>
-             <textarea rows="20" cols="55" name="questionBody" value={questionBody} onChange={handleChange} style={{marginBottom:"2em"}} />
-             <br/> 
-
+             <label>Spørsmål: </label>
+             <textarea rows="20" cols="75" name="questionBody" value={questionBody} onChange={handleChange} style={{marginBottom:"2em", verticalAlign: "top"}} />
+             <br/>
              <label>Kategori: </label>
               <select size="1" name="categoryId" onClick={handleChange}>
                 <option value="-2">Velg kategori</option>

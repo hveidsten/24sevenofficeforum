@@ -41,7 +41,7 @@ class AddAnswerContainer extends Component{
                return(
                  <form onSubmit={this.handleSubmit}>
        
-                    <input type="text" value={this.state.questionBody} onChange={this.handleChangeBody} />
+                    <input type="text" autoFocus value={this.state.questionBody} onChange={this.handleChangeBody} onBlur={this.props.hideForm}/>
                     <input type="submit" value="Post" />
 
                 </form>
