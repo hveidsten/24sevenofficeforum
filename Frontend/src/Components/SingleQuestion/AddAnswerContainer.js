@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {createAnswer} from '../../Actions/postActions';
+import { AddAnswerModal } from './styledComponents';
+import {Button} from '../CommonStyledComponents';
 
 class AddAnswerContainer extends Component{
     constructor(props) {
@@ -39,12 +41,17 @@ class AddAnswerContainer extends Component{
 
     render() {
                return(
-                 <form onSubmit={this.handleSubmit}>
+                 
+                 <AddAnswerModal>
+                   <h3>Nytt svar</h3>
+                 <form onSubmit={this.handleSubmit} >
        
-                    <input type="text" autoFocus value={this.state.questionBody} onChange={this.handleChangeBody} onBlur={this.props.hideForm}/>
-                    <input type="submit" value="Post" />
+                    <textarea rows="20" cols="75" autoFocus value={this.state.questionBody} onChange={this.handleChangeBody} />
+                    <Button style={{float:"right"}} color="green" onClick={this.handleSubmit} >Send</Button>
+                    <Button style={{float:"right"}} color="#f04b4b" onClick={this.props.hideForm}>Lukk</Button>
 
                 </form>
+                </AddAnswerModal>
               );
           }        
 }

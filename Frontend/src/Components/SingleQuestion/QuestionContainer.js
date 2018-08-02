@@ -11,8 +11,6 @@ import QuestionComponent from './QuestionComponent';
 
 
 class QuestionContainer extends Component{
-
-    
     constructor() {
         super(); 
         this.state = { showQuestionForm: false, Deleted:false }
@@ -53,7 +51,6 @@ class QuestionContainer extends Component{
         if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
         else{
-            console.log(this.props.user);
             return(
                 
              <div> 
@@ -69,8 +66,12 @@ class QuestionContainer extends Component{
          
           <br/>
 
-           {this.props.user.isLoggedIn && ( <div>
-          <Button color="green" onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
+           {this.props.user.isLoggedIn &&( <div>
+               {this.state.showQuestionForm==false?
+                <Button color="#49bd39" onClick={this._showQuestionForm.bind()}>Nytt svar</Button>:
+                <Button color="#f04b4b" onClick={this._showQuestionForm.bind()}>Lukk</Button>
+               }
+         
            
             </div> )}
 
@@ -97,10 +98,10 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => (
     {
-    post: state.posts.activeQuestion,
-    user:state.user,
-    category: state.category.currentCategory
-}
+      post: state.posts.activeQuestion,
+      user:state.user,
+      category: state.category.currentCategory
+    }
 );
 
 

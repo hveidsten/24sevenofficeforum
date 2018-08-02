@@ -34,7 +34,7 @@ class QuestionsListContainer extends Component{
                    }
               )}
             
-                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <Button color="green">Nytt spørsmål</Button></Link>:""}
+                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <Button color="#49bd39">Nytt spørsmål</Button></Link>:""}
                    
                   </div>
             );
