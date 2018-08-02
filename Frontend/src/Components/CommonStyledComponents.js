@@ -15,6 +15,7 @@ display: flex;
 flex-direction: row;
 align-items: center;
 margin: 1rem;
+overflow-wrap: break-word;
 `;
 
 export const PostSubtext = styled.span`

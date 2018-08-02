@@ -5,7 +5,7 @@ const AnswerComponent = ({answer, deleteAnswer,editAnswer}) => {
    return(
    <div>
    <hr/>
-   <p>{answer.body}</p>
+   <p style={{overflowWrap: "break-word"}}>{answer.body}</p>
    <PostSubtext> Av Navn Navnesen  {answer.answerCreated? "den "+answer.answerCreated.substring(0,10):""}</PostSubtext>
    <br/>
    <a onClick={() => deleteAnswer(answer.id)}>fjern </a>
