@@ -55,8 +55,6 @@ a {
   color: black;
 }
 
-
-
 .voteCounter{
   display: flex;
   flex-direction: column;
@@ -93,6 +91,6 @@ a {
   .SidebarDisplayButton{
     display: block;
     height:3rem;
-    width:3ren;
+    width:3rem;
   }
 }

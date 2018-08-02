@@ -13,14 +13,17 @@ class Home extends Component {
 
     render(){
         return(
-        <HomeComponent posts={this.props.posts} categories={this.props.categories}/>
+        <HomeComponent posts={this.props.posts} categories={this.props.categories} userLoggedIn={this.props.user.isLoggedIn} userName= {this.props.user.userName}/>
         );
+
+
     }
 }
 
 const mapStateToProps = state => ({
     posts: state.posts.allQuestionsInCategory,
-    categories: state.category.allCategories
+    categories: state.category.allCategories,
+    user: state.user
 });
 
 

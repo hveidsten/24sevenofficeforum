@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const QuestionVoteComponent = ({isLoggedIn, votes,handleVote, id}) => {
+ const QuestionVoteComponent = ({isLoggedIn, votes,handleVote, id}) => {
     return(
 
            <div className="voteCounter" >
@@ -14,3 +14,5 @@ export const QuestionVoteComponent = ({isLoggedIn, votes,handleVote, id}) => {
             </div>
     );
 }
+
+export default QuestionVoteComponent;

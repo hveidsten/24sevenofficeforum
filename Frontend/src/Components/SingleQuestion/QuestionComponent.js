@@ -1,35 +1,27 @@
 import React from 'react';
+import QuestionVoteComponent from './QuestionVoteComponent';
+import {QuestionWrapper, PostSubtext} from '../CommonStyledComponents';
 
 
-export const questionComponent = ({}) => {
- <div> 
-            <div className="questionContainer">
-
-            {isLoggedIn &&  
-            (<div className="voteCounter" >
-            <h3 onClick={(e) => this.handleVote(e,1,this.props.match.params.questionid)}>▲</h3>
-            <h3>{this.props.post.upvote}</h3>
-            <h3 onClick={(e) => this.handleVote(e,0, this.props.match.params.questionid)}>▼</h3>
-            </div>)}
-
-           <div className="questionText">
-            <h2>{this.props.post.header}</h2>
-            <p>{this.props.post.body}</p>
-          
-          
+ const QuestionComponent = ({user, question,handleVote, categoryId}) => {
+     return(
+            <QuestionWrapper>
+            <QuestionVoteComponent 
+            isLoggedIn = {user.isLoggedIn}
+            votes = {question.upvote}
+            handleVote = {handleVote}
+            id = {categoryId}
+            />
+           
+           <div>
+            <h2>{question.header}</h2>
+            <PostSubtext> Av Navn Navnesen  {question.questionCreated? "den "+question.questionCreated.substring(0,10):""} {question.answer.length} svar</PostSubtext>
+            <p>{question.body}</p>
            </div>
            
-         </div>
+         </QuestionWrapper>);
 
-          {this.props.post.answer.map((a, key) => <div key={key}><hr/><a onClick={() => this.props.deleteAnswer(a.id)} >fjern</a> {a.body}</div>)}
 
-          <br/>
-
-           {this.props.user.isLoggedIn? <div> <Button primary onClick={this._showQuestionForm.bind()}>Nytt svar</Button>
-            <Button className="addPostButton" onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</Button></div>:""}
-
-                  { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
-
-                  
-            </div>
+      
 }
+export default QuestionComponent;

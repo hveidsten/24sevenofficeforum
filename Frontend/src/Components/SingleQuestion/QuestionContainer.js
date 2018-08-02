@@ -6,8 +6,8 @@ import AddAnswerContainer from './AddAnswerContainer';
 import AnswerComponent from './AnswerComponent';
 import {editPost, deletePost, deleteAnswer,editAnswer,fetchPost} from '../../Actions/postActions';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
-import {QuestionVoteComponent} from './QuestionVoteComponent';
-import {Button, QuestionWrapper} from '../CommonStyledComponents';
+import {Button} from '../CommonStyledComponents';
+import QuestionComponent from './QuestionComponent';
 
 
 class QuestionContainer extends Component{
@@ -35,8 +35,7 @@ class QuestionContainer extends Component{
      let vote = this.props.post;
      if(up===1){vote.upvote++;}
      else if(up===0){vote.upvote--;}
-     this.props.editPost(vote,id);
-       
+     this.props.editPost(vote,id);    
  }   
  
  deletePost(e){
@@ -53,23 +52,16 @@ class QuestionContainer extends Component{
         if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
         else{
+            console.log(this.props.user);
             return(
                 
              <div> 
-            <QuestionWrapper>
-            <QuestionVoteComponent 
-            isLoggedIn = {this.props.user.isLoggedIn}
-            votes = {this.props.post.upvote}
-            handleVote = {this.handleVote}
-            id = {this.props.match.params.categoryid}
-            />
-           
-           <div>
-            <h2>{this.props.post.header}</h2>
-            <p>{this.props.post.body}</p>
-           </div>
-           
-         </QuestionWrapper>
+                 <QuestionComponent 
+                 user={this.props.user} 
+                 question={this.props.post}  
+                 handleVote = {this.handleVote}  
+                 categoryId = {this.props.match.params.categoryid}/>
+       
 
          {this.props.post.answer.map((a, key) => <AnswerComponent answer={a} deleteAnswer={this.props.deleteAnswer} editAnswer={this.props.editAnswer} key={key} />)}
          
