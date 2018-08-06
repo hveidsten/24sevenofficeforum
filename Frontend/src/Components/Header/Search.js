@@ -27,7 +27,7 @@ class Search extends Component {
          value={this.state.query}
          onChange={this.handleChange}
        />
-       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={() => this.props.fetchPosts(`search?id=${this.state.query}`)}>søk</button></Link>
+       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={()=>this.props.fetchPosts(`search?id=${this.state.query}`)}>søk</button></Link>
       
      </form>
    )
@@ -35,8 +35,5 @@ class Search extends Component {
 }
 
 
-const mapStateToProps = state => ({
-  posts: state.posts.items
-})
 
-export default connect(mapStateToProps, {fetchPosts})(Search);
+export default connect(null, {fetchPosts})(Search);

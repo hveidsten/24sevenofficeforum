@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {createAnswer} from '../../Actions/postActions';
+import { AddAnswerModal } from './styledComponents';
+import {Button} from '../CommonStyledComponents';
 
 class AddAnswerContainer extends Component{
     constructor(props) {
@@ -24,7 +26,6 @@ class AddAnswerContainer extends Component{
         this.setState({questionBody: event.target.value});
       }
 
-
       handleSubmit(event) {
         event.preventDefault();
         const post = {
@@ -32,7 +33,7 @@ class AddAnswerContainer extends Component{
          questionId: this.props.post.id,
          upvote: 0
      } 
-     console.log(post);
+
      this.props.createAnswer(post,"answers");
      this.props.hideForm();
      }
@@ -40,12 +41,17 @@ class AddAnswerContainer extends Component{
 
     render() {
                return(
+                 
+                 <AddAnswerModal>
+                   <h3>Nytt svar</h3>
                  <form onSubmit={this.handleSubmit}>
        
-             <input type="text" value={this.state.questionBody} onChange={this.handleChangeBody} />
-        
-               <input type="submit" value="Post" />
-            </form>
+                    <textarea rows="20" cols="75" autoFocus value={this.state.questionBody} onChange={this.handleChangeBody} />
+                    <Button style={{float:"right"}} color="green" onClick={this.handleSubmit} >Send</Button>
+                    <Button style={{float:"right"}} color="#f04b4b" onClick={this.props.hideForm}>Lukk</Button>
+
+                </form>
+                </AddAnswerModal>
               );
           }        
 }

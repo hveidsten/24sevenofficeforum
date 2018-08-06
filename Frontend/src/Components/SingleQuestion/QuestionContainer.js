@@ -3,36 +3,40 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
-import {editPost, deletePost, deleteAnswer,fetchPost} from '../../Actions/postActions';
+import AnswerComponent from './AnswerComponent';
+import {editPost, deletePost, deleteAnswer,editAnswer,fetchPost} from '../../Actions/postActions';
+import {fetchSingleCategory} from '../../Actions/categoryActions';
+import {Button} from '../CommonStyledComponents';
+import QuestionComponent from './QuestionComponent';
+
 
 class QuestionContainer extends Component{
-
-    
     constructor() {
         super(); 
         this.state = { showQuestionForm: false, Deleted:false }
-        
+        this.handleVote = this.handleVote.bind(this);
+        this.deletePost = this.deletePost.bind(this);
       }
 
       _showQuestionForm = () => {
         this.setState({
             showQuestionForm: !this.state.showQuestionForm
         });
+
+        this._showQuestionForm = this._showQuestionForm.bind(this);
       }
    
     componentDidMount(){
-        this.props.fetchPost(this.props.match.params.questionid);
+        this.props.fetchPost(this.props.match.params.questionid).then(e => 
+            this.props.fetchSingleCategory(e.payload.categoryId));
     }
 
 
- handleVote(e,up){
+ handleVote(up,id){
      let vote = this.props.post;
      if(up===1){vote.upvote++;}
      else if(up===0){vote.upvote--;}
-     this.props.editPost(vote);
-        console.log(this.props.post.upvote);
-       
-     
+     this.props.editPost(vote,id);    
  }   
  
  deletePost(e){
@@ -49,37 +53,32 @@ class QuestionContainer extends Component{
         if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
         else{
-        return(
-            
+            return(
              <div> 
-            <div className="questionContainer">
+                {this.state.showQuestionForm&&<Modal onclick={this._showQuestionForm}/>}
+                 <QuestionComponent 
+                 user={this.props.user} 
+                 question={this.props.post}  
+                 handleVote = {this.handleVote}  
+                 categoryId = {this.props.match.params.categoryid}
+                 deletePost = {this.deletePost}/>
+       
 
-            {  this.props.user.isLoggedIn &&  
-            (<div className="voteCounter" >
-            <h3 onClick={(e) => this.handleVote(e,1,this.props.match.params.questionid)}>▲</h3>
-            <h3>{this.props.post.upvote}</h3>
-            <h3 onClick={(e) => this.handleVote(e,0, this.props.match.params.questionid)}>▼</h3>
-            </div>)}
-
-           <div className="questionText">
-            <h2>{this.props.post.header}</h2>
-            <p>{this.props.post.body}</p>
-          
-          
-           </div>
-           
-         </div>
-
-          {this.props.post.answer.map((a, key) => <div key={key}><hr/><a onClick={() => this.props.deleteAnswer(a.id)} >fjern</a> {a.body}</div>)}
-
+         {this.props.post.answer.map((a, key) => <AnswerComponent answer={a} deleteAnswer={this.props.deleteAnswer} editAnswer={this.props.editAnswer} key={key} />)}
+         
           <br/>
 
-           {this.props.user.isLoggedIn? <div> <span className="addPostButton" onClick={this._showQuestionForm.bind()}>Nytt svar</span>
-            <span className="addPostButton" style={{background:"red"}}onClick={ (e) => {if(window.confirm("Sikker?")) {this.deletePost(e)}}}>Fjern spørsmål</span></div>:""}
+           {this.props.user.isLoggedIn &&( <div>
+               {this.state.showQuestionForm==false?
+                <Button color="#49bd39" onClick={this._showQuestionForm.bind()}>Nytt svar</Button>:
+                <Button color="#f04b4b" onClick={this._showQuestionForm.bind()}>Lukk</Button>
+               }
+         
+           
+            </div> )}
 
-                  { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
+             { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm.bind()} />) }
 
-                  
             </div>
                 
               );
@@ -93,16 +92,38 @@ const mapDispatchToProps = (dispatch) => {
         fetchPost: (a) => dispatch(fetchPost(a)),
         editPost: (a) => dispatch(editPost(a)),
         deletePost: (a) => dispatch(deletePost(a)),
-        deleteAnswer: (a) => dispatch(deleteAnswer(a))
+        deleteAnswer: (a) => dispatch(deleteAnswer(a)),
+        editAnswer: (a,body) => dispatch(editAnswer(a, body)),
+        fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a))
     };
   };
 
 const mapStateToProps = state => (
     {
-    post: state.posts.activeQuestion,
-    user:state.user
-}
+      post: state.posts.activeQuestion,
+      user:state.user,
+      category: state.category.currentCategory
+    }
 );
+
+
+const Modal = ({onclick}) => {
+    return(
+        <div style={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: '0px',
+        left: '0px',
+        zIndex: '9998',
+        background: 'rgba(0, 0, 0, 0.1)'
+        }}
+        onClick={onclick}
+       >
+        
+        </div>
+    );
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionContainer);

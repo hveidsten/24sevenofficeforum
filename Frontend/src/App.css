@@ -17,6 +17,7 @@
   padding: 3rem;
   max-height: calc(100vh - 50px);
   overflow-y: auto;
+  background-color:#f7f7f7;
 }
 /*Content slutt */
 
@@ -30,7 +31,7 @@
  
 }
 .Sidebar a {
-  color: #C4C4C4;
+  color: #acacac;
 }
 
 
@@ -52,13 +53,6 @@
 a {
   text-decoration: none;
   color: black;
-}
-
-.questionContainer{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 1rem;
 }
 
 .voteCounter{
@@ -97,6 +91,6 @@ a {
   .SidebarDisplayButton{
     display: block;
     height:3rem;
-    width:3ren;
+    width:3rem;
   }
 }

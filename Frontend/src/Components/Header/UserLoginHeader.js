@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 class UserLoginHeader extends Component {
 
-            render(){
+     render(){
                 return(
                     <div className="userLoginHeader">
                 {this.props.user && this.props.user.isLoggedIn===true? 
@@ -19,7 +19,7 @@ class UserLoginHeader extends Component {
                          }
                          </div>
                         ); 
-    }
+                 }
 }
 
 

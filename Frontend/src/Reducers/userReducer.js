@@ -1,6 +1,6 @@
 import { USER_LOGGEDIN } from '../Actions/userActions';
 
-const userReducer = (state={},action) => {
+const userReducer = (state={isLoggedIn:true, userName:"Brukernavn"},action) => {
 
     switch(action.type){
        

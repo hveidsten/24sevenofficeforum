@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-
-
 import {connect} from 'react-redux';
 import {fetchPosts} from '../../Actions/postActions';
 import {Link} from 'react-router-dom';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 import  QuestionInList from './QuestionInList';
+import {Button} from '../CommonStyledComponents';
 
 class QuestionsListContainer extends Component{
 
      componentDidMount(){
           if(this.props.match.params.searchQuery){
-          
              this.props.fetchPosts(`search?id=${this.props.match.params.searchQuery}`);
           }else{
             this.props.fetchSingleCategory(this.props.activeCategory);
@@ -19,20 +17,24 @@ class QuestionsListContainer extends Component{
           }
     } 
 
-
     render() {
-        if(!this.props.posts || !this.props.posts.length ===0){return <h2>Vent</h2>;}
+      
+        if(!this.props.questions || !this.props.categories){return <h2>Vent</h2>;}
       else{ return(
                <div> 
-              {this.props.posts.map(
+                 <h2>{this.props.match.params.searchQuery? "Søkeresultater for "+this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
+                 <p>Sorter etter: <select>
+                   <option>Dato - nyeste først</option>
+                   </select></p>
+              {this.props.questions.map(
                     (c, key) => {
                         return (
-                        <QuestionInList heading={c.header} body={c.body} linkToQuestion={"../../"+this.props.categories.find(a => a.id===c.categoryId).categoryName.split(' ').join('_')+"/"+c.id} votes={c.upvote} key={key}/>
+                        <QuestionInList linkToQuestion={"../../"+this.props.categories.find(a => a.id===c.categoryId).categoryName.replace(' ','_')+"/"+c.id} question={c} key={key}/>
                     )
                    }
               )}
             
-                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <span className="addPostButton">Nytt spørsmål</span></Link>:""}
+                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <Button color="#49bd39">Nytt spørsmål</Button></Link>:""}
                    
                   </div>
             );
@@ -42,8 +44,9 @@ class QuestionsListContainer extends Component{
 
 
 const mapStateToProps = state => ({
+            category: state.category.currentCategory,
             categories: state.category.allCategories,
-            posts: state.posts.allQuestionsInCategory,
+            questions: state.posts.allQuestionsInCategory,
             user:state.user
 });
 

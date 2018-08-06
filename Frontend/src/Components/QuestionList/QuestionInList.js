@@ -1,30 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import {QuestionWrapper, PostSubtext} from '../CommonStyledComponents';
 
 
 class QuestionInList extends React.Component{
 
     render(){
     return (
-        <div className="questionContainer">
+        <QuestionWrapper>
             <div className="voteCounter" >
-          
-            <h3>{this.props.votes}</h3>
+            <h3>{this.props.question.upvote}</h3>
             </div>
+
             <NavLink to={this.props.linkToQuestion} className="questionText">
-            <h2>{this.props.heading}</h2>
-            <p>{this.props.body}</p>
+            <h2 style={{marginBottom: 5}}>{this.props.question.header}</h2>
+            <PostSubtext> Av Navn Navnesen  {this.props.question.questionCreated? "den "+this.props.question.questionCreated.substring(0,10):""} {this.props.question.answer.length} svar</PostSubtext>
+            <p>{this.props.question.body}</p>
             </NavLink>
-            <hr/>
-         </div>
+            
+         </QuestionWrapper>
 
        );
     }
 }
 
-const mapStateToProps = state => ({
-    posts: state.posts.items
+const mapStateToProps = (state) => ({
+    post: state.posts.allQuestionsInCategory[0]
 })
 
 export default connect(mapStateToProps)(QuestionInList);

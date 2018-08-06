@@ -2,16 +2,25 @@ import React from 'react';
 
 export const NewQuestionComponent = ({handleSubmit, questionHeading, handleChange, questionBody,categories}) => {
 return(
-           <form onSubmit={handleSubmit}>
-       <label >Overskrift: </label>
-          <input type="text" name="questionHeading" value={questionHeading} onChange={handleChange} />
-          <br/>
-          <label>Spørsmål: </label>
-          <textarea rows="10" cols="25" name="questionBody" value={questionBody} onChange={handleChange} />
-          <br/>
-         <label>Kategori: </label>
-         <select size="10" name="categoryId" onInput={handleChange}>{categories.map((c,key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}</select>
-        <input type="submit" value="Post" />
+  <div> 
+        <h2>Nytt spørsmål</h2>
+           <form onSubmit={handleSubmit} >
+
+             <label >Overskrift: </label>
+            <input size="50" type="text" name="questionHeading" value={questionHeading} onChange={handleChange} style={{marginBottom:"2em"}} />
+            <br/>
+
+             <label>Spørsmål: </label>
+             <textarea rows="20" cols="75" name="questionBody" value={questionBody} onChange={handleChange} style={{marginBottom:"2em", verticalAlign: "top"}} />
+             <br/>
+             <label>Kategori: </label>
+              <select size="1" name="categoryId" onClick={handleChange}>
+                <option value="-2">Velg kategori</option>
+              {categories.map((c, key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
+            </select>
+
+             <input type="submit" value="Post" />
       </form>
-);
+      </div>
+    );
 }

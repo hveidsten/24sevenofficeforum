@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 
 import {connect} from 'react-redux';
 import {createPost} from '../../Actions/postActions';
+import {fetchAllCategories} from '../../Actions/categoryActions';
 import { Redirect } from 'react-router';
 import {NewQuestionComponent} from './NewQuestionComponent';
 
 class NewQuestion extends Component{
+
+  componentDidMount(){
+    this.props.fetchAllCategories();
+  }
+
     constructor(props) {
         super(props);
         this.state = {questionHeading: '',
                      questionBody: '', 
-                     categoryId:this.props.activeCategory?this.props.activeCategory.id:1
+                     categoryId: -2
                     };
     
         this.handleChange = this.handleChange.bind(this);
@@ -18,14 +24,14 @@ class NewQuestion extends Component{
       }
     
       handleChange(event) {
-        
+         
         this.setState({[event.target.name]: event.target.value});
         
       }
 
       handleSubmit(event) {
          event.preventDefault();
-         
+
          const post = {
           header: this.state.questionHeading,
           body: this.state.questionBody,
@@ -33,12 +39,13 @@ class NewQuestion extends Component{
           upvote: 0
       }
 
+      this.state.categoryId ===-2? alert("Velg kategori") :
       this.props.createPost(post,"questions");
     
       }
 
-    render() {    
-               return(
+    render() {  
+              if(this.props.categories){ return(
                  <div className="newQuestionForm">
 
                   <NewQuestionComponent 
@@ -55,14 +62,15 @@ class NewQuestion extends Component{
 
       </div>
 
-              );
+              )}else {return(<h2>vent</h2>)}
           }        
 }
 
 const mapDispatchToProps = (dispatch) => {
   
   return {
-    createPost: (post,path) => dispatch(createPost(post,path))
+    createPost: (post,path) => dispatch(createPost(post,path)),
+    fetchAllCategories: () => dispatch(fetchAllCategories())
   };
 };
 
