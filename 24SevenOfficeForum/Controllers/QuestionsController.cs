@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -9,32 +10,31 @@ using _24SevenOfficeForum.Utility;
 namespace _24SevenOfficeForum.Controllers
 {
 	[Produces("application/json")]
-	[Route("api/Questions")]
+	[Route("api/[controller]")]
 
 	public class QuestionsController : Controller
 	{
 		private readonly _24hOfficeforumContext _context;
 
-		///<Summary>	
+		///<Summary>
 		///</Summary>
 		public QuestionsController(_24hOfficeforumContext context)
 		{
 			_context = context;
 		}
 
-
 		///<Summary>
-		/// Gets the Question, Sorts it and paging it 
+		/// Gets the Question, Sorts it and paging it
 		///</Summary>
 		// GET: api/Questions
 		[HttpGet]
+		//[Route("private-scoped")]
+		[Authorize("read:questions")]
 		public async Task<IEnumerable<Question>> Get(string searchString, int? page, string sortOrder, bool ascending)
 		{
 			var sort = _context.Question.AsQueryable();
 			if (sortOrder == null)
-			{
 				sortOrder = "created_desc";
-			}
 			if (ascending)
 			{
 				if (sortOrder == "header_asc") sort = sort.OrderBy(s => s.Header);
@@ -52,7 +52,7 @@ namespace _24SevenOfficeForum.Controllers
 			var questions = await _context.Question
 				.Skip(skipRows)
 				.Take(pageSize)
-				.Include(x => x.Answer).OrderBy(s => s.QuestionCreated).AsNoTracking().ToListAsync();
+				.OrderBy(s => s.QuestionCreated).AsNoTracking().ToListAsync();
 
 			//This releases the self reference between question and answer
 			Cleaner.CleanQuestions(questions);
@@ -77,7 +77,7 @@ namespace _24SevenOfficeForum.Controllers
 		[HttpGet("{catId}/{qId}")]
 		public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
 		{
-			var question = await _context.Question.Include(x => x.Answer)
+			var question = await _context.Question
 				.Where(x => x.CategoryId == catId && x.Id == qId).FirstOrDefaultAsync();
 
 			return question;
@@ -88,14 +88,10 @@ namespace _24SevenOfficeForum.Controllers
 		public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
 		{
 			if (!ModelState.IsValid)
-			{
 				return BadRequest(ModelState);
-			}
 
 			if (id != question.Id)
-			{
 				return BadRequest();
-			}
 
 			_context.Entry(question).State = EntityState.Modified;
 
@@ -106,13 +102,8 @@ namespace _24SevenOfficeForum.Controllers
 			catch (DbUpdateConcurrencyException)
 			{
 				if (!QuestionExists(id))
-				{
 					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
+				throw;
 			}
 
 			return NoContent();
@@ -124,32 +115,7 @@ namespace _24SevenOfficeForum.Controllers
 			_context.Question.Add(question);
 			_context.SaveChanges();
 
-
 			return Ok(question);
-
-			//if (!ModelState.IsValid)
-			//{
-			//    return BadRequest(ModelState);
-			//}
-			//
-			//_context.Question.Add(question);
-			//try
-			//{
-			//    await _context.SaveChangesAsync();
-			//}
-			//catch (DbUpdateException)
-			//{
-			//    if (QuestionExists(question.Id))
-			//    {
-			//        return new StatusCodeResult(StatusCodes.Status409Conflict);
-			//    }
-			//    else
-			//    {
-			//        throw;
-			//    }
-			//}
-			//
-			//return CreatedAtAction("GetQuestion", new { id = question.Id });
 		}
 
 		// DELETE: api/Questions/5
@@ -157,15 +123,11 @@ namespace _24SevenOfficeForum.Controllers
 		public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
 		{
 			if (!ModelState.IsValid)
-			{
 				return BadRequest(ModelState);
-			}
 
 			var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
 			if (question == null)
-			{
 				return NotFound();
-			}
 
 			_context.Question.Remove(question);
 			await _context.SaveChangesAsync();
@@ -180,19 +142,16 @@ namespace _24SevenOfficeForum.Controllers
 
 		// PATCH: api/Queistions/5
 		[HttpPatch("{id}")]
-		public async Task <IActionResult> PatchQuestion(int Id, [FromBody] PatchQuestion model)
+		public async Task<IActionResult> PatchQuestion(int Id, [FromBody] PatchQuestion model)
 		{
 			var question = await _context.Question.FirstOrDefaultAsync(e => e.Id == Id);
 			if (question == null)
 				return BadRequest("Kan ikke oppdatere spørsmålet");
-			else
-			{
-				if (model.Header != null) question.Header = model.Header;
+			if (model.Header != null) question.Header = model.Header;
 
-				if (model.Body != null) question.Body = model.Body;
+			if (model.Body != null) question.Body = model.Body;
 
-				await _context.SaveChangesAsync();
-			}
+			await _context.SaveChangesAsync();
 			return Ok();
 		}
 	}

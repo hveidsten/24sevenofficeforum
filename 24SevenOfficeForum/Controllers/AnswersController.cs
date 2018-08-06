@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -25,10 +24,8 @@ namespace _24SevenOfficeForum.Controllers
         {
 			var sort = _context.Answer.AsQueryable();
 			if (sortOrder == null)
-			{
 				sortOrder = "created_desc";
-			}
-			if (ascending)
+	        if (ascending)
 			{
 				if (sortOrder == "created_asc") sort = sort.OrderBy(x => x.AnswerCreated);
 				else if (sortOrder == "Id_asc") sort = sort.OrderBy(x => x.Id);
@@ -40,16 +37,14 @@ namespace _24SevenOfficeForum.Controllers
 			}
 
 			if (searchString != null)
-			{
 				page = 1;
-			}
 
-			if (page == null) page = 1;
+	        if (page == null) page = 1;
 			int pageSize = 10;
 			int skipRows = (page.Value - 1) * pageSize;
 			var answers = await _context.Answer
 				.Skip(skipRows)
-				.Take(pageSize)			
+				.Take(pageSize)
 				.AsNoTracking().ToListAsync();
 
 			return answers;
@@ -60,18 +55,14 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<IActionResult> GetAnswer([FromRoute] int id)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            var answer = await _context.Answer.SingleOrDefaultAsync(m => m.Id == id);
+	        var answer = await _context.Answer.SingleOrDefaultAsync(m => m.Id == id);
 
             if (answer == null)
-            {
-                return NotFound();
-            }
+	            return NotFound();
 
-            return Ok(answer);
+	        return Ok(answer);
         }
 
         // PUT: api/Answers/5
@@ -79,16 +70,12 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<IActionResult> PutAnswer([FromRoute] int id, [FromBody] Answer answer)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            if (id != answer.Id)
-            {
-                return BadRequest();
-            }
+	        if (id != answer.Id)
+		        return BadRequest();
 
-            _context.Entry(answer).State = EntityState.Modified;
+	        _context.Entry(answer).State = EntityState.Modified;
 
             try
             {
@@ -96,14 +83,9 @@ namespace _24SevenOfficeForum.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnswerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+	            if (!AnswerExists(id))
+	                return NotFound();
+	            throw;
             }
 
             return NoContent();
@@ -118,29 +100,6 @@ namespace _24SevenOfficeForum.Controllers
 
 			return Ok(answer);
 
-			//if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-			//
-            //_context.Answer.Add(answer);
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    if (AnswerExists(answer.Id))
-            //    {
-            //        return new StatusCodeResult(StatusCodes.Status409Conflict);
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-			//
-            //return CreatedAtAction("GetAnswer", new { id = answer.Id }, answer);
         }
 
         // DELETE: api/Answers/5
@@ -148,17 +107,13 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<IActionResult> DeleteAnswer([FromRoute] int id)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            var answer = await _context.Answer.SingleOrDefaultAsync(m => m.Id == id);
+	        var answer = await _context.Answer.SingleOrDefaultAsync(m => m.Id == id);
             if (answer == null)
-            {
-                return NotFound();
-            }
+	            return NotFound();
 
-            _context.Answer.Remove(answer);
+	        _context.Answer.Remove(answer);
             await _context.SaveChangesAsync();
 
             return Ok(answer);
@@ -171,17 +126,14 @@ namespace _24SevenOfficeForum.Controllers
 
 
 		[HttpPatch("{id}")]
-		public async Task<IActionResult> PatchAnswer(int Id, [FromBody] PatchAnswer model)
+		public async Task<IActionResult> PatchAnswer(int id, [FromBody] PatchAnswer model)
 		{
-			var answer = await _context.Answer.FirstOrDefaultAsync(x => x.Id == Id);
+			var answer = await _context.Answer.FirstOrDefaultAsync(x => x.Id == id);
 			if (answer == null)
 				return BadRequest("Kan ikke oppdatere svar");
-			else
-			{
-				if (model.Body != null) answer.Body = model.Body;
+			if (model.Body != null) answer.Body = model.Body;
 
-				await _context.SaveChangesAsync();
-			}
+			await _context.SaveChangesAsync();
 
 			return Ok();
 		}

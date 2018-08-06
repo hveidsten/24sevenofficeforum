@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,18 +34,14 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<IActionResult> GetCategory([FromRoute] int id)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            var category = await _context.Category.SingleOrDefaultAsync(m => m.Id == id);
+	        var category = await _context.Category.SingleOrDefaultAsync(m => m.Id == id);
 
             if (category == null)
-            {
-                return NotFound();
-            }
+	            return NotFound();
 
-            return Ok(category);
+	        return Ok(category);
         }
 
         // PUT: api/Categories/5
@@ -52,16 +49,12 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            if (id != category.Id)
-            {
-                return BadRequest();
-            }
+	        if (id != category.Id)
+	            return BadRequest();
 
-            _context.Entry(category).State = EntityState.Modified;
+	        _context.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -69,14 +62,9 @@ namespace _24SevenOfficeForum.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+	            if (!CategoryExists(id))
+		            return NotFound();
+	            throw;
             }
 
             return NoContent();
@@ -84,31 +72,21 @@ namespace _24SevenOfficeForum.Controllers
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<IActionResult> PostCategory([FromBody] Category category)
+        [Authorize]
+		public async Task<IActionResult> PostCategory([FromBody] Category category)
         {
-
-			//_context.Category.Add(category);
-			//_context.SaveChanges();
-			//return Ok(category);
 			if (!ModelState.IsValid)
-			{
-			    return BadRequest(ModelState);
-			}
-			_context.Category.Add(category);
+				return BadRequest(ModelState);
+	        _context.Category.Add(category);
 			try
 			{
 			    await _context.SaveChangesAsync();
 			}
 			catch (DbUpdateException)
 			{
-			    if (CategoryExists(category.Id))
-			    {
-			        return new StatusCodeResult(StatusCodes.Status409Conflict);
-			    }
-			    else
-			    {
-			        throw;
-			    }
+				if (CategoryExists(category.Id))
+					return new StatusCodeResult(StatusCodes.Status409Conflict);
+				throw;
 			}
 			return CreatedAtAction("GetCategory", new { id = category.Id }, category);
 		}
@@ -118,17 +96,13 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            var category = await _context.Category.SingleOrDefaultAsync(m => m.Id == id);
+	        var category = await _context.Category.SingleOrDefaultAsync(m => m.Id == id);
             if (category == null)
-            {
-                return NotFound();
-            }
+	            return NotFound();
 
-            _context.Category.Remove(category);
+	        _context.Category.Remove(category);
             await _context.SaveChangesAsync();
 
             return Ok(category);

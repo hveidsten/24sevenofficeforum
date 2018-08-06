@@ -8,7 +8,9 @@ namespace _24SevenOfficeForum.Models
     {
         public virtual DbSet<Answer> Answer { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<ForumUser> ForumUser { get; set; }
         public virtual DbSet<Question> Question { get; set; }
+        public virtual DbSet<Vote> Vote { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,7 +34,6 @@ namespace _24SevenOfficeForum.Models
                 entity.HasOne(d => d.Question)
                     .WithMany(p => p.Answer)
                     .HasForeignKey(d => d.QuestionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Answer_Question");
             });
 
@@ -45,6 +46,23 @@ namespace _24SevenOfficeForum.Models
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<ForumUser>(entity =>
+            {
+                entity.Property(e => e.Company).HasMaxLength(100);
+
+                entity.Property(e => e.Email).HasMaxLength(100);
+
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.LastName).HasMaxLength(100);
+
+                entity.Property(e => e.PasswordSalt).HasColumnType("binary(64)");
+
+                entity.Property(e => e.UserName).HasMaxLength(100);
+
+                entity.Property(e => e.UserRole).HasColumnType("nchar(50)");
             });
 
             modelBuilder.Entity<Question>(entity =>
@@ -64,6 +82,23 @@ namespace _24SevenOfficeForum.Models
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Question_Category");
+            });
+
+            modelBuilder.Entity<Vote>(entity =>
+            {
+                entity.HasKey(e => e.UserId);
+
+                entity.Property(e => e.UserId).ValueGeneratedNever();
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.VoteId).HasColumnName("VoteID");
+
+                entity.HasOne(d => d.IdNavigation)
+                    .WithMany(p => p.Vote)
+                    .HasForeignKey(d => d.Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Vote_Question");
             });
         }
     }
