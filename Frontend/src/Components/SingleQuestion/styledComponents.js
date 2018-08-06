@@ -20,5 +20,6 @@ height:38vh;
 background-color: #BDC8D3;
 color: black;
 text-align: center;
+z-index: 9999;
 `;
 

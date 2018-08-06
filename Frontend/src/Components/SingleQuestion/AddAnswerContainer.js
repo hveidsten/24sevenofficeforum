@@ -44,7 +44,7 @@ class AddAnswerContainer extends Component{
                  
                  <AddAnswerModal>
                    <h3>Nytt svar</h3>
-                 <form onSubmit={this.handleSubmit} >
+                 <form onSubmit={this.handleSubmit}>
        
                     <textarea rows="20" cols="75" autoFocus value={this.state.questionBody} onChange={this.handleChangeBody} />
                     <Button style={{float:"right"}} color="green" onClick={this.handleSubmit} >Send</Button>

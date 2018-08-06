@@ -22,6 +22,8 @@ class QuestionContainer extends Component{
         this.setState({
             showQuestionForm: !this.state.showQuestionForm
         });
+
+        this._showQuestionForm = this._showQuestionForm.bind(this);
       }
    
     componentDidMount(){
@@ -52,8 +54,8 @@ class QuestionContainer extends Component{
         
         else{
             return(
-                
              <div> 
+                {this.state.showQuestionForm&&<Modal onclick={this._showQuestionForm}/>}
                  <QuestionComponent 
                  user={this.props.user} 
                  question={this.props.post}  
@@ -75,7 +77,7 @@ class QuestionContainer extends Component{
            
             </div> )}
 
-             { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm} />) }
+             { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm.bind()} />) }
 
             </div>
                 
@@ -103,6 +105,25 @@ const mapStateToProps = state => (
       category: state.category.currentCategory
     }
 );
+
+
+const Modal = ({onclick}) => {
+    return(
+        <div style={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: '0px',
+        left: '0px',
+        zIndex: '9998',
+        background: 'rgba(0, 0, 0, 0.1)'
+        }}
+        onClick={onclick}
+       >
+        
+        </div>
+    );
+}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionContainer);
