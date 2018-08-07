@@ -17,15 +17,16 @@ class QuestionContainer extends Component{
         this.handleVote = this.handleVote.bind(this);
         this.deletePost = this.deletePost.bind(this);
         this.editPost = this.editPost.bind(this);
+        this.toggleQuestionform = this.toggleQuestionform.bind(this);
       }
 
-      toggleQuestionform = (a) => {
+      toggleQuestionform (a){
         this.setState({
             showQuestionForm: !this.state.showQuestionForm,
             answer: a
         });
 
-        this.toggleQuestionform = this.toggleQuestionform.bind(this);
+        
        
       }
    
