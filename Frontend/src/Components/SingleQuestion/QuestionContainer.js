@@ -13,7 +13,7 @@ import QuestionComponent from './QuestionComponent';
 class QuestionContainer extends Component{
     constructor() {
         super(); 
-        this.state = { showQuestionForm: false, Deleted:false, Edit:false }
+        this.state = { showQuestionForm: false, Deleted:false}
         this.handleVote = this.handleVote.bind(this);
         this.deletePost = this.deletePost.bind(this);
         this.editPost = this.editPost.bind(this);
@@ -49,8 +49,9 @@ class QuestionContainer extends Component{
 
  editPost(e){
      //Linja under er kun for å re-renders del.
-     this.props.post.hasBeenPosted=false;
-    this.setState({Edit:true});
+    // this.props.post.hasBeenPosted=false;
+   // this.setState({Edit:true});
+   this.props.history.push("../endre_sporsmal");
  }
  
 
@@ -58,11 +59,6 @@ class QuestionContainer extends Component{
         if(this.state.Deleted){return(
             <Redirect to={"../"+this.props.match.params.categoryid} />
         );}
-
-        if(this.state.Edit){return(
-            <Redirect to={"../endre_sporsmal"} />
-        );}
-
 
         if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
