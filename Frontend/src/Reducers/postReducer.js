@@ -29,7 +29,7 @@ export default function(state = initialState, action){
 
         case EDIT_POST: return {
             ...state,
-            activeQuestion: {...action.payload}
+            activeQuestion: {...action.payload, hasBeenPosted:true}
         }
 
         case DELETE_POST: return {

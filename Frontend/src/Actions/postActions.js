@@ -52,15 +52,14 @@ export const createAnswer = (postData,postUrl) => (dispatch) => {
     }));
 }
 
+
 export const editPost = (postData) => (dispatch) => {
-
-axios.put('http://localhost:62152/api/questions/'+postData.id,postData);
-dispatch({
+axios.put('http://localhost:62152/api/questions/'+postData.id,postData)
+.then(response => dispatch({
     type:EDIT_POST,
-    payload: postData
-});
+    payload: response.data
+}));
 }
-
 export const deletePost = (id) => (dispatch) => {
     axios.delete('http://localhost:62152/api/questions/'+id)
     .then(response => {

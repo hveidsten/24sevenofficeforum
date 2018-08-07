@@ -3,7 +3,7 @@ import QuestionVoteComponent from './QuestionVoteComponent';
 import {QuestionWrapper, PostSubtext, Button} from '../CommonStyledComponents';
 
 
- const QuestionComponent = ({user, question,handleVote, categoryId, deletePost}) => {
+ const QuestionComponent = ({user, question,handleVote, categoryId, deletePost, editPost}) => {
      return(
             <QuestionWrapper>
             <QuestionVoteComponent 
@@ -19,7 +19,7 @@ import {QuestionWrapper, PostSubtext, Button} from '../CommonStyledComponents';
             <p>{question.body}</p>
             <Button color="#f04b4b"
             onClick={ (e) => {if(window.confirm("Sikker på at du vil fjerne spørsmålet?")) {deletePost(e)}}}>Fjern spørsmål</Button>
-            <Button  color="#224477">Endre spørsmål</Button>
+            <Button onClick={editPost}  color="#224477">Endre spørsmål</Button>
            </div>
            
          </QuestionWrapper>);

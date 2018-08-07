@@ -13,9 +13,10 @@ import QuestionComponent from './QuestionComponent';
 class QuestionContainer extends Component{
     constructor() {
         super(); 
-        this.state = { showQuestionForm: false, Deleted:false }
+        this.state = { showQuestionForm: false, Deleted:false, Edit:false }
         this.handleVote = this.handleVote.bind(this);
         this.deletePost = this.deletePost.bind(this);
+        this.editPost = this.editPost.bind(this);
       }
 
       _showQuestionForm = (a) => {
@@ -25,6 +26,7 @@ class QuestionContainer extends Component{
         });
 
         this._showQuestionForm = this._showQuestionForm.bind(this);
+       
       }
    
     componentDidMount(){
@@ -45,12 +47,22 @@ class QuestionContainer extends Component{
     this.setState({Deleted:true});
  }
 
+ editPost(e){
+     //Linja under er kun for å re-renders del.
+     this.props.post.hasBeenPosted=false;
+    this.setState({Edit:true});
+ }
  
 
     render() { 
         if(this.state.Deleted){return(
             <Redirect to={"../"+this.props.match.params.categoryid} />
         );}
+
+        if(this.state.Edit){return(
+            <Redirect to={"../endre_sporsmal"} />
+        );}
+
 
         if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
@@ -63,7 +75,8 @@ class QuestionContainer extends Component{
                  question={this.props.post}  
                  handleVote = {this.handleVote}  
                  categoryId = {this.props.match.params.categoryid}
-                 deletePost = {this.deletePost}/>
+                 deletePost = {this.deletePost}
+                 editPost = {this.editPost}/>
        
 
          {this.props.post.answer.map((a, key) =>

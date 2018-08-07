@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {connect} from 'react-redux';
-import {createPost} from '../../Actions/postActions';
+import {createPost, editPost} from '../../Actions/postActions';
 import {fetchAllCategories} from '../../Actions/categoryActions';
 import { Redirect } from 'react-router';
 import {NewQuestionComponent} from './NewQuestionComponent';
@@ -14,9 +14,10 @@ class NewQuestion extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {questionHeading: '',
-                     questionBody: '', 
-                     categoryId: "nei"
+        const endre = this.props.match.path==="/endre_sporsmal"&& this.props.post;
+        this.state = {questionHeading: endre? this.props.post.header:"",
+                     questionBody: endre? this.props.post.body:"", 
+                     categoryId: endre? this.props.post.categoryId:999,
                     };
     
         this.handleChange = this.handleChange.bind(this);
@@ -26,7 +27,6 @@ class NewQuestion extends Component{
       handleChange(event) {
          
         this.setState({[event.target.name]: event.target.value});
-        console.log(this.state.categoryId);
         
       }
 
@@ -36,13 +36,20 @@ class NewQuestion extends Component{
          const post = {
           header: this.state.questionHeading,
           body: this.state.questionBody,
-          categoryId: this.state.categoryId,
-          upvote: 0
+          categoryId: this.state.categoryId
+      }
+      if(this.props.match.path==="/endre_sporsmal" && this.props.post && post.categoryId !==999)
+      { post.id = this.props.post.id;
+        post.upvote = this.props.post.upvote;
+        this.props.editPost(post);
+      }else if(post.categoryId ===999){
+        alert("Velg kategori");
+    
+      }else{
+        post.upvote = 0;
+        this.props.createPost(post,"questions");
       }
 
-      post.categoryId ==="nei"? alert("Velg kategori") :
-      this.props.createPost(post,"questions");
-    
       }
 
     render() {  
@@ -55,6 +62,7 @@ class NewQuestion extends Component{
                   handleChange = {this.handleChange}
                   questionBody = {this.state.questionBody}
                   categories = {this.props.categories}
+                  endre = {this.props.match.path==="/endre_sporsmal"&& this.props.post}
                   />
        
                 {/*Redirect om spørsmål er postet.*/}
@@ -71,7 +79,8 @@ const mapDispatchToProps = (dispatch) => {
   
   return {
     createPost: (post,path) => dispatch(createPost(post,path)),
-    fetchAllCategories: () => dispatch(fetchAllCategories())
+    fetchAllCategories: () => dispatch(fetchAllCategories()),
+    editPost: (post) => dispatch(editPost(post))
   };
 };
 
