@@ -62,6 +62,7 @@ class NewQuestion extends Component{
                   handleChange = {this.handleChange}
                   questionBody = {this.state.questionBody}
                   categories = {this.props.categories}
+                  categoryId = {this.state.categoryId}
                   endre = {this.props.match.path==="/endre_sporsmal"&& this.props.post}
                   />
        

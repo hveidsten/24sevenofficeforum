@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const NewQuestionComponent = ({handleSubmit, questionHeading, handleChange, questionBody,categories,endre}) => {
+export const NewQuestionComponent = ({handleSubmit, questionHeading, handleChange, questionBody,categories,categoryId,endre}) => {
 return(
   <div> 
         <h2>{endre? "Endre spørsmål":"Nytt spørsmål"}</h2>
@@ -16,7 +16,7 @@ return(
              <label>Kategori: </label>
               <select size="1" name="categoryId" onChange={handleChange}>
                 <option value="999">Velg kategori</option>
-              {categories.map((c, key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
+              {categories.map((c, key) => { return <option key= {key} value={c.id} selected={endre&&categoryId===c.id?"selected":""}>{c.categoryName}</option>})}
             </select>
 
              <input type="submit" value="Post" />
