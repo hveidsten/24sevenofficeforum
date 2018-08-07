@@ -17,7 +17,7 @@ class NewQuestion extends Component{
         const endre = this.props.match.path==="/endre_sporsmal"&& this.props.post;
         this.state = {questionHeading: endre? this.props.post.header:"",
                      questionBody: endre? this.props.post.body:"", 
-                     categoryId: endre? this.props.post.categoryId:999,
+                     categoryId: endre? this.props.post.categoryId:"nei"
                     };
     
         this.handleChange = this.handleChange.bind(this);
@@ -38,11 +38,11 @@ class NewQuestion extends Component{
           body: this.state.questionBody,
           categoryId: this.state.categoryId
       }
-      if(this.props.match.path==="/endre_sporsmal" && this.props.post && post.categoryId !==999)
+      if(this.props.match.path==="/endre_sporsmal" && this.props.post && post.categoryId !=="nei")
       { post.id = this.props.post.id;
         post.upvote = this.props.post.upvote;
         this.props.editPost(post);
-      }else if(post.categoryId ===999){
+      }else if(post.categoryId ==="nei"){
         alert("Velg kategori");
     
       }else{
