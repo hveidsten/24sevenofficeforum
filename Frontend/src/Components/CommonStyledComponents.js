@@ -18,6 +18,16 @@ margin: 1rem;
 overflow-wrap: break-word;
 `;
 
+export const AnswerWrapper = styled.section`
+display: flex;
+flex-direction: row;
+align-items: left;
+margin: 3rem 2rem 2rem 2rem;
+overflow-wrap: break-word;
+p{width:100%};
+border-top:solid 0.1px gray;
+`;
+
 export const PostSubtext = styled.span`
     font-size: 0.8em;
     color:#404040;

@@ -35,11 +35,16 @@ class QuestionContainer extends Component{
     }
 
 
- handleVote(up,id){
-     let vote = this.props.post;
-     if(up===1){vote.upvote++;}
-     else if(up===0){vote.upvote--;}
-     this.props.editPost(vote,id);    
+ handleVote(up, id, answer){
+     if(answer){
+         const vote = answer;
+         up===1 ? vote.upvote++ : vote.upvote--;
+         this.props.editAnswer(vote,id);  
+     }else{
+        let vote = this.props.post;
+        up===1 ? vote.upvote++ : vote.upvote--;
+        this.props.editPost(vote,id);   
+     }
  }   
  
  deletePost(e){
@@ -48,9 +53,6 @@ class QuestionContainer extends Component{
  }
 
  editPost(e){
-     //Linja under er kun for å re-renders del.
-    // this.props.post.hasBeenPosted=false;
-   // this.setState({Edit:true});
    this.props.history.push("../endre_sporsmal");
  }
  
@@ -73,7 +75,11 @@ class QuestionContainer extends Component{
                  categoryId = {this.props.match.params.categoryid}
                  deletePost = {this.deletePost}
                  editPost = {this.editPost}/>
-       
+
+                 <p>Sorter etter: <select>
+                   <option>Dato - nyeste først</option>
+                   <option>Dette virker uansett ikke ennå</option>
+                   </select></p>
 
          {this.props.post.answer.map((a, key) =>
           <AnswerComponent answer={a} 
