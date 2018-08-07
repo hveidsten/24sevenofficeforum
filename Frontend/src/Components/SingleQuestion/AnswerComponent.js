@@ -1,9 +1,8 @@
 import React from 'react';
 import {PostSubtext, AnswerWrapper} from '../CommonStyledComponents';
 import QuestionVoteComponent from './QuestionVoteComponent';
-import AddAnswerContainer from './AddAnswerContainer';
 
-const AnswerComponent = ({answer, deleteAnswer,editAnswer, handleVote, user, categoryId, _showQuestionForm}) => {
+const AnswerComponent = ({answer, deleteAnswer,editAnswer, handleVote, user, categoryId, toggleQuestionform}) => {
    return(
    <AnswerWrapper>
    <PostSubtext> Av Navn Navnesen  {answer.answerCreated? "den "+answer.answerCreated.substring(0,10):""}</PostSubtext>
@@ -19,7 +18,7 @@ const AnswerComponent = ({answer, deleteAnswer,editAnswer, handleVote, user, cat
   
   
    <a style={{marginRight:"1rem"}} onClick={() => deleteAnswer(answer.id)}>fjern </a><br/>
-   <a onClick={() => _showQuestionForm(answer)}>endre </a>
+   <a onClick={() => toggleQuestionform(answer)}>endre </a>
  
   </AnswerWrapper>
    );

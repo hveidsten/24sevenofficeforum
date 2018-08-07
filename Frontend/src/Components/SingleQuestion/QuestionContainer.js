@@ -19,13 +19,13 @@ class QuestionContainer extends Component{
         this.editPost = this.editPost.bind(this);
       }
 
-      _showQuestionForm = (a) => {
+      toggleQuestionform = (a) => {
         this.setState({
             showQuestionForm: !this.state.showQuestionForm,
             answer: a
         });
 
-        this._showQuestionForm = this._showQuestionForm.bind(this);
+        this.toggleQuestionform = this.toggleQuestionform.bind(this);
        
       }
    
@@ -67,7 +67,7 @@ class QuestionContainer extends Component{
         else{
             return(
              <div> 
-                {this.state.showQuestionForm&&<Modal onclick={this._showQuestionForm}/>}
+                {this.state.showQuestionForm&&<Modal onclick={this.toggleQuestionform}/>}
                  <QuestionComponent 
                  user={this.props.user} 
                  question={this.props.post}  
@@ -88,21 +88,21 @@ class QuestionContainer extends Component{
           handleVote = {this.handleVote}  
           user={this.props.user}  
           categoryId = {this.props.match.params.categoryid}
-          _showQuestionForm={this._showQuestionForm.bind(this, a)}
+          toggleQuestionform={() => this.toggleQuestionform(a)}
           key={key} />)}
          
           <br/>
 
            {this.props.user.isLoggedIn &&( <div>
                {this.state.showQuestionForm===false?
-                <Button color="#49bd39" onClick={this._showQuestionForm.bind()}>Nytt svar</Button>:
-                <Button color="#f04b4b" onClick={this._showQuestionForm.bind()}>Lukk</Button>
+                <Button color="#49bd39" onClick={ this.toggleQuestionform}>Nytt svar</Button>:
+                <Button color="#f04b4b" onClick={ this.toggleQuestionform}>Lukk</Button>
                }
          
            
             </div> )}
 
-             { this.state.showQuestionForm && (<AddAnswerContainer answer={this.state.answer}  hideForm={this._showQuestionForm.bind()} />) }
+             { this.state.showQuestionForm && (<AddAnswerContainer answer={this.state.answer}  hideForm={ this.toggleQuestionform} />) }
 
             </div>
                 
@@ -118,7 +118,7 @@ const mapDispatchToProps = (dispatch) => {
         editPost: (a) => dispatch(editPost(a)),
         deletePost: (a) => dispatch(deletePost(a)),
         deleteAnswer: (a) => dispatch(deleteAnswer(a)),
-        editAnswer: (a,body) => dispatch(editAnswer(a, body)),
+        editAnswer: (a) => dispatch(editAnswer(a)),
         fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a))
     };
   };
