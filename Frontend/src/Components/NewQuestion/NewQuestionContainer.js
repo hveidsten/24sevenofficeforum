@@ -16,7 +16,7 @@ class NewQuestion extends Component{
         super(props);
         this.state = {questionHeading: '',
                      questionBody: '', 
-                     categoryId: -2
+                     categoryId: "nei"
                     };
     
         this.handleChange = this.handleChange.bind(this);
@@ -26,6 +26,7 @@ class NewQuestion extends Component{
       handleChange(event) {
          
         this.setState({[event.target.name]: event.target.value});
+        console.log(this.state.categoryId);
         
       }
 
@@ -38,8 +39,9 @@ class NewQuestion extends Component{
           categoryId: this.state.categoryId,
           upvote: 0
       }
+      console.log(post);
 
-      this.state.categoryId ===-2? alert("Velg kategori") :
+      post.categoryId ==="nei"? alert("Velg kategori") :
       this.props.createPost(post,"questions");
     
       }

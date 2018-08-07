@@ -14,8 +14,8 @@ return(
              <textarea rows="20" cols="75" name="questionBody" value={questionBody} onChange={handleChange} style={{marginBottom:"2em", verticalAlign: "top"}} />
              <br/>
              <label>Kategori: </label>
-              <select size="1" name="categoryId" onClick={handleChange}>
-                <option value="-2">Velg kategori</option>
+              <select size="1" name="categoryId" onChange={handleChange}>
+                <option value="nei">Velg kategori</option>
               {categories.map((c, key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
             </select>
 
