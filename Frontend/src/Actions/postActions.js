@@ -54,7 +54,7 @@ export const createAnswer = (postData,postUrl) => (dispatch) => {
 
 export const editPost = (postData) => (dispatch) => {
 
-axios.put('http://localhost:62152/demo/'+postData.id,postData);
+axios.put('http://localhost:62152/api/questions/'+postData.id,postData);
 dispatch({
     type:EDIT_POST,
     payload: postData
@@ -81,13 +81,15 @@ export const deletePost = (id) => (dispatch) => {
     });
  }
 
- export const editAnswer = (id,body) => (dispatch) => {
-  //  axios.patch('http://localhost:62152/api/answers/'+id,
-  //  {body: body})
-  //  .then(response => {
-        dispatch({
+ export const editAnswer = (post) => (dispatch) => {
+    axios.put('http://localhost:62152/api/answers/'+post.id,
+    post)
+    .then(response => dispatch({
             type:EDIT_ANSWER,
-            payload: {id:id, body:body}
-        });
- //   });
+            payload: post
+        })
+    );
  }
+
+
+

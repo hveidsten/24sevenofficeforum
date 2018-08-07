@@ -18,9 +18,10 @@ class QuestionContainer extends Component{
         this.deletePost = this.deletePost.bind(this);
       }
 
-      _showQuestionForm = () => {
+      _showQuestionForm = (a) => {
         this.setState({
-            showQuestionForm: !this.state.showQuestionForm
+            showQuestionForm: !this.state.showQuestionForm,
+            answer: a
         });
 
         this._showQuestionForm = this._showQuestionForm.bind(this);
@@ -43,6 +44,7 @@ class QuestionContainer extends Component{
     this.props.deletePost(this.props.post.id);
     this.setState({Deleted:true});
  }
+
  
 
     render() { 
@@ -64,12 +66,20 @@ class QuestionContainer extends Component{
                  deletePost = {this.deletePost}/>
        
 
-         {this.props.post.answer.map((a, key) => <AnswerComponent answer={a} deleteAnswer={this.props.deleteAnswer} editAnswer={this.props.editAnswer} key={key} />)}
+         {this.props.post.answer.map((a, key) =>
+          <AnswerComponent answer={a} 
+          deleteAnswer={this.props.deleteAnswer} 
+          editAnswer={this.props.editAnswer} 
+          handleVote = {this.handleVote}  
+          user={this.props.user}  
+          categoryId = {this.props.match.params.categoryid}
+          _showQuestionForm={this._showQuestionForm.bind(this, a)}
+          key={key} />)}
          
           <br/>
 
            {this.props.user.isLoggedIn &&( <div>
-               {this.state.showQuestionForm==false?
+               {this.state.showQuestionForm===false?
                 <Button color="#49bd39" onClick={this._showQuestionForm.bind()}>Nytt svar</Button>:
                 <Button color="#f04b4b" onClick={this._showQuestionForm.bind()}>Lukk</Button>
                }
@@ -77,7 +87,7 @@ class QuestionContainer extends Component{
            
             </div> )}
 
-             { this.state.showQuestionForm && (<AddAnswerContainer hideForm={this._showQuestionForm.bind()} />) }
+             { this.state.showQuestionForm && (<AddAnswerContainer answer={this.state.answer}  hideForm={this._showQuestionForm.bind()} />) }
 
             </div>
                 

@@ -39,7 +39,6 @@ class NewQuestion extends Component{
           categoryId: this.state.categoryId,
           upvote: 0
       }
-      console.log(post);
 
       post.categoryId ==="nei"? alert("Velg kategori") :
       this.props.createPost(post,"questions");
