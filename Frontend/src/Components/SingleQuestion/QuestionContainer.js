@@ -48,9 +48,11 @@ class QuestionContainer extends Component{
      }
  }   
  
- deletePost(e){
+ deletePost(){
+    if(window.confirm("Sikker på at du vil fjerne spørsmålet?")) {
     this.props.deletePost(this.props.post.id);
     this.setState({Deleted:true});
+}
  }
 
  editPost(e){

@@ -25,6 +25,8 @@ align-items: left;
 margin: 3rem 2rem 2rem 2rem;
 overflow-wrap: break-word;
 p{width:100%};
+a{height:1rem; margin:0.2rem;}
+
 border-top:solid 0.1px gray;
 `;
 

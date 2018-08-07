@@ -19,7 +19,7 @@ return(
               {categories.map((c, key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
             </select>
 
-             <input type="submit" value="Post" />
+             <input type="submit" value={endre?"Lagre":"Post"} />
       </form>
       </div>
     );

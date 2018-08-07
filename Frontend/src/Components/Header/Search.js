@@ -11,6 +11,7 @@ class Search extends Component {
           }
 
         this.handleChange = this.handleChange.bind(this);
+        this.onClick = this.onClick.bind(this);
     }
 
 
@@ -18,6 +19,9 @@ class Search extends Component {
     this.setState({query: event.target.value});
   }
 
+  onClick(){
+   this.props.fetchPosts(`search?id=${this.state.query}`);
+  }
 
  render() {
    return (
@@ -27,7 +31,7 @@ class Search extends Component {
          value={this.state.query}
          onChange={this.handleChange}
        />
-       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={()=>this.props.fetchPosts(`search?id=${this.state.query}`)}>søk</button></Link>
+       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={this.onClick}>søk</button></Link>
       
      </form>
    )
