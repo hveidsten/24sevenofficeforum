@@ -37,7 +37,7 @@ namespace _24SevenOfficeForum
 				{
 					Version = "v1",
 					Title = "24sevenOfficeforum",
-					Description = "My First ASP.NET Core 2.0 Web API",
+					Description = "24SevenOfficeForumAPI",
 					TermsOfService = "None",
 					Contact = new Contact() { Name = "24sevenOffice", Email = "post@bademailprovider.com", Url = "https://24sevenoffice.com/no/" }
 				});
@@ -47,9 +47,9 @@ namespace _24SevenOfficeForum
 				c.IncludeXmlComments(xmlPath);
 			});
 
-			
+
 			string domain = $"https://{Configuration["Auth0:Domain"]}/";
-			// 1. Add Authentication Services
+			// add Authentication Services
 			services.AddAuthentication(options =>
 			{
 				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

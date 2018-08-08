@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace _24SevenOfficeForum.Models
 {
@@ -11,5 +12,6 @@ namespace _24SevenOfficeForum.Models
         public DateTime? AnswerCreated { get; set; }
 
         public Question Question { get; set; }
-    }
+	    public ICollection<Vote> Vote { get; set; }
+	}
 }

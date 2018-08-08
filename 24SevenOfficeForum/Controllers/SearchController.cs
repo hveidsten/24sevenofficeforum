@@ -19,15 +19,15 @@ namespace _24SevenOfficeForum.Controllers
 		//GET: api/Search
 		[HttpGet]
 		[Produces("application/json")]
-		public IQueryable<Question> GetSearch([FromQuery]string id, bool searchInAnswer, bool searchInCategory)
+		public IQueryable<Question> Search([FromQuery]string id, bool searchInAnswer, bool searchInCategory)
 		{
 			string searchString = id;
-			var search = from m in _context.Question.Include(z => z.Category).Include(z => z.Answer)
-				where m.Body.Contains(searchString) ||
-				      m.Header.Contains(searchString) ||
-				      searchInAnswer && m.Answer.Any(a => a.Body.Contains(searchString)) ||
-				      searchInCategory && m.Category.Description.Contains(searchString) || m.Category.CategoryName.Contains(searchString)
-				select m;
+			var search = from question in _context.Question.Include(q => q.Category).Include(q => q.Answer)
+				where question.Body.Contains(searchString) ||
+				      question.Header.Contains(searchString) ||
+				      searchInAnswer && question.Answer.Any(a => a.Body.Contains(searchString)) ||
+				      searchInCategory && question.Category.Description.Contains(searchString) || question.Category.CategoryName.Contains(searchString)
+				select question;
 			return search;
 		}
 	}

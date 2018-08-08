@@ -27,7 +27,7 @@ namespace _24SevenOfficeForum.Controllers
 	    public async Task<IEnumerable<Question>> Get()
 	    {
 		    var questions = await _context.Question.Include(x => x.Answer).ToListAsync();
-            
+
 		    foreach (var question in questions)
 		    {
 			    foreach (var answer in question.Answer)
@@ -60,7 +60,7 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
         {
             var question = await _context.Question.Where(q => q.Id == qId).Include(a => a.Answer).FirstOrDefaultAsync();
-            
+
             return question;
         }
 
@@ -68,16 +68,12 @@ namespace _24SevenOfficeForum.Controllers
         public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            if (id != question.Id)
-            {
-                return BadRequest();
-            }
+	        if (id != question.Id)
+	            return BadRequest();
 
-            _context.Entry(question).State = EntityState.Modified;
+	        _context.Entry(question).State = EntityState.Modified;
 
             try
             {
@@ -85,47 +81,37 @@ namespace _24SevenOfficeForum.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!QuestionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+	            if (!QuestionExists(id))
+		            return NotFound();
+	            throw;
             }
 
             return NoContent();
         }
 
-     
+
         [HttpPost]
         public async Task<IActionResult> PostQuestion([FromBody]Question question)
         {
             _context.Question.Add(question);
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
 
 
             return Ok(question);
         }
 
-     
-		
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
         {
             if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	            return BadRequest(ModelState);
 
-            var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
+	        var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
             if (question == null)
-            {
-                return NotFound();
-            }
+	            return NotFound();
 
-            _context.Question.Remove(question);
+	        _context.Question.Remove(question);
             await _context.SaveChangesAsync();
 
             return Ok(question);

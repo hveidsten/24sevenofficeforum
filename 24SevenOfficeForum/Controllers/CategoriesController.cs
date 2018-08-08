@@ -24,7 +24,7 @@ namespace _24SevenOfficeForum.Controllers
         // GET: api/Categories
         [HttpGet]
 		[EnableCors("AllowAll")]
-        public IEnumerable<Category> GetCategory()
+        public IEnumerable<Category> GetCategories()
         {
             return _context.Category;
         }

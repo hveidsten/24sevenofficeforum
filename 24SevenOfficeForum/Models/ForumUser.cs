@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace _24SevenOfficeForum.Models
 {
-    public partial class ForumUser
+    public class ForumUser
     {
         public long Id { get; set; }
         public Guid UserId { get; set; }
