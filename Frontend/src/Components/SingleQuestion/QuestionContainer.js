@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -69,8 +69,8 @@ class QuestionContainer extends Component{
         
         else{
             return(
-             <div> 
-                {this.state.showQuestionForm&&<Modal onclick={this.toggleQuestionform}/>}
+             <Fragment> 
+               
                  <QuestionComponent 
                  user={this.props.user} 
                  question={this.props.post}  
@@ -107,7 +107,7 @@ class QuestionContainer extends Component{
 
              { this.state.showQuestionForm && (<AddAnswerContainer answer={this.state.answer}  hideForm={ this.toggleQuestionform} />) }
 
-            </div>
+            </Fragment>
                 
               );
           }   
@@ -133,25 +133,6 @@ const mapStateToProps = state => (
       category: state.category.currentCategory
     }
 );
-
-
-const Modal = ({onclick}) => {
-    return(
-        <div style={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        top: '0px',
-        left: '0px',
-        zIndex: '9998',
-        background: 'rgba(0, 0, 0, 0.1)'
-        }}
-        onClick={onclick}
-       >
-        
-        </div>
-    );
-}
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuestionContainer);

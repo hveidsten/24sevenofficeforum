@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 export const NewQuestionComponent = ({handleSubmit, questionHeading, handleChange, questionBody,categories,categoryId,endre}) => {
 return(
-  <div> 
+  <Fragment>
         <h2>{endre? "Endre spørsmål":"Nytt spørsmål"}</h2>
            <form onSubmit={handleSubmit} >
 
@@ -18,9 +18,8 @@ return(
                 <option value="nei">Velg kategori</option>
               {categories.map((c, key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
             </select>
-
              <input type="submit" value={endre?"Lagre":"Post"} />
       </form>
-      </div>
+      </Fragment>
     );
 }

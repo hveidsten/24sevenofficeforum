@@ -9,11 +9,11 @@ class UserLoginHeader extends Component {
                 return(
                     <div className="userLoginHeader">
                 {this.props.user && this.props.user.isLoggedIn===true? 
-             <p>Hallo {this.props.user.userName}   <span onClick={() => this.props.userIsLoggedIn(0)}>-logg ut </span></p>:
+             <p>Hello {this.props.user.userName}   <span onClick={() => this.props.userIsLoggedIn(0)}>-log out </span></p>:
                <div>    
-                        <a onClick={() => this.props.userIsLoggedIn(1)}>Logg inn </a> 
+                        <a onClick={() => this.props.userIsLoggedIn(1)}>Sign in</a> 
                        eller
-                        <a> registrer deg</a>
+                        <a>Sign up</a>
                       
                         </div>
                          }
