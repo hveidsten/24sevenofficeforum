@@ -14,10 +14,10 @@ class NewQuestion extends Component{
 
     constructor(props) {
         super(props);
-        const endre = this.props.match.path==="/endre_sporsmal"&& this.props.post;
-        this.state = {questionHeading: endre? this.props.post.header:"",
-                     questionBody: endre? this.props.post.body:"", 
-                     categoryId: endre? this.props.post.categoryId:"nei"
+        const edit = this.props.match.path==="/edit_question"&& this.props.post;
+        this.state = {questionHeading: edit? this.props.post.header:"",
+                     questionBody: edit? this.props.post.body:"", 
+                     categoryId: edit? this.props.post.categoryId:"nei"
                     };
     
         this.handleChange = this.handleChange.bind(this);
@@ -38,12 +38,12 @@ class NewQuestion extends Component{
           body: this.state.questionBody,
           categoryId: this.state.categoryId
       }
-      if(this.props.match.path==="/endre_sporsmal" && this.props.post && post.categoryId !=="nei")
+      if(this.props.match.path==="/edit_question" && this.props.post && post.categoryId !=="nei")
       { post.id = this.props.post.id;
         post.upvote = this.props.post.upvote;
         this.props.editPost(post);
       }else if(post.categoryId ==="nei"){
-        alert("Velg kategori");
+        alert("Select category");
     
       }else{
         post.upvote = 0;
@@ -63,7 +63,7 @@ class NewQuestion extends Component{
                   questionBody = {this.state.questionBody}
                   categories = {this.props.categories}
                   categoryId = {this.state.categoryId}
-                  endre = {this.props.match.path==="/endre_sporsmal"&& this.props.post}
+                  edit = {this.props.match.path==="/edit_question"&& this.props.post}
                   />
        
                 {/*Redirect om spørsmål er postet.*/}

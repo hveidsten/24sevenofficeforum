@@ -15,7 +15,7 @@ class QuestionInList extends React.Component{
 
             <NavLink to={this.props.linkToQuestion} className="questionText">
             <h2 style={{marginBottom: 5}}>{this.props.question.header}</h2>
-            <PostSubtext> Av Navn Navnesen  {this.props.question.questionCreated? "den "+this.props.question.questionCreated.substring(0,10):""} {this.props.question.answer.length} svar</PostSubtext>
+            <PostSubtext> By Navn Navnesen  {this.props.question.questionCreated? "at "+this.props.question.questionCreated.substring(0,10):""} {this.props.question.answer.length} answers</PostSubtext>
             <p>{this.props.question.body}</p>
             </NavLink>
             

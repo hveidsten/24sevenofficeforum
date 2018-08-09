@@ -50,14 +50,14 @@ class AddAnswerContainer extends Component{
                 <Fragment>
                   <ModalBackground  onclick={this.props.hideForm}/>
                  <AddAnswerModal>
-                   <h3>{this.props.answer.id? "Endre svar":"Nytt svar"}</h3>
+                   <h3>{this.props.answer.id? "Edit answers":"New answer"}</h3>
                  <form onSubmit={this.handleSubmit}>
        
                     <textarea rows="20" cols="75" autoFocus value={this.state.questionBody} onChange={this.handleChangeBody} />
                     <Button style={{float:"right"}} color="#49bd39" onClick={this.handleSubmit}>
-                      {this.props.answer.id? "Lagre endringer":"Post"}
+                      {this.props.answer.id? "Save changes":"Post"}
                       </Button>
-                    <Button style={{float:"right"}} color="#f04b4b" onClick={this.props.hideForm}>Lukk</Button>
+                    <Button style={{float:"right"}} color="#f04b4b" onClick={this.props.hideForm}>Close</Button>
 
                 </form>
                 </AddAnswerModal>

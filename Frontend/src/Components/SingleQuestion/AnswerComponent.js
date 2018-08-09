@@ -5,7 +5,7 @@ import QuestionVoteComponent from './QuestionVoteComponent';
 const AnswerComponent = ({answer, deleteAnswer,editAnswer, handleVote, user, categoryId, toggleQuestionform}) => {
    return(
    <AnswerWrapper>
-   <PostSubtext> Av Navn Navnesen  {answer.answerCreated? "den "+answer.answerCreated.substring(0,10):""}</PostSubtext>
+   <PostSubtext> By Navn Navnesen  {answer.answerCreated? "at "+answer.answerCreated.substring(0,10):""}</PostSubtext>
   
    <QuestionVoteComponent 
             isLoggedIn = {user.isLoggedIn}
@@ -17,8 +17,8 @@ const AnswerComponent = ({answer, deleteAnswer,editAnswer, handleVote, user, cat
    <p>{answer.body}</p>
   
   
-   <a style={{marginRight:"1rem"}} onClick={() => deleteAnswer(answer.id)}>fjern </a><br/>
-   <a onClick={() => toggleQuestionform(answer)}>endre </a>
+   <a style={{marginRight:"1rem"}} onClick={() => deleteAnswer(answer.id)}>Delete </a><br/>
+   <a onClick={() => toggleQuestionform(answer)}>Edit </a>
  
   </AnswerWrapper>
    );

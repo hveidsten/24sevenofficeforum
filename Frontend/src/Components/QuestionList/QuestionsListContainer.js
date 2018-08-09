@@ -13,7 +13,7 @@ class QuestionsListContainer extends Component{
              this.props.fetchPosts(`search?id=${this.props.match.params.searchQuery}`);
           }else{
             this.props.fetchSingleCategory(this.props.activeCategory);
-            this.props.fetchPosts(`questions/${this.props.activeCategory}`);
+            this.props.fetchPosts(`questions/?categoryId=${this.props.activeCategory}`);
           }
     } 
 
@@ -23,8 +23,8 @@ class QuestionsListContainer extends Component{
       else{ return(
                <Fragment> 
                  <h2>{this.props.match.params.searchQuery? "Søkeresultater for "+this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
-                 <p>Sorter etter: <select>
-                   <option>Dato - nyeste først</option>
+                 <p>Sort by: <select>
+                   <option>Date - descending</option>
                    </select></p>
               {this.props.questions.map(
                     (c, key) => {
@@ -34,7 +34,7 @@ class QuestionsListContainer extends Component{
                    }
               )}
             
-                 {this.props.user.isLoggedIn?  <Link to='./nytt_sporsmal'> <Button color="#49bd39">Nytt spørsmål</Button></Link>:""}
+                 {this.props.user.isLoggedIn?  <Link to='./new_question'> <Button color="#49bd39">New question</Button></Link>:""}
                    
                   </Fragment>
             );
