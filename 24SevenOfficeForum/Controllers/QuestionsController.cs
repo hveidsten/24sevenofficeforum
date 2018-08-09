@@ -29,10 +29,10 @@ namespace _24SevenOfficeForum.Controllers
 		[HttpGet]
 		//[Route("private-scoped")]
 		//[Authorize("read:questions")]
-		public async Task<IEnumerable<Question>> GetQuestions(int? page, string sortOrder)
+		public async Task<IEnumerable<Question>> GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
-			var sort = _context.Question.AsQueryable();
-				if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
+			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).AsQueryable() : _context.Question.AsQueryable();
+			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
 				else if (sortOrder == "vote_asc") sort = sort.OrderBy(s => s.Upvote);
 				else if (sortOrder == "vote_desc") sort = sort.OrderByDescending(s => s.Upvote);
 				else  sort = sort.OrderByDescending(s => s.QuestionCreated);
@@ -57,7 +57,6 @@ namespace _24SevenOfficeForum.Controllers
 		{
 			var question = await _context.Question
 				.Where(x =>  x.Id == qId).FirstOrDefaultAsync();
-			//x.CategoryId == catId &&
 			return question;
 		}
 
@@ -124,7 +123,7 @@ namespace _24SevenOfficeForum.Controllers
 		{
 			var question = await _context.Question.FirstOrDefaultAsync(e => e.Id == id);
 			if (question == null)
-				return BadRequest("Kan ikke oppdatere spørsmålet");
+				return BadRequest("Could not update question");
 			if (model.Header != null) question.Header = model.Header;
 
 			if (model.Body != null) question.Body = model.Body;

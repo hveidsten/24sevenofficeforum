@@ -119,7 +119,7 @@ namespace _24SevenOfficeForum.Controllers
 		{
 			var answer = await _context.Answer.FirstOrDefaultAsync(x => x.Id == id);
 			if (answer == null)
-				return BadRequest("Kan ikke oppdatere svar");
+				return BadRequest("Could not update Answer");
 			if (model.Body != null) answer.Body = model.Body;
 
 			await _context.SaveChangesAsync();
