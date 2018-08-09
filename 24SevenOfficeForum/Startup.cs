@@ -30,7 +30,8 @@ namespace _24SevenOfficeForum
 				);
 			services.AddDbContext<_24hOfficeforumContext>();
 			services.AddMvc();
-			services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+			services.AddCors();
+			//services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new Info
@@ -87,7 +88,8 @@ namespace _24SevenOfficeForum
 			app.UseAuthentication();
 
 			app.UseMvc();
-			app.UseCors("AllowAll");
+			app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
+			//app.UseCors("AllowAll");
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
