@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -119,6 +120,7 @@ namespace _24SevenOfficeForum.Controllers
 
 		// PATCH: api/Queistions/5
 		[HttpPatch("{id}")]
+		//[EnableCors("AllowAll")]
 		public async Task<IActionResult> PatchQuestion(int id, [FromBody] PatchQuestion model)
 		{
 			var question = await _context.Question.FirstOrDefaultAsync(e => e.Id == id);
@@ -128,8 +130,10 @@ namespace _24SevenOfficeForum.Controllers
 
 			if (model.Body != null) question.Body = model.Body;
 
+			if (model.UpVote != 0) question.Upvote = model.UpVote;
+
 			await _context.SaveChangesAsync();
-			return Ok();
+			return Ok(question);
 		}
 	}
 }
