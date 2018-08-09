@@ -29,7 +29,7 @@ namespace _24SevenOfficeForum.Controllers
 		[HttpGet]
 		//[Route("private-scoped")]
 		//[Authorize("read:questions")]
-		public async Task<IEnumerable<Question>> GetQuestions(string searchString, int? page, string sortOrder)
+		public async Task<IEnumerable<Question>> GetQuestions(int? page, string sortOrder)
 		{
 			var sort = _context.Question.AsQueryable();
 				if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
@@ -43,7 +43,7 @@ namespace _24SevenOfficeForum.Controllers
 			var questions = await sort
 				.Skip(skipRows)
 				.Take(pageSize)
-				.OrderBy(s => s.QuestionCreated).AsNoTracking().ToListAsync();
+				.AsNoTracking().ToListAsync();
 
 			//This releases the self reference between question and answer
 			Cleaner.CleanQuestions(questions);
