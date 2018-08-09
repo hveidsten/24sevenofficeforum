@@ -27,11 +27,11 @@ class Search extends Component {
    return (
      <form className="search">
        <input
-         placeholder="Søk: "
+         placeholder="Search: "
          value={this.state.query}
          onChange={this.handleChange}
        />
-       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={this.onClick}>søk</button></Link>
+       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={this.onClick}>Search</button></Link>
       
      </form>
    )
