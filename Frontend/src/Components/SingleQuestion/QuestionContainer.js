@@ -56,7 +56,7 @@ class QuestionContainer extends Component{
  }
 
  editPost(e){
-   this.props.history.push("../endre_sporsmal");
+   this.props.history.push("../edit_question");
  }
  
 
@@ -79,9 +79,8 @@ class QuestionContainer extends Component{
                  deletePost = {this.deletePost}
                  editPost = {this.editPost}/>
 
-                 <p>Sorter etter: <select>
-                   <option>Dato - nyeste først</option>
-                   <option>Dette virker uansett ikke ennå</option>
+                 <p>Sort by: <select>
+                   <option>Date - descending</option>
                    </select></p>
 
          {this.props.post.answer.map((a, key) =>
@@ -98,8 +97,8 @@ class QuestionContainer extends Component{
 
            {this.props.user.isLoggedIn &&( <div>
                {this.state.showQuestionForm===false?
-                <Button color="#49bd39" onClick={ this.toggleQuestionform}>Nytt svar</Button>:
-                <Button color="#f04b4b" onClick={ this.toggleQuestionform}>Lukk</Button>
+                <Button color="#49bd39" onClick={ this.toggleQuestionform}>New answer</Button>:
+                <Button color="#f04b4b" onClick={ this.toggleQuestionform}>Close</Button>
                }
          
            

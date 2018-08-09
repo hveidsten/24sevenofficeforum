@@ -44,8 +44,8 @@ componentDidMount(){
 
 <Route exact path="/sok/:kat/:searchQuery"  component={QuestionsListContainer}/>
 <Route exact path="/:categoryid/:questionid" component={QuestionContainer}/>
-<Route exact path="/nytt_sporsmal" component={NewQuestionContainer} />
-<Route exact path="/endre_sporsmal" component={NewQuestionContainer} />
+<Route exact path="/new_question" component={NewQuestionContainer} />
+<Route exact path="/edit_question" component={NewQuestionContainer} />
 
 </Switch>
 </div>
