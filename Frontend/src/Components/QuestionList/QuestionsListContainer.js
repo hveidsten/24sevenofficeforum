@@ -13,7 +13,7 @@ class QuestionsListContainer extends Component{
              this.props.fetchPosts(`search?id=${this.props.match.params.searchQuery}`);
           }else{
             this.props.fetchSingleCategory(this.props.activeCategory);
-            this.props.fetchPosts(`questions/?categoryId=${this.props.activeCategory}`);
+            this.props.fetchPosts(`questions/?categoryId=${this.props.activeCategory}&sortOrder=vote_asc`);
           }
     } 
 
@@ -33,9 +33,7 @@ class QuestionsListContainer extends Component{
                     )
                    }
               )}
-            
                  {this.props.user.isLoggedIn?  <Link to='./new_question'> <Button color="#49bd39">New question</Button></Link>:""}
-                   
                   </Fragment>
             );
           }

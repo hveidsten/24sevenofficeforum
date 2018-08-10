@@ -1,9 +1,10 @@
 import React from 'react';
 import QuestionVoteComponent from './QuestionVoteComponent';
 import {QuestionWrapper, PostSubtext, Button} from '../CommonStyledComponents';
+import {withRouter} from 'react-router-dom';
 
 
- const QuestionComponent = ({user, question,handleVote, categoryId, deletePost, editPost}) => {
+ const QuestionComponent = ({user, question,handleVote, categoryId, deletePost, editPostRedirect}) => {
      return(
             <QuestionWrapper>
             <QuestionVoteComponent 
@@ -19,7 +20,7 @@ import {QuestionWrapper, PostSubtext, Button} from '../CommonStyledComponents';
             <p>{question.body}</p>
             <Button color="#f04b4b"
             onClick={deletePost}>Delete question</Button>
-            <Button onClick={editPost}  color="#224477">Edit question</Button>
+            <Button onClick={editPostRedirect}  color="#224477">Edit question</Button>
            </div>
            
          </QuestionWrapper>);
@@ -27,4 +28,4 @@ import {QuestionWrapper, PostSubtext, Button} from '../CommonStyledComponents';
 
       
 }
-export default QuestionComponent;
+export default withRouter(QuestionComponent);

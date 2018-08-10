@@ -11,12 +11,12 @@ import QuestionComponent from './QuestionComponent';
 
 
 class QuestionContainer extends Component{
-    constructor() {
-        super(); 
-        this.state = { showQuestionForm: false, Deleted:false}
+    constructor(props) {
+        super(props); 
+        this.state = { showQuestionForm: false, Deleted:false, edit:false }
         this.handleVote = this.handleVote.bind(this);
         this.deletePost = this.deletePost.bind(this);
-        this.editPost = this.editPost.bind(this);
+        this.editPostRedirect = this.editPostRedirect.bind(this);
         this.toggleQuestionform = this.toggleQuestionform.bind(this);
       }
 
@@ -40,11 +40,11 @@ class QuestionContainer extends Component{
      if(answer){
          const vote = answer;
          up===1 ? vote.upvote++ : vote.upvote--;
-         this.props.editAnswer(vote,id);  
+         this.props.editAnswer(vote);  
      }else{
         let vote = this.props.post;
         up===1 ? vote.upvote++ : vote.upvote--;
-        this.props.editPost(vote,id);   
+        this.props.editPost(vote);   
      }
  }   
  
@@ -55,29 +55,33 @@ class QuestionContainer extends Component{
 }
  }
 
- editPost(e){
-   this.props.history.push("../edit_question");
+ editPostRedirect(){
+   this.props.post.hasBeenPosted = false;
+ //   this.setState({edit:true});
+ this.props.history.push("../edit_question");
  }
  
 
     render() { 
+    
         if(this.state.Deleted){return(
             <Redirect to={"../"+this.props.match.params.categoryid} />
         );}
+
 
         if(this.props.post === undefined){ return <h2>Vent</h2>;}
         
         else{
             return(
              <Fragment> 
-               
+             {this.state.edit && <Redirect to="../edit_question" />}
                  <QuestionComponent 
                  user={this.props.user} 
                  question={this.props.post}  
                  handleVote = {this.handleVote}  
                  categoryId = {this.props.match.params.categoryid}
                  deletePost = {this.deletePost}
-                 editPost = {this.editPost}/>
+                 editPostRedirect = {this.editPostRedirect}/>
 
                  <p>Sort by: <select>
                    <option>Date - descending</option>
