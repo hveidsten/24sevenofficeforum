@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {fetchPosts} from '../../Actions/postActions';
+import {fetch} from '../../Actions/postActions';
 import {connect} from 'react-redux';
 import {Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ class Search extends Component {
   }
 
   onClick(){
-   this.props.fetchPosts(`search?id=${this.state.query}`);
+   this.props.fetch(`search?id=${this.state.query}`, "FETCH_POSTS");
   }
 
  render() {
@@ -40,4 +40,4 @@ class Search extends Component {
 
 
 
-export default connect(null, {fetchPosts})(Search);
+export default connect(null, {fetch})(Search);

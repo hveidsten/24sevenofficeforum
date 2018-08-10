@@ -13,13 +13,6 @@ export const FETCH_ANSWERS = "FETCH_ANSWERS";
 
 
 
-export const fetchPosts = (ApiPath) => (dispatch) => {
-          axios.get(`http://localhost:62152/api/${ApiPath}`)
-         .then(response => dispatch({
-        type: FETCH_POSTS,
-        payload: response.data
-    }))
-}
 
 export const fetchPost = (id) => { return (dispatch) => {
 return(
@@ -92,6 +85,7 @@ export const deletePost = (id) => (dispatch) => {
  }
 
  export const fetch = (ApiPath,type) => (dispatch) => {
+     console.log(`http://localhost:62152/api/${ApiPath}`);
     axios.get(`http://localhost:62152/api/${ApiPath}`)
    .then(response => dispatch({
   type: type,

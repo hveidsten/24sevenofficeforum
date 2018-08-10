@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {HomeComponent} from './HomeComponent';
 import {connect} from 'react-redux';
-import {fetchPosts} from '../../Actions/postActions';
+import {fetch} from '../../Actions/postActions';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 
 class Home extends Component {
 
     componentDidMount(){
-        this.props.fetchPosts("questions");
+        this.props.fetch("questions", "FETCH_POSTS");
         this.props.fetchSingleCategory(-1);
     }
 
@@ -27,4 +27,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps,{fetchPosts, fetchSingleCategory})(Home);
+export default connect(mapStateToProps,{fetch, fetchSingleCategory})(Home);

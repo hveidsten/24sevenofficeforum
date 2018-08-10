@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {connect} from 'react-redux';
-import {fetchPosts} from '../../Actions/postActions';
+import {fetch} from '../../Actions/postActions';
 import {Link} from 'react-router-dom';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 import  QuestionInList from './QuestionInList';
@@ -14,14 +14,14 @@ class QuestionsListContainer extends Component{
 
      componentDidMount(){
           if(this.props.match.params.searchQuery){
-             this.props.fetchPosts(`search?id=${this.props.match.params.searchQuery}`);
+             this.props.fetch(`search?id=${this.props.match.params.searchQuery}`, "FETCH_POSTS");
           }else{
             this.props.fetchSingleCategory(this.props.activeCategory);
-            this.props.fetchPosts(`questions/?categoryId=${this.props.activeCategory}`);
+            this.props.fetch(`questions/?categoryId=${this.props.activeCategory}`, "FETCH_POSTS");
           }
     } 
 onchange(e){
-this.props.fetchPosts(`questions/?categoryId=${this.props.activeCategory}&sortOrder=${e.target.value}`);
+this.props.fetch(`questions/?categoryId=${this.props.activeCategory}&sortOrder=${e.target.value}`, "FETCH_POSTS");
 
 }
 
@@ -60,4 +60,4 @@ const mapStateToProps = state => ({
             user:state.user
 });
 
-export default connect(mapStateToProps, {fetchPosts, fetchSingleCategory})(QuestionsListContainer);
+export default connect(mapStateToProps, {fetch, fetchSingleCategory})(QuestionsListContainer);

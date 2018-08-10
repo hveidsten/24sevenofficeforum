@@ -29,7 +29,7 @@ class QuestionContainer extends Component{
       }
    
     componentDidMount(){
-        this.props.fetchPost(this.props.match.params.questionid).then(e => 
+        this.props.fetchPost(`${this.props.match.params.questionid}`).then(e => 
             this.props.fetchSingleCategory(e.payload.categoryId) | 
             this.props.fetch(`answers/?questionId=${e.payload.id}`, "FETCH_ANSWERS")
         );
