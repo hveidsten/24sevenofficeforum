@@ -9,6 +9,7 @@ export const DELETE_POST = "DELETE_POST";
 export const NEW_ANSWER = "NEW_ANSWER";
 export const DELETE_ANSWER = "DELETE_ANSWER";
 export const EDIT_ANSWER = "EDIT_ANSWER";
+export const FETCH_ANSWERS = "FETCH_ANSWERS";
 
 
 
@@ -22,7 +23,7 @@ export const fetchPosts = (ApiPath) => (dispatch) => {
 
 export const fetchPost = (id) => { return (dispatch) => {
 return(
-    axios.get(`http://localhost:62152/demo/${id}`)
+    axios.get(`http://localhost:62152/api/questions/${id}`)
    .then(response => dispatch({
   type: FETCH_POST,
   payload: response.data
@@ -89,6 +90,14 @@ export const deletePost = (id) => (dispatch) => {
         })
     );
  }
+
+ export const fetch = (ApiPath,type) => (dispatch) => {
+    axios.get(`http://localhost:62152/api/${ApiPath}`)
+   .then(response => dispatch({
+  type: type,
+  payload: response.data
+}))
+}
 
 
 

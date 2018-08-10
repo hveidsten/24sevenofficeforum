@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import {connect} from 'react-redux';
 import AddAnswerContainer from './AddAnswerContainer';
 import AnswerComponent from './AnswerComponent';
-import {editPost, deletePost, deleteAnswer,editAnswer,fetchPost} from '../../Actions/postActions';
+import {editPost, deletePost, deleteAnswer,editAnswer,fetchPost, fetch, FETCH_ANSWERS} from '../../Actions/postActions';
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 import {Button} from '../CommonStyledComponents';
 import QuestionComponent from './QuestionComponent';
@@ -25,14 +25,14 @@ class QuestionContainer extends Component{
             showQuestionForm: !this.state.showQuestionForm,
             answer: a
         });
-
-        
        
       }
    
     componentDidMount(){
         this.props.fetchPost(this.props.match.params.questionid).then(e => 
-            this.props.fetchSingleCategory(e.payload.categoryId));
+            this.props.fetchSingleCategory(e.payload.categoryId) | 
+            this.props.fetch(`answers/?questionId=${e.payload.id}`, "FETCH_ANSWERS")
+        );
     }
 
 
@@ -49,11 +49,17 @@ class QuestionContainer extends Component{
  }   
  
  deletePost(){
-    if(window.confirm("Sikker på at du vil fjerne spørsmålet?")) {
+    if(window.confirm("Are you sure you want to delete this question?")) {
     this.props.deletePost(this.props.post.id);
     this.setState({Deleted:true});
-}
+    }
  }
+
+ onchange(e){
+    this.props.fetch(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`, FETCH_ANSWERS);
+    console.log(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`, FETCH_ANSWERS);
+    
+    }
 
  editPostRedirect(){
    this.props.post.hasBeenPosted = false;
@@ -83,8 +89,11 @@ class QuestionContainer extends Component{
                  deletePost = {this.deletePost}
                  editPostRedirect = {this.editPostRedirect}/>
 
-                 <p>Sort by: <select>
-                   <option>Date - descending</option>
+                  <p>Sort by: <select onChange={(e) => this.onchange(e)}>
+                   <option value="">Date - descending</option>
+                   <option value="created_asc">Date - ascending</option>
+                   <option value="Vote_desc">Votes - descending</option>
+                   <option value="Vote_asc">Votes - ascending</option>
                    </select></p>
 
          {this.props.post.answer.map((a, key) =>
@@ -125,7 +134,8 @@ const mapDispatchToProps = (dispatch) => {
         deletePost: (a) => dispatch(deletePost(a)),
         deleteAnswer: (a) => dispatch(deleteAnswer(a)),
         editAnswer: (a) => dispatch(editAnswer(a)),
-        fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a))
+        fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a)),
+        fetch: (path, type) => dispatch(fetch(path, type))
     };
   };
 

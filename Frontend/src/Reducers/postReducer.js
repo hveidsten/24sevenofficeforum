@@ -1,4 +1,4 @@
-import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER,DELETE_ANSWER,EDIT_ANSWER} from '../Actions/postActions'
+import {FETCH_POSTS,FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST,NEW_ANSWER,DELETE_ANSWER,EDIT_ANSWER, FETCH_ANSWERS} from '../Actions/postActions'
 const initialState = {
     
 }
@@ -17,6 +17,12 @@ export default function(state = initialState, action){
             activeQuestion: {...action.payload, hasBeenPosted:false}
         }
         
+        case FETCH_ANSWERS: 
+        return {
+            ...state,
+            activeQuestion: {...state.activeQuestion, answer: [...action.payload]}
+        }
+
         case NEW_POST: return {
             ...state,
             activeQuestion: {...action.payload, hasBeenPosted:true}
