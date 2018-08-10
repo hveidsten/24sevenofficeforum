@@ -20,9 +20,10 @@ namespace _24SevenOfficeForum.Controllers
 
 		// GET: api/Answers
 		[HttpGet]
-		public async Task<IEnumerable<Answer>> GetAnswers(int? page, string sortOrder)
+		public async Task<IEnumerable<Answer>> GetAnswers(int? page, string sortOrder, int questionId)
 		{
-			var sort = _context.Answer.AsQueryable();
+
+			var sort = questionId != 0 ? _context.Answer.Where(q => q.QuestionId == questionId).AsQueryable() : _context.Answer.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(x => x.AnswerCreated);
 			else if (sortOrder == "Vote_asc") sort = sort.OrderBy(x => x.Upvote);
 			else if (sortOrder == "Vote_desc") sort = sort.OrderByDescending(x => x.Upvote);
