@@ -65,10 +65,12 @@ class QuestionContainer extends Component{
 
 
     changePage(newPage){
+        if(newPage>0){
         this.setState({
           pageNumber:newPage
         });
-        this.props.fetch(`answers/?questionId=${this.props.post.id}&page=${newPage}`, "FETCH_ANSWERS")
+        this.props.fetch(`answers/?questionId=${this.props.post.id}&page=${newPage}`, "FETCH_ANSWERS");
+    }
       }
 
       

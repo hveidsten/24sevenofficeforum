@@ -35,11 +35,12 @@ this.props.fetch(`questions/?categoryId=${this.props.activeCategory}&sortOrder=$
 }
 
 changePage(newPage){
+  if(newPage>0){
   this.setState({
     pageNumber:newPage
   });
   this.fetchPosts(newPage);
-  
+}
 }
 
 
