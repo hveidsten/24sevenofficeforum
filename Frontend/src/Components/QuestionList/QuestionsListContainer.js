@@ -40,14 +40,21 @@ changePage(newPage){
     pageNumber:newPage
   });
   this.fetchPosts(newPage);
+  this.scrollToTop(); 
 }
+}
+
+scrollToTop = () => {
+  this.scrollToPoint.scrollIntoView();
 }
 
 
     render() {
         if(!this.props.questions || !this.props.categories){return <h2>Vent</h2>;}
       else{ return(
-              <Fragment >
+              <Fragment  >
+              <span  ref={(el) => { this.scrollToPoint = el; }} />
+
                  <h2>{this.props.match.params.searchQuery? "Søkeresultater for "+this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
                  <p>Sort by: <select onChange={(e) => this.onchange(e)}>
                    <option value="">Date - descending</option>
@@ -55,6 +62,9 @@ changePage(newPage){
                    <option value="vote_desc">Votes - descending</option>
                    <option value="vote_asc">Votes - ascending</option>
                    </select></p>
+
+              
+
               {this.props.questions.map(
                     (c, key) => {
                         return (
@@ -67,7 +77,7 @@ changePage(newPage){
                   </Fragment>
             );
           }
-         
+          
         }
 }
 

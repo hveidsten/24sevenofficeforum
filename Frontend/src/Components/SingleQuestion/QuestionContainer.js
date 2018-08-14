@@ -70,8 +70,14 @@ class QuestionContainer extends Component{
           pageNumber:newPage
         });
         this.props.fetch(`answers/?questionId=${this.props.post.id}&page=${newPage}`, "FETCH_ANSWERS");
+        this.scrollToTop();
     }
       }
+
+      scrollToTop = () => {
+        this.scrollToPoint.scrollIntoView();
+      }
+      
 
       
  editPostRedirect(){
@@ -93,6 +99,9 @@ class QuestionContainer extends Component{
         else{
             return(
              <Fragment> 
+                 
+             <span  ref={(el) => { this.scrollToPoint = el; }} />
+
              {this.state.edit && <Redirect to="../edit_question" />}
                  <QuestionComponent 
                  user={this.props.user} 
@@ -108,6 +117,8 @@ class QuestionContainer extends Component{
                    <option value="Vote_desc">Votes - descending</option>
                    <option value="Vote_asc">Votes - ascending</option>
                    </select></p>
+
+                
 
          {this.props.post.answer.map((a, key) =>
           <AnswerComponent answer={a} 
