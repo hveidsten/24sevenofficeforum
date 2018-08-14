@@ -11,3 +11,4 @@ export const HomeComponent = ({posts, categories, userIsloggedIn, userName}) => 
      
     );
 }
+

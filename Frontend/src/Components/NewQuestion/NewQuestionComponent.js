@@ -15,7 +15,7 @@ return(
              <br/>
              <label>Category: </label>
               <select size="1" name="categoryId" onChange={handleChange} value={categoryId}>
-                <option value="nei">Select category</option>
+                <option value="none">Select category</option>
               {categories.map((c, key) => { return <option key= {key} value={c.id}>{c.categoryName}</option>})}
             </select>
              <input type="submit" value={edit?"Lagre":"Post"} />

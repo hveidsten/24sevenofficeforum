@@ -17,7 +17,7 @@ class NewQuestion extends Component{
         const edit = this.props.match.path==="/edit_question"&& this.props.post;
         this.state = {questionHeading: edit? this.props.post.header:"",
                      questionBody: edit? this.props.post.body:"", 
-                     categoryId: edit? this.props.post.categoryId:"nei"
+                     categoryId: edit? this.props.post.categoryId:"none"
                     };
     
         this.handleChange = this.handleChange.bind(this);
@@ -38,11 +38,11 @@ class NewQuestion extends Component{
           body: this.state.questionBody,
           categoryId: this.state.categoryId
       }
-      if(this.props.match.path==="/edit_question" && this.props.post && post.categoryId !=="nei")
+      if(this.props.match.path==="/edit_question" && this.props.post && post.categoryId !=="none")
       { post.id = this.props.post.id;
         post.upvote = this.props.post.upvote;
         this.props.editPost(post);
-      }else if(post.categoryId ==="nei"){
+      }else if(post.categoryId ==="none"){
         alert("Select category");
     
       }else{
@@ -55,7 +55,6 @@ class NewQuestion extends Component{
     render() {  
               if(this.props.categories){ return(
                  <div className="newQuestionForm">
-
                   <NewQuestionComponent 
                   handleSubmit={this.handleSubmit}
                   questionHeading = {this.state.questionHeading}
@@ -66,7 +65,6 @@ class NewQuestion extends Component{
                   edit = {this.props.match.path==="/edit_question"&& this.props.post}
                   />
        
-                {/*Redirect om spørsmål er postet.*/}
       {this.props.post && this.props.post.hasBeenPosted && 
       <Redirect to={this.props.categories.find(c => c.id===this.props.post.categoryId).categoryName.replace(' ','_')+"/"+this.props.post.id} />}
 

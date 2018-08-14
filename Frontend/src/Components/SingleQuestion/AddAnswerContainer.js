@@ -45,7 +45,6 @@ class AddAnswerContainer extends Component{
 
 
     render() {
-      console.log(this.props);
                return(
                 <Fragment>
                   <ModalBackground  onclick={this.props.hideForm}/>

@@ -8,22 +8,26 @@ import {editPost, deletePost, deleteAnswer,editAnswer,fetchPost, fetch, FETCH_AN
 import {fetchSingleCategory} from '../../Actions/categoryActions';
 import {Button} from '../CommonStyledComponents';
 import QuestionComponent from './QuestionComponent';
-
+import PageChanger from '../QuestionList/PageChanger';
 
 class QuestionContainer extends Component{
     constructor(props) {
         super(props); 
-        this.state = { showQuestionForm: false, Deleted:false, edit:false }
+        this.state = { showQuestionForm: false,
+             Deleted:false, 
+             edit:false, 
+             pageNumber: 1 }
         this.handleVote = this.handleVote.bind(this);
         this.deletePost = this.deletePost.bind(this);
         this.editPostRedirect = this.editPostRedirect.bind(this);
         this.toggleQuestionform = this.toggleQuestionform.bind(this);
+        this.changePage =  this.changePage.bind(this);
       }
 
       toggleQuestionform (a){
         this.setState({
             showQuestionForm: !this.state.showQuestionForm,
-            answer: a
+            answer: a,
         });
        
       }
@@ -57,10 +61,17 @@ class QuestionContainer extends Component{
 
  onchange(e){
     this.props.fetch(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`, FETCH_ANSWERS);
-    console.log(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`, FETCH_ANSWERS);
-    
     }
 
+
+    changePage(newPage){
+        this.setState({
+          pageNumber:newPage
+        });
+        this.props.fetch(`answers/?questionId=${this.props.post.id}&page=${newPage}`, "FETCH_ANSWERS")
+      }
+
+      
  editPostRedirect(){
    this.props.post.hasBeenPosted = false;
  //   this.setState({edit:true});
@@ -113,10 +124,8 @@ class QuestionContainer extends Component{
                 <Button color="#49bd39" onClick={ this.toggleQuestionform}>New answer</Button>:
                 <Button color="#f04b4b" onClick={ this.toggleQuestionform}>Close</Button>
                }
-         
-           
             </div> )}
-
+            <PageChanger  onclick={(a) => this.changePage(a)} pageNumber = {this.state.pageNumber}/>
              { this.state.showQuestionForm && (<AddAnswerContainer answer={this.state.answer}  hideForm={ this.toggleQuestionform} />) }
 
             </Fragment>

@@ -85,7 +85,6 @@ export const deletePost = (id) => (dispatch) => {
  }
 
  export const fetch = (ApiPath,type) => (dispatch) => {
-     console.log(`http://localhost:62152/api/${ApiPath}`);
     axios.get(`http://localhost:62152/api/${ApiPath}`)
    .then(response => dispatch({
   type: type,

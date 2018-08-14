@@ -11,9 +11,9 @@ class UserLoginHeader extends Component {
                 {this.props.user && this.props.user.isLoggedIn===true? 
              <p>Hello {this.props.user.userName}   <span onClick={() => this.props.userIsLoggedIn(0)}>-log out </span></p>:
                <div>    
-                        <a onClick={() => this.props.userIsLoggedIn(1)}>Sign in</a> 
-                       eller
-                        <a>Sign up</a>
+                        <a onClick={() => this.props.userIsLoggedIn(1)}>Sign in </a> 
+                       or
+                        <a> Sign up</a>
                       
                         </div>
                          }
