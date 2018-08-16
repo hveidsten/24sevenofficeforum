@@ -15,6 +15,7 @@ class AddAnswer extends Component {
 
     this.handleChangeBody = this.handleChangeBody.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   _showAnswerForm = () => {
@@ -43,6 +44,13 @@ class AddAnswer extends Component {
     this.props.hideForm();
   }
 
+  handleKeyPress(e){
+   
+    e.key==='Enter'?
+    this.handleSubmit(e):
+    null;
+  }
+
 
   render() {
     return (
@@ -52,7 +60,12 @@ class AddAnswer extends Component {
           <h3>{this.props.answer.id ? "Edit answers" : "New answer"}</h3>
           <form onSubmit={this.handleSubmit}>
 
-            <textarea rows="20" cols="75" autoFocus value={this.state.questionBody} onChange={this.handleChangeBody} />
+            <textarea rows="20" cols="75" autoFocus 
+            value={this.state.questionBody} 
+            onChange={this.handleChangeBody}
+            onKeyPress={this.handleKeyPress} 
+             />
+
             <Button style={{ float: "right" }} color="#49bd39" onClick={this.handleSubmit}>
               {this.props.answer.id ? "Save changes" : "Post"}
             </Button>
