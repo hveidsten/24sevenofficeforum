@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -28,10 +28,16 @@ namespace _24SevenOfficeForum.Controllers
 		///</Summary>
 		// GET: api/Questions
 		[HttpGet]
-		//[Route("private-scoped")]
 		//[Authorize("read:questions")]
 		public async Task<IEnumerable<Question>> GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
+			//var claimsIdentity = User.Identity as ClaimsIdentity;
+			//
+			//var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+			//Name = claimsIdentity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+			//EmailAddress = claimsIdentity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+			//Picture = claimsIdentity?.Claims.FirstOrDefault(c => c.Type == "picture")?.Value;
+
 			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).AsQueryable() : _context.Question.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
 				else if (sortOrder == "vote_asc") sort = sort.OrderBy(s => s.Upvote);
@@ -62,6 +68,7 @@ namespace _24SevenOfficeForum.Controllers
 		}
 
 		// PUT: api/Questions/5
+		//[Authorize(Policy = "admin")]
 		[HttpPut("{id}")]
 		public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
 		{
@@ -97,6 +104,7 @@ namespace _24SevenOfficeForum.Controllers
 		}
 
 		// DELETE: api/Questions/5
+		//[Authorize(Policy = "admin")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
 		{
@@ -120,9 +128,9 @@ namespace _24SevenOfficeForum.Controllers
 
 		// PATCH: api/Queistions/5
 		[HttpPatch("{id}")]
-		//[EnableCors("AllowAll")]
 		public async Task<IActionResult> PatchQuestion(int id, [FromBody] PatchQuestion model)
 		{
+
 			var question = await _context.Question.FirstOrDefaultAsync(e => e.Id == id);
 			if (question == null)
 				return BadRequest("Could not update question");
@@ -131,6 +139,8 @@ namespace _24SevenOfficeForum.Controllers
 			if (model.Body != null) question.Body = model.Body;
 
 			if (model.UpVote != 0) question.Upvote = model.UpVote;
+
+			if (model.CategoryId != 0) question.CategoryId = model.CategoryId;
 
 			await _context.SaveChangesAsync();
 			return Ok(question);

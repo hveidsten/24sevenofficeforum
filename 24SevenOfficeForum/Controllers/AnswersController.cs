@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -25,8 +27,8 @@ namespace _24SevenOfficeForum.Controllers
 
 			var sort = questionId != 0 ? _context.Answer.Where(q => q.QuestionId == questionId).AsQueryable() : _context.Answer.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(x => x.AnswerCreated);
-			else if (sortOrder == "Vote_asc") sort = sort.OrderBy(x => x.Upvote);
-			else if (sortOrder == "Vote_desc") sort = sort.OrderByDescending(x => x.Upvote);
+			else if (sortOrder == "vote_asc") sort = sort.OrderBy(x => x.Upvote);
+			else if (sortOrder == "vote_desc") sort = sort.OrderByDescending(x => x.Upvote);
 			else sort = sort.OrderByDescending(x => x.AnswerCreated);
 
 			if (page == null) page = 1;
@@ -42,6 +44,7 @@ namespace _24SevenOfficeForum.Controllers
 
 		// GET: api/Answers/5
 		[HttpGet("{id}")]
+
 		public async Task<IActionResult> GetAnswer([FromRoute] int id)
 		{
 			if (!ModelState.IsValid) // Overflødig?
@@ -83,17 +86,21 @@ namespace _24SevenOfficeForum.Controllers
 
 		// POST: api/Answers
 		[HttpPost]
-		public async Task<IActionResult> PostAnswer([FromBody] Answer answer)
+		public async Task<IActionResult> PostAnswer([FromBody] Answer answerIn)
 		{
-			_context.Answer.Add(answer);
+			_context.Answer.Add(answerIn);
+			_context.Question.Where(Q => Q.Id == answerIn.QuestionId).FirstOrDefault().Header += " Dette virker";
+
+			//_context.Question.Where(Q => Q.Id == answer.QuestionId).AnswerCount + 1;
 			await _context.SaveChangesAsync();
 
-			return Ok(answer);
+			return Ok(answerIn);
 
 		}
 
 		// DELETE: api/Answers/5
 		[HttpDelete("{id}")]
+		[EnableCors("Delete")]
 		public async Task<IActionResult> DeleteAnswer([FromRoute] int id)
 		{
 			if (!ModelState.IsValid)
@@ -123,9 +130,11 @@ namespace _24SevenOfficeForum.Controllers
 				return BadRequest("Could not update Answer");
 			if (model.Body != null) answer.Body = model.Body;
 
+			if (model.UpVote != 0) answer.Upvote = model.UpVote;
+
 			await _context.SaveChangesAsync();
 
-			return Ok();
+			return Ok(answer);
 		}
 	}
 }
