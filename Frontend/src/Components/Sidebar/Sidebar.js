@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {fetchAllCategories} from '../../Actions/categoryActions';
+import { connect } from 'react-redux';
+import { fetchAllCategories } from '../../Actions/categoryActions';
 import SidebarComponent from './SidebarComponent';
 
 
 class Sidebar extends Component {
 
   render() {
-  
-       return (
+
+    return (
       <div className="Sidebar">
         {this.props.categories && <SidebarComponent categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />}
       </div>
 
     );
-   
   }
 }
 
 const mapStateToProps = state => {
- return ({categories: state.category.allCategories,
-  currentCategoryId: state.category.currentCategory? state.category.currentCategory.id : 0
-});
+  return ({
+    categories: state.category.allCategories,
+    currentCategoryId: state.category.currentCategory ? state.category.currentCategory.id : 0
+  });
 }
 
-export default connect(mapStateToProps,{fetchAllCategories},null)(Sidebar);
+export default connect(mapStateToProps, { fetchAllCategories }, null)(Sidebar);

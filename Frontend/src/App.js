@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import './App.css';
 
 import { Header } from './Components/Header/Header';
-import Home from './Components/Home/HomeContainer';
+import Home from './Components/Home/Home';
 import Sidebar from './Components/Sidebar/Sidebar';
-import NewQuestionContainer from './Components/NewQuestion/NewQuestionContainer';
+import NewQuestion from './Components/NewQuestion/NewQuestion';
 
-import QuestionsList from './Components/QuestionList/QuestionsList';
+import QuestionList from './Components/QuestionList/QuestionList';
 import SingleQuestion from './Components/SingleQuestion/SingleQuestion'
 
 import { fetchAllCategories, fetchSingleCategory } from './Actions/categoryActions';
@@ -24,7 +24,6 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-
         <div className="App">
           <Header />
           <Sidebar />
@@ -35,15 +34,14 @@ class App extends Component {
               {this.props.categories && this.props.categories.map(
                 (c, key) => {
                   return <Route key={key} exact path={"/" + c.categoryName.replace(' ', '_')}
-                    render={(props) => <QuestionsList activeCategory={c.id}  {...props} />} />
+                    render={(props) => <QuestionList activeCategory={c.id}  {...props} />} />
                 }
               )
               }
-
-              <Route exact path="/sok/:kat/:searchQuery" component={QuestionsList} />
+              <Route exact path="/sok/:kat/:searchQuery" component={QuestionList} />
               <Route exact path="/:categoryid/:questionid" component={SingleQuestion} />
-              <Route exact path="/new_question" component={NewQuestionContainer} />
-              <Route exact path="/edit_question" component={NewQuestionContainer} />
+              <Route exact path="/new_question" component={NewQuestion} />
+              <Route exact path="/edit_question" component={NewQuestion} />
 
             </Switch>
           </div>

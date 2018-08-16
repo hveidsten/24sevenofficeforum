@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AddAnswerContainer from './AddAnswerContainer';
+import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
 import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
@@ -138,7 +138,7 @@ class SingleQuestion extends Component {
                         }
                     </div>)}
                     <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
-                    {this.state.showQuestionForm && (<AddAnswerContainer answer={this.state.answer} hideForm={this.toggleQuestionform} />)}
+                    {this.state.showQuestionForm && (<AddAnswer answer={this.state.answer} hideForm={this.toggleQuestionform} />)}
 
                 </Fragment>
 
