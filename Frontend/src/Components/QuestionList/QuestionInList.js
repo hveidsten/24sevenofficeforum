@@ -27,6 +27,6 @@ class QuestionInList extends React.Component{
 
 const mapStateToProps = (state) => ({
     post: state.posts.allQuestionsInCategory[0]
-})
+});
 
 export default connect(mapStateToProps)(QuestionInList);

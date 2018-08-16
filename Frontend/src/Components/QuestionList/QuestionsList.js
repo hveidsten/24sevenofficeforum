@@ -61,7 +61,7 @@ class QuestionsList extends Component {
         <Fragment  >
           <span ref={(el) => { this.scrollToPoint = el; }} />
 
-          <h2>{this.props.match.params.searchQuery ? "Søkeresultater for " + this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
+          <h2>{this.props.match.params.searchQuery ? "Results for " + this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
 
           <p>Sort by: <select onChange={(e) => this.onchange(e)}>
             <option value="">Date - descending</option>

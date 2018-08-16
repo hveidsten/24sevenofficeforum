@@ -1,43 +1,43 @@
 import React, { Component } from 'react';
-import {fetch} from '../../Actions/postActions';
-import {connect} from 'react-redux';
-import {Link } from 'react-router-dom';
+import { fetch } from '../../Actions/postActions';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Search extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            query: ''
-          }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.onClick = this.onClick.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: ''
     }
 
-
- handleChange(event) {
-    this.setState({query: event.target.value});
+    this.handleChange = this.handleChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-  onClick(){
-   this.props.fetch(`search?id=${this.state.query}`, "FETCH_POSTS");
+
+  handleChange(event) {
+    this.setState({ query: event.target.value });
   }
 
- render() {
-   return (
-     <form className="search">
-       <input
-         placeholder="Search: "
-         value={this.state.query}
-         onChange={this.handleChange}
-       />
-       <Link to={`../../sok/alt/${this.state.query}`}><button onClick={this.onClick}>Search</button></Link>
-      
-     </form>
-   )
- }
+  onClick() {
+    this.props.fetch(`search?id=${this.state.query}`, "FETCH_POSTS");
+  }
+
+  render() {
+    return (
+      <form className="search">
+        <input
+          placeholder="Search: "
+          value={this.state.query}
+          onChange={this.handleChange}
+        />
+        <Link to={`../../sok/alt/${this.state.query}`}><button onClick={this.onClick}>Search</button></Link>
+
+      </form>
+    )
+  }
 }
 
 
 
-export default connect(null, {fetch})(Search);
+export default connect(null, { fetch })(Search);
