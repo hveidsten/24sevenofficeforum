@@ -4,14 +4,13 @@ import {fetchAllCategories} from '../../Actions/categoryActions';
 import SidebarComponent from './SidebarComponent';
 
 
-class SidebarContainer extends Component {
+class Sidebar extends Component {
 
   render() {
   
        return (
       <div className="Sidebar">
         {this.props.categories && <SidebarComponent categories={this.props.categories} currentCategoryId={this.props.currentCategoryId} />}
-        
       </div>
 
     );
@@ -25,4 +24,4 @@ const mapStateToProps = state => {
 });
 }
 
-export default connect(mapStateToProps,{fetchAllCategories},null)(SidebarContainer);
+export default connect(mapStateToProps,{fetchAllCategories},null)(Sidebar);

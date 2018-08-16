@@ -5,11 +5,11 @@ import './App.css';
 
 import {Header} from './Components/Header/Header';
 import Home from './Components/Home/HomeContainer';
-import SidebarContainer from './Components/Sidebar/SidebarContainer';
+import Sidebar from './Components/Sidebar/Sidebar';
 import NewQuestionContainer from './Components/NewQuestion/NewQuestionContainer';
 
-import QuestionsListContainer from './Components/QuestionList/QuestionsListContainer';
-import QuestionContainer from './Components/SingleQuestion/QuestionContainer';
+import QuestionsList from './Components/QuestionList/QuestionsList';
+import SingleQuestion from './Components/SingleQuestion/SingleQuestion'
 
 import {fetchAllCategories, fetchSingleCategory} from './Actions/categoryActions';
 
@@ -22,13 +22,12 @@ componentDidMount(){
 
 
   render() {
-
     return (
       <BrowserRouter>
-   
+      
       <div className="App">
         <Header />
-        <SidebarContainer />
+        <Sidebar />
         <div className="Content" >
         <Switch>
         <Route exact path="/" component={Home}/>
@@ -36,13 +35,13 @@ componentDidMount(){
 {this.props.categories && this.props.categories.map(
   (c, key) => {
     return <Route key={key} exact path={"/"+c.categoryName.replace(' ','_')} 
-    render={(props) => <QuestionsListContainer activeCategory={c.id}  {...props} />}/>
+    render={(props) => <QuestionsList activeCategory={c.id}  {...props} />}/>
     }
   )
 }
 
-<Route exact path="/sok/:kat/:searchQuery"  component={QuestionsListContainer}/>
-<Route exact path="/:categoryid/:questionid" component={QuestionContainer}/>
+<Route exact path="/sok/:kat/:searchQuery"  component={QuestionsList}/>
+<Route exact path="/:categoryid/:questionid" component={SingleQuestion}/>
 <Route exact path="/new_question" component={NewQuestionContainer} />
 <Route exact path="/edit_question" component={NewQuestionContainer} />
 
