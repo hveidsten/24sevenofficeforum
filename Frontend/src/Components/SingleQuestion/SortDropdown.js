@@ -5,8 +5,8 @@ const SortDropdown = ({ onchange }) => {
         <p>Sort by: <select onChange={(e) => onchange(e)}>
             <option value="">Date - descending</option>
             <option value="created_asc">Date - ascending</option>
-            <option value="Vote_desc">Votes - descending</option>
-            <option value="Vote_asc">Votes - ascending</option>
+            <option value="vote_desc">Votes - descending</option>
+            <option value="vote_asc">Votes - ascending</option>
         </select></p>
     );
 }

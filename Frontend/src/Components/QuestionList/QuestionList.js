@@ -33,7 +33,6 @@ class QuestionsList extends Component {
 
   onchange(e) {
     this.props.fetch(`questions/?categoryId=${this.props.activeCategory}&sortOrder=${e.target.value}`, "FETCH_POSTS");
-    console.log(`questions/?categoryId=${this.props.activeCategory}&sortOrder=${e.target.value}`);
     this.setState({
       pageNumber: 1
     });
@@ -63,12 +62,9 @@ class QuestionsList extends Component {
 
           <h2>{this.props.match.params.searchQuery ? "Results for " + this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
 
-          <p>Sort by: <select onChange={(e) => this.onchange(e)}>
-            <option value="">Date - descending</option>
-            <option value="created_asc">Date - ascending</option>
-            <option value="vote_desc">Votes - descending</option>
-            <option value="vote_asc">Votes - ascending</option>
-          </select></p>
+        
+
+            <SortDropdown onchange={(e) => this.onchange(e)} />
 
 
 

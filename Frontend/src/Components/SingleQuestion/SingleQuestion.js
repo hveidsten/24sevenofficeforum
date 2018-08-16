@@ -20,6 +20,7 @@ class SingleQuestion extends Component {
             edit: false,
             pageNumber: 1
         }
+
         this.handleVote = this.handleVote.bind(this);
         this.deletePost = this.deletePost.bind(this);
         this.editPostRedirect = this.editPostRedirect.bind(this);
@@ -85,10 +86,8 @@ class SingleQuestion extends Component {
     }
 
 
-
     editPostRedirect() {
         this.props.post.hasBeenPosted = false;
-        //   this.setState({edit:true});
         this.props.history.push("../edit_question");
     }
 

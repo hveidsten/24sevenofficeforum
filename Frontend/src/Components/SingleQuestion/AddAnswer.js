@@ -45,12 +45,9 @@ class AddAnswer extends Component {
   }
 
   handleKeyPress(e){
-   
-    e.key==='Enter'?
-    this.handleSubmit(e):
-    null;
+    e.key==='Enter' &&
+    this.handleSubmit(e);
   }
-
 
   render() {
     return (
