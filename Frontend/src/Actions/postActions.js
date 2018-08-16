@@ -44,7 +44,7 @@ export const createAnswer = (postData, postUrl) => (dispatch) => {
 
 
 export const editPost = (postData) => (dispatch) => {
-    axios.patch('http://localhost:62152/api/questions/' + postData.id, postData)
+    axios.put('http://localhost:62152/api/questions/' + postData.id, postData)
         .then(response => dispatch({
             type: EDIT_POST,
             payload: response.data
@@ -72,7 +72,7 @@ export const deleteAnswer = (id) => (dispatch) => {
 }
 
 export const editAnswer = (post) => (dispatch) => {
-    axios.patch('http://localhost:62152/api/answers/' + post.id,
+    axios.put('http://localhost:62152/api/answers/' + post.id,
         post)
         .then(response => dispatch({
             type: EDIT_ANSWER,
