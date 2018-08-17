@@ -7,9 +7,9 @@ import { Header } from './Components/Header/Header';
 import Home from './Components/Home/Home';
 import Sidebar from './Components/Sidebar/Sidebar';
 import NewQuestion from './Components/NewQuestion/NewQuestion';
-
 import QuestionList from './Components/QuestionList/QuestionList';
-import SingleQuestion from './Components/SingleQuestion/SingleQuestion'
+import SingleQuestion from './Components/SingleQuestion/SingleQuestion';
+import User from './Components/User/User';
 
 import { fetchAllCategories, fetchSingleCategory } from './Actions/categoryActions';
 
@@ -38,10 +38,12 @@ class App extends Component {
                 }
               )
               }
+              <Route exact path="/user/:userId" component={User} />
               <Route exact path="/sok/:kat/:searchQuery" component={QuestionList} />
               <Route exact path="/:categoryid/:questionid" component={SingleQuestion} />
               <Route exact path="/new_question" component={NewQuestion} />
               <Route exact path="/edit_question" component={NewQuestion} />
+              
 
             </Switch>
           </div>

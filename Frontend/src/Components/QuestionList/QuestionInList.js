@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { QuestionWrapper, PostSubtext } from '../CommonStyledComponents';
 
 
-class QuestionInList extends React.Component {
+class QuestionInList extends Component {
 
     render() {
         return (

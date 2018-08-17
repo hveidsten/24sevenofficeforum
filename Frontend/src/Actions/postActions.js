@@ -88,10 +88,11 @@ export const fetch = (ApiPath, type) => (dispatch) => {
         }));
 }
 
-export const fetchAnswer = (ApiPath, type) => (dispatch) => {
+export const fetchAnswers = (ApiPath) => (dispatch) => {
     axios.get(`http://localhost:62152/api/${ApiPath}`)
         .then(response => dispatch({
-            type: type,
+            type: FETCH_ANSWERS,
             payload: response.data
         }));
 }
+

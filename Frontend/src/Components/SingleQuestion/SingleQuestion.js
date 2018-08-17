@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS } from '../../Actions/postActions';
+import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS,fetchAnswers } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import { Button } from '../CommonStyledComponents';
 import QuestionComponent from './QuestionComponent';
@@ -39,7 +39,7 @@ class SingleQuestion extends Component {
     componentDidMount() {
         this.props.fetchPost(`${this.props.match.params.questionid}`).then(e =>
             this.props.fetchSingleCategory(e.payload.categoryId) |
-            this.props.fetch(`answers/?questionId=${e.payload.id}`, "FETCH_ANSWERS")
+            this.props.fetchAnswers(`answers/?questionId=${e.payload.id}`, "FETCH_ANSWERS")
         );
     }
 
@@ -155,7 +155,8 @@ const mapDispatchToProps = (dispatch) => {
         deleteAnswer: (a) => dispatch(deleteAnswer(a)),
         editAnswer: (a) => dispatch(editAnswer(a)),
         fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a)),
-        fetch: (path, type) => dispatch(fetch(path, type))
+        fetch: (path, type) => dispatch(fetch(path, type)),
+        fetchAnswers: (id) => dispatch(fetchAnswers(id))
     };
 };
 
