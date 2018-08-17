@@ -1,18 +1,42 @@
 import React, {Component, Fragment} from 'react';
 import UserEdit from './UserEdit';
 import UserComponent from './UserComponent';
+import {connect} from 'react-redux';
+import {userIsLoggedIn} from '../../Actions/userActions';
 
 class User extends Component{
 
+    componentWillMount()  {
+        this.props.userIsLoggedIn();
+    }
+    
+
     render(){
-        const editable = false;
+        if(this.props.user){
         return(
             <Fragment>
-                {editable? <UserEdit /> : <UserComponent />}
-
+                {parseInt(this.props.match.params.userId)===this.props.user.userId?
+                 <UserEdit /> : <UserComponent />}
             </Fragment>
         );
+    }else{
+        return <h2>vent</h2>
+    }
     }
 }
 
-export default User;
+const mapStateToProps = state => (
+    {
+        user: state.user
+    }
+);
+
+const mapDispatchToProps = (dispatch) => {
+
+    return {
+        userIsLoggedIn: () => dispatch(userIsLoggedIn())
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);
