@@ -91,7 +91,7 @@ namespace _24SevenOfficeForum.Controllers
 		{
 			var setdate = model;
 
-			DateTime localdate = DateTime.Now;
+			DateTime localdate = Convert.ToDateTime(DateTime.Now.ToString("f"));
 			setdate.AnswerCreated = localdate;
 			if (model != null)
 			{
