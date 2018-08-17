@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
@@ -86,16 +87,23 @@ namespace _24SevenOfficeForum.Controllers
 
 		// POST: api/Answers
 		[HttpPost]
-		public async Task<IActionResult> PostAnswer([FromBody] Answer answerIn)
+		public async Task<IActionResult> PostAnswer([FromBody] Answer model)
 		{
-			_context.Answer.Add(answerIn);
-			_context.Question.Where(Q => Q.Id == answerIn.QuestionId).FirstOrDefault().Header += " Dette virker";
+			var setdate = model;
 
-			//_context.Question.Where(Q => Q.Id == answer.QuestionId).AnswerCount + 1;
-			await _context.SaveChangesAsync();
+			DateTime localdate = DateTime.Now;
+			setdate.AnswerCreated = localdate;
+			if (model != null)
+			{
+				_context.Answer.Add(model);
+				_context.Question.Where(Q => Q.Id == model.QuestionId).FirstOrDefault().Header += 0;
 
-			return Ok(answerIn);
+				//_context.Question.Where(Q => Q.Id == answer.QuestionId).AnswerCount + 1;
+				await _context.SaveChangesAsync();
 
+				return Ok(model);
+			}
+			return BadRequest();
 		}
 
 		// DELETE: api/Answers/5

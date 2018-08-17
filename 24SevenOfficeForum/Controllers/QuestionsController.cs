@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -31,13 +31,6 @@ namespace _24SevenOfficeForum.Controllers
 		//[Authorize("read:questions")]
 		public async Task<IEnumerable<Question>> GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
-			//var claimsIdentity = User.Identity as ClaimsIdentity;
-			//
-			//var id = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-			//Name = claimsIdentity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-			//EmailAddress = claimsIdentity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-			//Picture = claimsIdentity?.Claims.FirstOrDefault(c => c.Type == "picture")?.Value;
-
 			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).AsQueryable() : _context.Question.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
 				else if (sortOrder == "vote_asc") sort = sort.OrderBy(s => s.Upvote);
@@ -70,15 +63,15 @@ namespace _24SevenOfficeForum.Controllers
 		// PUT: api/Questions/5
 		//[Authorize(Policy = "admin")]
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question question)
+		public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question model)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 
-			if (id != question.Id)
+			if (id != model.Id)
 				return BadRequest();
 
-			_context.Entry(question).State = EntityState.Modified;
+			_context.Entry(model).State = EntityState.Modified;
 
 			try
 			{
@@ -95,12 +88,24 @@ namespace _24SevenOfficeForum.Controllers
 		}
 		// POST: api/Questions
 		[HttpPost]
-		public async Task<IActionResult> PostQuestion([FromBody] Question question)
+		public async Task<IActionResult> PostQuestion([FromBody] Question model)
 		{
-			_context.Question.Add(question);
-			await _context.SaveChangesAsync();
+			var setdate = model;
 
-			return Ok(question);
+			DateTime localDate = DateTime.Now;
+			setdate.QuestionCreated = localDate;
+			if (model != null)
+			{
+				_context.Question.Add(model);
+				await _context.SaveChangesAsync();
+
+				return Ok(model);
+
+			}
+
+			return BadRequest();
+
+
 		}
 
 		// DELETE: api/Questions/5

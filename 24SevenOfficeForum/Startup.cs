@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections.Immutable;
+using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 using _24SevenOfficeForum.Models;
 using _24SevenOfficeForum.Utility;
@@ -28,6 +33,8 @@ namespace _24SevenOfficeForum
 			services.AddMvc().AddJsonOptions(
 			options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 				);
+
+
 			services.AddDbContext<_24hOfficeforumContext>();
 			services.AddMvc();
 			services.AddCors();
@@ -48,27 +55,41 @@ namespace _24SevenOfficeForum
 				c.IncludeXmlComments(xmlPath);
 			});
 
-
 			string domain = $"https://{Configuration["Auth0:Domain"]}/";
+
 			// add Authentication Services
 			services.AddAuthentication(options =>
 			{
 				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+				//options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
 			}).AddJwtBearer(options =>
 			{
-				options.Audience = "localhost:62152";
-				options.Authority = "https://24hofficeforum.eu.auth0.com/";
-			});
+				options.Audience = Configuration["Auth0:Audience"];
+				options.Authority = domain;
+				options.Events = new JwtBearerEvents
+				{
+					OnTokenValidated = context =>
+					{
+						if (context.SecurityToken is JwtSecurityToken token)
+						{
+							if (context.Principal.Identity is ClaimsIdentity identity)
+							{
+								identity.AddClaim(new Claim("access_token", token.RawData));
+							}
+						}
 
+						return Task.FromResult(0);
+					}
+				};
+			});
+			
 			services.AddAuthorization(options =>
 			{
-				options.AddPolicy("post:questions", policy => policy.Requirements.Add(new HasScopeRequirements("post:questions", domain)));
 				options.AddPolicy("read:questions", policy => policy.Requirements.Add(new HasScopeRequirements("read:questions", domain)));
-				options.AddPolicy("administrator", policy => policy.Requirements.Add(new HasScopeRequirements("administrator", domain)));
-				options.AddPolicy("superuser", policy => policy.Requirements.Add(new HasScopeRequirements("superuser", domain)));
+				//options.AddPolicy("admin", policy => policy.RequireClaim("admin"));
+			
 			});
 
 			// register the scope authorization handler
@@ -88,8 +109,9 @@ namespace _24SevenOfficeForum
 			app.UseAuthentication();
 
 			app.UseMvc();
-			app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
-			//app.UseCors("AllowAll");
+			//app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
+			app.UseCors(builder => builder.WithOrigins("http://localhost:62152"));
+			app.UseCors("Delete");
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
