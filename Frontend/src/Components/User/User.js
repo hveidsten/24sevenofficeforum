@@ -1,12 +1,15 @@
 import React, {Component, Fragment} from 'react';
+import UserEdit from './UserEdit';
+import UserComponent from './UserComponent';
 
 class User extends Component{
 
     render(){
+        const editable = false;
         return(
             <Fragment>
-            <h2>User</h2>
-            <h3>id: {this.props.match.params.userId}</h3>
+                {editable? <UserEdit /> : <UserComponent />}
+
             </Fragment>
         );
     }
