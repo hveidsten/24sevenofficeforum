@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 
-const UserEdit = () => {
+const UserEdit = ({user}) => {
     return(
         <Fragment>
             <h2>Edit user</h2>

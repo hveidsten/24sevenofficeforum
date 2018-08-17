@@ -2,12 +2,12 @@ import React, {Component, Fragment} from 'react';
 import UserEdit from './UserEdit';
 import UserComponent from './UserComponent';
 import {connect} from 'react-redux';
-import {userIsLoggedIn} from '../../Actions/userActions';
+import {userIsLoggedIn, fetchUser} from '../../Actions/userActions';
 
 class User extends Component{
 
     componentWillMount()  {
-        this.props.userIsLoggedIn();
+        this.props.fetchUser(this.props.match.params.userId);
     }
     
 
@@ -15,8 +15,7 @@ class User extends Component{
         if(this.props.user){
         return(
             <Fragment>
-                {parseInt(this.props.match.params.userId)===this.props.user.userId?
-                 <UserEdit /> : <UserComponent />}
+                <UserComponent user={this.props.user} />
             </Fragment>
         );
     }else{
@@ -34,7 +33,8 @@ const mapStateToProps = state => (
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        userIsLoggedIn: () => dispatch(userIsLoggedIn())
+        userIsLoggedIn: () => dispatch(userIsLoggedIn()),
+        fetchUser: (id) => dispatch(fetchUser(id))
     };
 };
 
