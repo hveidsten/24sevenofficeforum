@@ -76,7 +76,7 @@ class QuestionsList extends Component {
             }
           )}
           <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
-          {this.props.user.isLoggedIn ? <Link to='./new_question'> <Button color="#49bd39">New question</Button></Link> : ""}
+          {!this.props.user.isLoggedIn ? <Link to='./new_question'> <Button color="#49bd39">New question</Button></Link> : ""}
         </Fragment>
       );
     }
