@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
-using _24SevenOfficeForum.Utility;
+using _24SevenOfficeForum.Models.ViewModels;
 
 namespace _24SevenOfficeForum.Controllers
 {
@@ -29,7 +29,7 @@ namespace _24SevenOfficeForum.Controllers
 		// GET: api/Questions
 		[HttpGet]
 		//[Authorize("read:questions")]
-		public async Task<IEnumerable<Question>> GetQuestions(int? page, string sortOrder, int? categoryId)
+		public async Task<IEnumerable<QuestionViewModel>>GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
 			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).AsQueryable() : _context.Question.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
@@ -43,19 +43,41 @@ namespace _24SevenOfficeForum.Controllers
 			var questions = await sort
 				.Skip(skipRows)
 				.Take(pageSize)
-				.AsNoTracking().ToListAsync();
+				.AsNoTracking()
+				.Select(q => new QuestionViewModel()
+				{
+					Id = q.Id,
+					Upvote = q.Upvote,
+					Header = q.Header,
+					Body = q.Body,
+					CategoryId = q.CategoryId,
+					QuestionCreated = q.QuestionCreated,
+					AnswerCount = q.AnswerCount,
+				})
+				.ToListAsync();
+
 
 			//This releases the self reference between question and answer
-			Cleaner.CleanQuestions(questions);
+			//Cleaner.CleanQuestions(questions);
 
-			return questions;
+			return (questions);
 		}
 
 		[HttpGet("{qId}")]
 		//{catId}/
-		public async Task<Question> GetQuestion([FromRoute] int catId, int qId)
+		public async Task<QuestionViewModel> GetQuestion([FromRoute] int catId, int qId)
 		{
 			var question = await _context.Question
+				.Select(q => new QuestionViewModel()
+				{
+					Id = q.Id,
+					Upvote = q.Upvote,
+					Header = q.Header,
+					Body = q.Body,
+					CategoryId = q.CategoryId,
+					QuestionCreated = q.QuestionCreated,
+					AnswerCount = q.AnswerCount,
+				})
 				.Where(x =>  x.Id == qId).FirstOrDefaultAsync();
 			return question;
 		}
@@ -104,8 +126,6 @@ namespace _24SevenOfficeForum.Controllers
 			}
 
 			return BadRequest();
-
-
 		}
 
 		// DELETE: api/Questions/5
