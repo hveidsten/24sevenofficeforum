@@ -7,7 +7,6 @@ import { QuestionWrapper, PostSubtext } from '../CommonStyledComponents';
 class QuestionInList extends Component {
 
     render() {
-        console.log(this.props.question.answerCount)
         return (
             <QuestionWrapper>
                 <div className="voteCounter" >
@@ -20,7 +19,6 @@ class QuestionInList extends Component {
                         {" " + this.props.question.answerCount + " answers"}</PostSubtext>
                     <p>{this.props.question.body}</p>
                 </NavLink>
-
             </QuestionWrapper>
 
         );

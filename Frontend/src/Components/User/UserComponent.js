@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {Button} from '../CommonStyledComponents';
 
-const UserComponent = ({user}) => {
+const UserComponent = ({user, onclick}) => {
     console.log(this.props);
     return(
         <Fragment>
@@ -9,7 +9,7 @@ const UserComponent = ({user}) => {
             <p>Name: {user.firstName} {user.lastName}</p>
             <p>E-mail: {user.email}</p>
             <p>Telephone: {user.phone}</p>
-            {user.loggedInId===user.userId? <Button onclick={() => alert("Kommer!")} color="#224477">Edit profile</Button>:""}
+            {user.loggedInId===user.userId? <Button onClick={onclick} color="#224477">Edit profile</Button>:""}
         </Fragment>
     );
 }
