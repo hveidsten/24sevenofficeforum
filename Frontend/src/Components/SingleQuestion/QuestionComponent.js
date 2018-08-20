@@ -4,11 +4,11 @@ import { QuestionWrapper, PostSubtext, Button } from '../CommonStyledComponents'
 import { withRouter } from 'react-router-dom';
 
 
-const QuestionComponent = ({ user, question, handleVote, categoryId, deletePost, editPostRedirect }) => {
+const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editPostRedirect }) => {
   return (
     <QuestionWrapper>
       <QuestionVoteComponent
-        isLoggedIn={user.isLoggedIn}
+        isLoggedIn={true}
         votes={question.upvote}
         handleVote={handleVote}
         id={categoryId}

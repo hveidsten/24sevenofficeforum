@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import QuestionInList from '../QuestionList/QuestionInList';
 
-export const HomeComponent = ({ posts, categories, userIsloggedIn, userName }) => {
+export const HomeComponent = ({ posts, categories }) => {
 
     return (
         <Fragment>

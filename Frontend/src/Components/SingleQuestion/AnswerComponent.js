@@ -8,12 +8,13 @@ const AnswerComponent = ({ answer, deleteAnswer, editAnswer, handleVote, user, c
             <PostSubtext> By Navn Navnesen  {answer.answerCreated ? "at " + answer.answerCreated.substring(0, 10) : ""}</PostSubtext>
 
             <QuestionVoteComponent
-                isLoggedIn={user.isLoggedIn}
+                isLoggedIn={true}
                 votes={answer.upvote}
                 handleVote={handleVote}
                 id={categoryId}
                 answer={answer}
             />
+            
             <p>{answer.body}</p>
 
 

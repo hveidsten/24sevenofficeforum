@@ -130,7 +130,7 @@ class SingleQuestion extends Component {
                             toggleQuestionform={() => this.toggleQuestionform(a)}
                             key={key} />)}
 
-                    {this.props.user.isLoggedIn && (<div>
+                    {(<div>
                         {this.state.showQuestionForm === false ?
                             <Button color="#49bd39" onClick={this.toggleQuestionform}>New answer</Button> :
                             <Button color="#f04b4b" onClick={this.toggleQuestionform}>Close</Button>
