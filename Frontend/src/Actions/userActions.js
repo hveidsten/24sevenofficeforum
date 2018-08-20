@@ -1,23 +1,20 @@
-export const USER_LOGGEDIN = "USER_LOGGEDIN";
+export const USER_SIGN_IN = "USER_SIGN_IN";
 export const FETCH_USER = "FETCH_USER";
 
 
-export const userIsLoggedIn = (a) => (dispatch) => {
+export const userSignIn = (id) => (dispatch) => {
   dispatch({
-    type: USER_LOGGEDIN,
+    type: USER_SIGN_IN,
     payload: {
-      isLoggedIn: a === 1 ? true : false,
-      userId: a === 1? 1:0,
-      userName:  a === 1? "Testuser": ""
+      loggedInId: id
     }
   });
 }
 
 export const fetchUser = (id) => (dispatch) => {
-  console.log(id);
   dispatch({
     type: FETCH_USER,
-    payload: dummyUsers[id]
+    payload: dummyUsers.find(u => u.userId===parseInt(id))
   });
 }
 

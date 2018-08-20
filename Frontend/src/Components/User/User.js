@@ -2,12 +2,13 @@ import React, {Component, Fragment} from 'react';
 import UserEdit from './UserEdit';
 import UserComponent from './UserComponent';
 import {connect} from 'react-redux';
-import {userIsLoggedIn, fetchUser} from '../../Actions/userActions';
+import {userSignIn, fetchUser} from '../../Actions/userActions';
 
 class User extends Component{
 
     componentWillMount()  {
         this.props.fetchUser(this.props.match.params.userId);
+        this.props.userSignIn(1);
     }
     
 
@@ -24,6 +25,7 @@ class User extends Component{
     }
 }
 
+
 const mapStateToProps = state => (
     {
         user: state.user
@@ -33,7 +35,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        userIsLoggedIn: () => dispatch(userIsLoggedIn()),
+        userSignIn: (id) => dispatch(userSignIn(id)),
         fetchUser: (id) => dispatch(fetchUser(id))
     };
 };
