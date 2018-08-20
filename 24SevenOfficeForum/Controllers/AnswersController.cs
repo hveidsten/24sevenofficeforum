@@ -96,7 +96,7 @@ namespace _24SevenOfficeForum.Controllers
 			if (model != null)
 			{
 				_context.Answer.Add(model);
-				_context.Question.Where(Q => Q.Id == model.QuestionId).FirstOrDefault().Header += 0;
+				_context.Question.Where(Q => Q.Id == model.QuestionId).FirstOrDefault().AnswerCount += 1;
 
 				//_context.Question.Where(Q => Q.Id == answer.QuestionId).AnswerCount + 1;
 				await _context.SaveChangesAsync();
