@@ -8,7 +8,7 @@ class UserLoginHeader extends Component {
     render() {
         return (
             <div className="userLoginHeader">
-                {this.props.user && this.props.user.loggedInId != 0 ?
+                {this.props.user && this.props.user.loggedInId !== 0 ?
                     <p>Hello {this.props.user.userName}   <span onClick={() => this.props.userSignIn(0)}>-log out </span></p> :
                     <div>
                         <a onClick={() => this.props.userSignIn(1)}>Sign in </a>

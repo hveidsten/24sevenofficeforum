@@ -14,7 +14,7 @@ export const userSignIn = (id) => (dispatch) => {
 export const fetchUser = (id) => (dispatch) => {
   dispatch({
     type: FETCH_USER,
-    payload: dummyUsers.find(u => u.userId===parseInt(id))
+    payload: dummyUsers.find(u => u.userId===parseInt(id, 10))
   });
 }
 

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS,fetchAnswers } from '../../Actions/postActions';
+import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS, fetchAnswers } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import { Button } from '../CommonStyledComponents';
 import QuestionComponent from './QuestionComponent';
@@ -120,7 +120,7 @@ class SingleQuestion extends Component {
 
                     <SortDropdown onchange={(e) => this.onchange(e)} />
 
-                    {this.props.post.answer.map((a, key) =>
+                    {this.props.post.answer && this.props.post.answer.map((a, key) =>
                         <AnswerComponent answer={a}
                             deleteAnswer={this.props.deleteAnswer}
                             editAnswer={this.props.editAnswer}

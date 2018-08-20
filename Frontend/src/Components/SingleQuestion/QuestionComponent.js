@@ -18,7 +18,7 @@ const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editP
         <h2>{question.header}</h2>
         <PostSubtext> By Navn Navnesen
           {question.questionCreated ? "at " + question.questionCreated.substring(0, 10) : ""}
-          {question.answer.length} answers</PostSubtext>
+          {"  "+question.answerCount +"  answers"}</PostSubtext>
 
         <p>{question.body}</p>
 
@@ -28,7 +28,6 @@ const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editP
 
     </QuestionWrapper>);
 
-
-
 }
-export default withRouter(QuestionComponent);
+export default QuestionComponent;
+//export default withRouter(QuestionComponent);

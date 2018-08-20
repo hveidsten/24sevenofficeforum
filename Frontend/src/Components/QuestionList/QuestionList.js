@@ -28,8 +28,9 @@ class QuestionsList extends Component {
   }
 
   componentDidMount() {
-    this.fetchPosts();
+    this.fetchPosts(this.state.pageNumber);
   }
+
 
   onchange(e) {
     this.props.fetch(`questions/?categoryId=${this.props.activeCategory}&sortOrder=${e.target.value}`, "FETCH_POSTS");
@@ -62,11 +63,7 @@ class QuestionsList extends Component {
 
           <h2>{this.props.match.params.searchQuery ? "Results for " + this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
 
-        
-
-            <SortDropdown onchange={(e) => this.onchange(e)} />
-
-
+          <SortDropdown onchange={(e) => this.onchange(e)} />
 
           {this.props.questions.map(
             (c, key) => {
@@ -92,4 +89,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, { fetch, fetchSingleCategory })(QuestionsList);
+export default connect(mapStateToProps, { fetchSingleCategory, fetch })(QuestionsList);
