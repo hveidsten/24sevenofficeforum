@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QuestionVoteComponent = ({votes, handleVote, id, answer }) => {
+const Vote = ({votes, handleVote, id, answer }) => {
    
     return (
 
@@ -14,4 +14,4 @@ const QuestionVoteComponent = ({votes, handleVote, id, answer }) => {
     );
 }
 
-export default QuestionVoteComponent;
+export default Vote;

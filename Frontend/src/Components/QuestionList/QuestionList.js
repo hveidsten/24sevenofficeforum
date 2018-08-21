@@ -4,7 +4,7 @@ import { fetch } from '../../Actions/postActions';
 import { Link } from 'react-router-dom';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import QuestionInList from './QuestionInList';
-import { Button } from '../CommonStyledComponents';
+import { Button } from '../CommonComponents/Button';
 import PageChanger from './PageChanger';
 import SortDropdown from '../SingleQuestion/SortDropdown';
 
@@ -73,7 +73,7 @@ class QuestionsList extends Component {
             }
           )}
           <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
-          {!this.props.user.isLoggedIn ? <Link to='./new_question'> <Button color="#49bd39">New question</Button></Link> : ""}
+          <Link to='./new_question'> <Button color="#49bd39" text="New question"/></Link>
         </Fragment>
       );
     }

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Button from '../CommonComponents/Button';
 
 export const NewQuestionComponent = ({ handleSubmit, questionHeading, handleChange, questionBody, categories, categoryId, edit }) => {
   return (
@@ -18,7 +19,8 @@ export const NewQuestionComponent = ({ handleSubmit, questionHeading, handleChan
           <option value="none">Select category</option>
           {categories.map((c, key) => { return <option key={key} value={c.id}>{c.categoryName}</option> })}
         </select>
-        <input type="submit" value={edit ? "Lagre" : "Post"} />
+
+        <Button color="#49bd39" text={edit ? "Lagre" : "Post"} onclick={handleSubmit}/>
       </form>
     </Fragment>
   );

@@ -1,13 +1,13 @@
 import React from 'react';
 import { PostSubtext, AnswerWrapper } from '../CommonStyledComponents';
-import QuestionVoteComponent from './QuestionVoteComponent';
+import Vote from '../CommonComponents/Vote';
 
 const AnswerComponent = ({ answer, deleteAnswer, editAnswer, handleVote, user, categoryId, toggleQuestionform }) => {
     return (
         <AnswerWrapper>
             <PostSubtext> By Navn Navnesen  {answer.answerCreated ? "at " + answer.answerCreated.substring(0, 10) : ""}</PostSubtext>
 
-            <QuestionVoteComponent
+            <Vote
                 isLoggedIn={true}
                 votes={answer.upvote}
                 handleVote={handleVote}

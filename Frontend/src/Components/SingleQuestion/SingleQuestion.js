@@ -6,7 +6,7 @@ import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
 import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS, fetchAnswers } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
-import { Button } from '../CommonStyledComponents';
+import { Button } from '../CommonComponents/Button';
 import QuestionComponent from './QuestionComponent';
 import PageChanger from '../QuestionList/PageChanger';
 import SortDropdown from './SortDropdown';
@@ -130,12 +130,9 @@ class SingleQuestion extends Component {
                             toggleQuestionform={() => this.toggleQuestionform(a)}
                             key={key} />)}
 
-                    {(<div>
-                        {this.state.showQuestionForm === false ?
-                            <Button color="#49bd39" onClick={this.toggleQuestionform}>New answer</Button> :
-                            <Button color="#f04b4b" onClick={this.toggleQuestionform}>Close</Button>
-                        }
-                    </div>)}
+
+                    <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />
+                    
                     <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
                     {this.state.showQuestionForm && (<AddAnswer answer={this.state.answer} hideForm={this.toggleQuestionform} />)}
 

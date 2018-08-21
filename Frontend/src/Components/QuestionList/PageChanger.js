@@ -7,7 +7,6 @@ const PageChanger = ({ onclick, pageNumber }) => {
       {pageNumber}
       <a onClick={() => onclick(pageNumber + 1)}> forward </a></p>
   );
-
 }
 
 export default PageChanger;
