@@ -12,6 +12,8 @@ namespace _24SevenOfficeForum.Controllers
 {
 	[Produces("application/json")]
 	[Route("api/Answers")]
+
+	[EnableCors("CorsPolicy")]
 	public class AnswersController : Controller
 	{
 		private readonly _24hOfficeforumContext _context;
@@ -108,7 +110,7 @@ namespace _24SevenOfficeForum.Controllers
 
 		// DELETE: api/Answers/5
 		[HttpDelete("{id}")]
-		[EnableCors("Delete")]
+		//[EnableCors("Delete")]
 		public async Task<IActionResult> DeleteAnswer([FromRoute] int id)
 		{
 			if (!ModelState.IsValid)

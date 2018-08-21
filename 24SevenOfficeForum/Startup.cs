@@ -37,7 +37,14 @@ namespace _24SevenOfficeForum
 
 			services.AddDbContext<_24hOfficeforumContext>();
 			services.AddMvc();
-			services.AddCors();
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy",
+					builder => builder.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.AllowCredentials() );
+			});
 			//services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 			services.AddSwaggerGen(c =>
 			{
@@ -52,7 +59,7 @@ namespace _24SevenOfficeForum
 
 				var basePath = PlatformServices.Default.Application.ApplicationBasePath;
 				var xmlPath = Path.Combine(basePath, "24sevenOffice.xml");
-				c.IncludeXmlComments(xmlPath);
+				//c.IncludeXmlComments(xmlPath);
 			});
 
 			string domain = $"https://{Configuration["Auth0:Domain"]}/";
@@ -108,10 +115,10 @@ namespace _24SevenOfficeForum
 			app.UseStaticFiles();
 			app.UseAuthentication();
 
+
+			app.UseCors("CorsPolicy");
 			app.UseMvc();
-			//app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
-			app.UseCors(builder => builder.WithOrigins("http://localhost:62152"));
-			app.UseCors("Delete");
+
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{

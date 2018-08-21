@@ -18,6 +18,7 @@ namespace _24SevenOfficeForum.Models
         public string Body { get; set; }
         public int CategoryId { get; set; }
         public DateTime? QuestionCreated { get; set; }
+		public int AnswerCount { get; set; }
 
         public Category Category { get; set; }
         public ICollection<Answer> Answer { get; set; }

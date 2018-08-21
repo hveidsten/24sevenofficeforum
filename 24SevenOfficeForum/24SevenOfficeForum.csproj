@@ -22,6 +22,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" />
@@ -39,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Users\Get IT PC\Desktop\SocialNetwork.Web\24sevenOfficeForum.Web.csproj" />
+   // <ProjectReference Include="..\..\Users\Get IT PC\Desktop\SocialNetwork.Web\24sevenOfficeForum.Web.csproj" /> 
   </ItemGroup>
 
 </Project>

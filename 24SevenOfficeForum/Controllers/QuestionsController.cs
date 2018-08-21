@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -12,6 +13,8 @@ namespace _24SevenOfficeForum.Controllers
 	[Produces("application/json")]
 	[Route("api/[controller]")]
 
+
+	[EnableCors("CorsPolicy")]
 	public class QuestionsController : Controller
 	{
 		private readonly _24hOfficeforumContext _context;
@@ -131,6 +134,7 @@ namespace _24SevenOfficeForum.Controllers
 		// DELETE: api/Questions/5
 		//[Authorize(Policy = "admin")]
 		[HttpDelete("{id}")]
+	
 		public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
 		{
 			if (!ModelState.IsValid)
