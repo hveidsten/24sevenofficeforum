@@ -12,7 +12,10 @@ import { fetchQuestions } from '../../Actions/questionActions';
 class QuestionsList extends Component {
   constructor(props) {
     super(props);
-    this.state = { pageNumber: 1 }
+    this.state = { 
+      pageNumber: 1,
+      sortOrder:""
+     }
     this.onchange = this.onchange.bind(this);
     this.changePage = this.changePage.bind(this);
     this.fetchPosts = this.fetchPosts.bind(this);
@@ -21,7 +24,7 @@ class QuestionsList extends Component {
 
   fetchPosts(pageNumber) {
     this.props.fetchSingleCategory(this.props.activeCategory);
-    this.props.fetchQuestions(this.props.activeCategory, pageNumber);
+    this.props.fetchQuestions(this.props.activeCategory, pageNumber, this.state.sortOrder);
   }
 
   componentDidMount() {
@@ -30,6 +33,7 @@ class QuestionsList extends Component {
 
 
   onchange(e) {
+    this.setState({sortOrder:e.target.value});
     this.props.fetchQuestions(this.props.activeCategory, 1, e.target.value);
     this.setState({
       pageNumber: 1
