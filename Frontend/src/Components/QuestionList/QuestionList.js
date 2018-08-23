@@ -7,7 +7,7 @@ import QuestionInList from './QuestionInList';
 import { Button } from '../CommonComponents/Button';
 import PageChanger from './PageChanger';
 import SortDropdown from '../SingleQuestion/SortDropdown';
-import {fetchQuestions} from '../../Actions/questionActions';
+import { fetchQuestions } from '../../Actions/questionActions';
 
 class QuestionsList extends Component {
   constructor(props) {
@@ -20,12 +20,8 @@ class QuestionsList extends Component {
   }
 
   fetchPosts(pageNumber) {
-    if (this.props.match.params.searchQuery) {
-      this.props.fetch(`search?id=${this.props.match.params.searchQuery}&page=${pageNumber}`, "FETCH_POSTS");
-    } else {
-      this.props.fetchSingleCategory(this.props.activeCategory);
-      this.props.fetchQuestions(this.props.activeCategory,pageNumber);
-    }
+    this.props.fetchSingleCategory(this.props.activeCategory);
+    this.props.fetchQuestions(this.props.activeCategory, pageNumber);
   }
 
   componentDidMount() {
@@ -62,7 +58,7 @@ class QuestionsList extends Component {
         <Fragment  >
           <span ref={(el) => { this.scrollToPoint = el; }} />
 
-          <h2>{this.props.match.params.searchQuery ? "Results for " + this.props.match.params.searchQuery : this.props.category && this.props.category.categoryName}</h2>
+          <h2>{this.props.category && this.props.category.categoryName}</h2>
 
           <SortDropdown onchange={(e) => this.onchange(e)} />
 
@@ -74,7 +70,7 @@ class QuestionsList extends Component {
             }
           )}
           <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
-          <Link to='./new_question'> <Button color="#49bd39" text="New question"/></Link>
+          <Link to='./new_question'> <Button color="#49bd39" text="New question" /></Link>
         </Fragment>
       );
     }

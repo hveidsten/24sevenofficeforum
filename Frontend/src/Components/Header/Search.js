@@ -33,12 +33,9 @@ class Search extends Component {
           onChange={this.handleChange}
         />
         <Link to={`../../sok/alt/${this.state.query}`}><button onClick={this.onClick}>Search</button></Link>
-
       </form>
     )
   }
 }
-
-
 
 export default connect(null, { fetch })(Search);
