@@ -67,7 +67,6 @@ class SingleQuestion extends Component {
     onchange(e) {
         this.setState({sortOrder: e.target.value});
         this.props.fetch(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`, FETCH_ANSWERS);
-        console.log(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`);
         this.setState({
             pageNumber: 1
         });

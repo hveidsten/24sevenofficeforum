@@ -13,7 +13,11 @@ class Home extends Component {
 
     render() {
         return (
-            <HomeComponent posts={this.props.posts} categories={this.props.categories} userLoggedIn={this.props.user.loggedInId !==0} userName={this.props.user.userName} />
+            <HomeComponent
+                posts={this.props.posts}
+                categories={this.props.categories}
+                user={this.props.user}
+            />
         );
 
 

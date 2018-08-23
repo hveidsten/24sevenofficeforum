@@ -2,7 +2,6 @@ import React from 'react';
 import Vote from '../CommonComponents/Vote';
 import { QuestionWrapper, PostSubtext } from '../CommonStyledComponents';
 import Button from '../CommonComponents/Button';
-import { withRouter } from 'react-router-dom';
 
 
 const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editPostRedirect }) => {
@@ -31,4 +30,3 @@ const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editP
 
 }
 export default QuestionComponent;
-//export default withRouter(QuestionComponent);

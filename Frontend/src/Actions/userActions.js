@@ -3,12 +3,12 @@ export const FETCH_USER = "FETCH_USER";
 
 
 export const userSignIn = (id) => (dispatch) => {
+
   dispatch({
     type: USER_SIGN_IN,
-    payload: {
-      loggedInId: id
-    }
+    payload: dummyUsers.find(u => u.userId===(id))
   });
+ 
 }
 
 export const fetchUser = (id) => (dispatch) => {

@@ -17,7 +17,6 @@ class User extends Component {
     }
 
     toggleEdit(){
-        console.log("asd");
         this.setState({edit: !this.state.edit});
     }
 
