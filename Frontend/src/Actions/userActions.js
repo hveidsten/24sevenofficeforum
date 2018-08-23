@@ -6,15 +6,15 @@ export const userSignIn = (id) => (dispatch) => {
 
   dispatch({
     type: USER_SIGN_IN,
-    payload: dummyUsers.find(u => u.userId===(id))
+    payload: dummyUsers.find(u => u.userId === (id))
   });
- 
+
 }
 
 export const fetchUser = (id) => (dispatch) => {
   dispatch({
     type: FETCH_USER,
-    payload: dummyUsers.find(u => u.userId===parseInt(id, 10))
+    payload: dummyUsers.find(u => u.userId === parseInt(id, 10))
   });
 }
 

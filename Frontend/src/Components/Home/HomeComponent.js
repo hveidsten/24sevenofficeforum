@@ -7,8 +7,8 @@ export const HomeComponent = ({ posts, categories, user }) => {
         <Fragment>
             <h2>Welcome { user.loggedInUser &&user.loggedInUser.firstName}</h2> 
 
-            <h3>Recent questions:</h3>
 
+            <h3>Recent questions:</h3>
             {posts && categories && posts.map((c, key) =>
                 <QuestionInList linkToQuestion={"../../" +
                     categories.find(a => a.id === c.categoryId).categoryName.replace(' ', '_') + "/" + c.id}

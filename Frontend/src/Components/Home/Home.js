@@ -19,8 +19,6 @@ class Home extends Component {
                 user={this.props.user}
             />
         );
-
-
     }
 }
 

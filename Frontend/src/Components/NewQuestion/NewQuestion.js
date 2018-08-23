@@ -43,7 +43,7 @@ class NewQuestion extends Component {
 
     } else {
       post.upvote = 0;
-      this.props.createPost(post, "questions");
+      this.props.createPost(post);
     }
 
   }

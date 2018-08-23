@@ -33,7 +33,8 @@ class App extends Component {
 
               {this.props.categories && this.props.categories.map(
                 (c, key) => {
-                  return <Route key={key} exact path={"/" + c.categoryName.replace(' ', '_')}
+                  return <Route key={key}
+                    exact path={"/" + c.categoryName.replace(' ', '_')}
                     render={(props) => <QuestionList activeCategory={c.id}  {...props} />} />
                 })
               }

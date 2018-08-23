@@ -1,4 +1,4 @@
-import { QUESTIONS_ARE_LOADED, FETCH_QUESTIONS_SUCCESS } from '../Actions/questionActions'
+import { QUESTIONS_ARE_LOADED, FETCH_QUESTIONS_SUCCESS,NEW_QUESTION,FETCH_QUESTION } from '../Actions/questionActions'
 const initialState = []
 
 export default function (state = initialState, action) {
@@ -14,6 +14,18 @@ export default function (state = initialState, action) {
             ...state,
             allQuestionsInCategory: [...action.questions]
         };
+
+        
+        case FETCH_QUESTION:
+            return {
+                ...state,
+                activeQuestion: { ...action.payload, hasBeenPosted: false }
+            }
+
+        case NEW_QUESTION: return {
+            ...state,
+            activeQuestion: { ...action.payload, hasBeenPosted: true }
+        }
 
         default: return state;
     }
