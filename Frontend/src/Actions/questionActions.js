@@ -16,8 +16,9 @@ export const fetchQuestionsSuccess = (questions) => ({
 export const fetchQuestions = (categoryId,pageNumber, sortOrder) => (dispatch) => {
     console.log(categoryId,pageNumber);
     dispatch(questionsAreLoaded(false));
+    const url = `http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`;
 
-    axios.get(`http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`)
+    axios.get(url)
     .then((response) => {
         dispatch(questionsAreLoaded(true));
         return response.data;

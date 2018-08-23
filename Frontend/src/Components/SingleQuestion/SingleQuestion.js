@@ -18,7 +18,8 @@ class SingleQuestion extends Component {
             showQuestionForm: false,
             Deleted: false,
             edit: false,
-            pageNumber: 1
+            pageNumber: 1,
+            sortOrder: ""
         }
 
         this.handleVote = this.handleVote.bind(this);
@@ -64,7 +65,9 @@ class SingleQuestion extends Component {
     }
 
     onchange(e) {
+        this.setState({sortOrder: e.target.value});
         this.props.fetch(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`, FETCH_ANSWERS);
+        console.log(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`);
         this.setState({
             pageNumber: 1
         });
@@ -76,7 +79,7 @@ class SingleQuestion extends Component {
             this.setState({
                 pageNumber: newPage
             });
-            this.props.fetch(`answers/?questionId=${this.props.post.id}&page=${newPage}`, "FETCH_ANSWERS");
+            this.props.fetch(`answers/?questionId=${this.props.post.id}&page=${newPage}&sortOrder=${this.state.sortOrder}`, "FETCH_ANSWERS");
             this.scrollToTop();
         }
     }
