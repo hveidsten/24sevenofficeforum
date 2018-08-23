@@ -109,4 +109,3 @@ export const fetchAnswers = (ApiPath) => (dispatch) => {
             payload: response.data
         }));
 }
-

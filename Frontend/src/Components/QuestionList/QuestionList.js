@@ -7,6 +7,7 @@ import QuestionInList from './QuestionInList';
 import { Button } from '../CommonComponents/Button';
 import PageChanger from './PageChanger';
 import SortDropdown from '../SingleQuestion/SortDropdown';
+import {fetchQuestions} from '../../Actions/questionActions';
 
 class QuestionsList extends Component {
   constructor(props) {
@@ -81,7 +82,6 @@ class QuestionsList extends Component {
   }
 }
 
-
 const mapStateToProps = state => ({
   category: state.category.currentCategory,
   categories: state.category.allCategories,
@@ -89,4 +89,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, { fetchSingleCategory, fetch })(QuestionsList);
+export default connect(mapStateToProps, { fetchSingleCategory, fetch, fetchQuestions })(QuestionsList);

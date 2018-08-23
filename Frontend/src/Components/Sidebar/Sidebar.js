@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchAllCategories } from '../../Actions/categoryActions';
 import SidebarComponent from './SidebarComponent';
 import './SidebarStyles.css';
 
@@ -24,4 +23,4 @@ const mapStateToProps = state => {
   });
 }
 
-export default connect(mapStateToProps, { fetchAllCategories }, null)(Sidebar);
+export default connect(mapStateToProps, null)(Sidebar);
