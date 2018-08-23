@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { fetch } from '../../Actions/postActions';
 import { Link } from 'react-router-dom';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
-import QuestionInList from './QuestionInList';
+import QuestionInList from '../QuestionList/QuestionInList';
 import { Button } from '../CommonComponents/Button';
-import PageChanger from './PageChanger';
+import PageChanger from '../QuestionList/PageChanger';
 import SortDropdown from '../SingleQuestion/SortDropdown';
 import {fetchQuestions} from '../../Actions/questionActions';
 
@@ -21,7 +21,7 @@ class QuestionsList extends Component {
 
   fetchPosts(pageNumber) {
     if (this.props.match.params.searchQuery) {
-      this.props.fetch(`search?id=${this.props.match.params.searchQuery}&page=${pageNumber}`, "FETCH_POSTS");
+      this.props.fetch(`search?id=${this.props.match.params.searchQuery}`, "FETCH_POSTS");
     } else {
       this.props.fetchSingleCategory(this.props.activeCategory);
       this.props.fetchQuestions(this.props.activeCategory,pageNumber);
@@ -56,7 +56,7 @@ class QuestionsList extends Component {
 
 
   render() {
-    if (!this.props.questions.allQuestionsInCategory) { return <h2>Loading</h2>; }
+    if (!this.props.questions) { return <h2>Loading</h2>; }
     else {
       return (
         <Fragment  >
@@ -66,7 +66,7 @@ class QuestionsList extends Component {
 
           <SortDropdown onchange={(e) => this.onchange(e)} />
 
-          {this.props.questions.allQuestionsInCategory.map(
+          {this.props.questions.map(
             (c, key) => {
               return (
                 <QuestionInList linkToQuestion={"../../" + this.props.categories.find(a => a.id === c.categoryId).categoryName.replace(' ', '_') + "/" + c.id} question={c} key={key} />
@@ -85,7 +85,7 @@ class QuestionsList extends Component {
 const mapStateToProps = state => ({
   category: state.category.currentCategory,
   categories: state.category.allCategories,
-  questions: state.questions,
+  questions: state.posts.allQuestionsInCategory,
   user: state.user
 });
 

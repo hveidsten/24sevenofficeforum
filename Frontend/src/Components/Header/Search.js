@@ -21,6 +21,7 @@ class Search extends Component {
 
   onClick() {
     this.props.fetch(`search?id=${this.state.query}`, "FETCH_POSTS");
+    this.setState({ query: "" });
   }
 
   render() {

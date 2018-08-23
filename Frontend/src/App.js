@@ -9,6 +9,7 @@ import Home from './Components/Home/Home';
 import NewQuestion from './Components/NewQuestion/NewQuestion';
 import QuestionList from './Components/QuestionList/QuestionList';
 import SingleQuestion from './Components/SingleQuestion/SingleQuestion';
+import SearchResults from './Components/SearchResults/SearchResults';
 import User from './Components/User/User';
 
 
@@ -37,7 +38,7 @@ class App extends Component {
                 })
               }
               <Route exact path="/user/:userId" component={User} />
-              <Route exact path="/sok/:kat/:searchQuery" component={QuestionList} />
+              <Route exact path="/sok/:kat/:searchQuery" component={SearchResults} />
               <Route exact path="/:categoryid/:questionid" component={SingleQuestion} />
               <Route exact path="/new_question" component={NewQuestion} />
               <Route exact path="/edit_question" component={NewQuestion} />

@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-export const QUESTIONS_ARE_LOADING = "QUESTIONS_ARE_LOADING";
+export const QUESTIONS_ARE_LOADED = "QUESTIONS_ARE_LOADED";
 export const FETCH_QUESTIONS_SUCCESS = "FETCH_QUESTIONS_SUCCESS";
 
-export const questionsAreLoading = (isLoading) => ({
-    type: QUESTIONS_ARE_LOADING,
-    isLoading: isLoading
+export const questionsAreLoaded = (isLoaded) => ({
+    type: QUESTIONS_ARE_LOADED,
+    isLoaded: isLoaded
 });
 
 export const fetchQuestionsSuccess = (questions) => ({
@@ -13,13 +13,13 @@ export const fetchQuestionsSuccess = (questions) => ({
     questions
 });
 
+export const fetchQuestions = (categoryId,pageNumber, sortOrder) => (dispatch) => {
+    console.log(categoryId,pageNumber);
+    dispatch(questionsAreLoaded(false));
 
-export const fetchQuestions = (url) => (dispatch) => {
-    dispatch(questionsAreLoading(true));
-
-    axios.get(`http://localhost:62152/api/${url}`)
+    axios.get(`http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`)
     .then((response) => {
-        dispatch(questionsAreLoading(false));
+        dispatch(questionsAreLoaded(true));
         return response.data;
     })
     .then(questions => dispatch(fetchQuestionsSuccess(questions)));
