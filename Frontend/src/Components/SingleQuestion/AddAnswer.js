@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createAnswer, editAnswer } from '../../Actions/postActions';
 import { AddAnswerModal } from './styledComponents';
 import ModalBackground from './ModalBackground';
-import { Button } from '../CommonStyledComponents';
+import { Button } from '../CommonComponents/Button';
 
 class AddAnswer extends Component {
   constructor(props) {
@@ -54,7 +54,8 @@ class AddAnswer extends Component {
       <Fragment>
         <ModalBackground onclick={this.props.hideForm} />
         <AddAnswerModal>
-          <h3>{this.props.answer.id ? "Edit answers" : "New answer"}</h3>
+
+          <h3>{this.props.answer.id ? "Edit answer" : "New answer"}</h3>
           <form onSubmit={this.handleSubmit}>
 
             <textarea rows="20" cols="75" autoFocus 
@@ -63,10 +64,9 @@ class AddAnswer extends Component {
             onKeyPress={this.handleKeyPress} 
              />
 
-            <Button style={{ float: "right" }} color="#49bd39" onClick={this.handleSubmit}>
-              {this.props.answer.id ? "Save changes" : "Post"}
-            </Button>
-            <Button style={{ float: "right" }} color="#f04b4b" onClick={this.props.hideForm}>Close</Button>
+            <Button color="#49bd39" onclick={this.handleSubmit} 
+            text={this.props.answer.id ? "Save changes" : "Post"} />
+            <Button color="#f04b4b" onclick={this.props.hideForm} text="Close"/>
 
           </form>
         </AddAnswerModal>

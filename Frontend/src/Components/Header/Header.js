@@ -2,14 +2,17 @@ import React from 'react';
 import Search from './Search';
 import UserLoginHeader from './UserLoginHeader';
 import { Link } from 'react-router-dom';
+import './HeaderStyles.css';
 
 
-export const Header = () => {
+const Header = () => {
     return (
-        <div className="Header">
-            <Link to="/" style={{ color: "white" }}><h3> 24SevenOffice forum</h3></Link>
+        <header>
+            <Link to="/"><h3> 24SevenOffice forum</h3></Link>
             <UserLoginHeader />
             <Search />
-        </div>
+        </header>
     );
 }
+
+export default Header;

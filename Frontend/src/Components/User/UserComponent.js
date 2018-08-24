@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import {Button} from '../CommonStyledComponents';
 
 const UserComponent = ({user, onclick}) => {
-    console.log(this.props);
     return(
         <Fragment>
             <h2>{user.userName}</h2>

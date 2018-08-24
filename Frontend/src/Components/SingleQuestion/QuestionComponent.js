@@ -1,13 +1,13 @@
 import React from 'react';
-import QuestionVoteComponent from './QuestionVoteComponent';
-import { QuestionWrapper, PostSubtext, Button } from '../CommonStyledComponents';
-import { withRouter } from 'react-router-dom';
+import Vote from '../CommonComponents/Vote';
+import { QuestionWrapper, PostSubtext } from '../CommonStyledComponents';
+import Button from '../CommonComponents/Button';
 
 
 const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editPostRedirect }) => {
   return (
     <QuestionWrapper>
-      <QuestionVoteComponent
+      <Vote
         isLoggedIn={true}
         votes={question.upvote}
         handleVote={handleVote}
@@ -22,12 +22,11 @@ const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editP
 
         <p>{question.body}</p>
 
-        <Button color="#f04b4b" onClick={deletePost}>Delete question</Button>
-        <Button onClick={editPostRedirect} color="#224477">Edit question</Button>
+        <Button color="#f04b4b" onclick={deletePost} text="Delete question"/>
+        <Button onclick={editPostRedirect} color="#224477" text="Edit question"/>
       </div>
 
     </QuestionWrapper>);
 
 }
 export default QuestionComponent;
-//export default withRouter(QuestionComponent);

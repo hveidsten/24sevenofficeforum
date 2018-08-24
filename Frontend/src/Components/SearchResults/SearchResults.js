@@ -1,21 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetch } from '../../Actions/postActions';
-import { Link } from 'react-router-dom';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
-import QuestionInList from './QuestionInList';
-import { Button } from '../CommonComponents/Button';
-import PageChanger from './PageChanger';
+import QuestionInList from '../QuestionList/QuestionInList';
+import PageChanger from '../QuestionList/PageChanger';
 import SortDropdown from '../SingleQuestion/SortDropdown';
 import { fetchQuestions } from '../../Actions/questionActions';
 
 class QuestionsList extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-      pageNumber: 1,
-      sortOrder:""
-     }
+    this.state = { pageNumber: 1 }
     this.onchange = this.onchange.bind(this);
     this.changePage = this.changePage.bind(this);
     this.fetchPosts = this.fetchPosts.bind(this);
@@ -23,8 +18,8 @@ class QuestionsList extends Component {
   }
 
   fetchPosts(pageNumber) {
-    this.props.fetchSingleCategory(this.props.activeCategory);
-    this.props.fetchQuestions(this.props.activeCategory, pageNumber, this.state.sortOrder);
+    this.props.fetch(`search?id=${this.props.match.params.searchQuery}`, "FETCH_POSTS");
+
   }
 
   componentDidMount() {
@@ -33,7 +28,6 @@ class QuestionsList extends Component {
 
 
   onchange(e) {
-    this.setState({sortOrder:e.target.value});
     this.props.fetchQuestions(this.props.activeCategory, 1, e.target.value);
     this.setState({
       pageNumber: 1
@@ -56,17 +50,17 @@ class QuestionsList extends Component {
 
 
   render() {
-    if (!this.props.questions.allQuestionsInCategory) { return <h2>Loading</h2>; }
+    if (!this.props.questions) { return <h2>Loading</h2>; }
     else {
       return (
         <Fragment  >
           <span ref={(el) => { this.scrollToPoint = el; }} />
 
-          <h2>{this.props.category && this.props.category.categoryName}</h2>
+          <h2>{"Results for " + this.props.match.params.searchQuery}</h2>
 
           <SortDropdown onchange={(e) => this.onchange(e)} />
 
-          {this.props.questions.allQuestionsInCategory.map(
+          {this.props.questions.map(
             (c, key) => {
               return (
                 <QuestionInList linkToQuestion={"../../" + this.props.categories.find(a => a.id === c.categoryId).categoryName.replace(' ', '_') + "/" + c.id} question={c} key={key} />
@@ -74,7 +68,6 @@ class QuestionsList extends Component {
             }
           )}
           <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
-          <Link to='./new_question'> <Button color="#49bd39" text="New question" /></Link>
         </Fragment>
       );
     }
@@ -85,7 +78,7 @@ class QuestionsList extends Component {
 const mapStateToProps = state => ({
   category: state.category.currentCategory,
   categories: state.category.allCategories,
-  questions: state.questions,
+  questions: state.posts.allQuestionsInCategory,
   user: state.user
 });
 

@@ -1,6 +1,5 @@
 import { FETCH_POSTS, FETCH_POST, NEW_POST, EDIT_POST, DELETE_POST, NEW_ANSWER, DELETE_ANSWER, EDIT_ANSWER, FETCH_ANSWERS } from '../Actions/postActions'
 const initialState = {
-
 }
 
 export default function (state = initialState, action) {

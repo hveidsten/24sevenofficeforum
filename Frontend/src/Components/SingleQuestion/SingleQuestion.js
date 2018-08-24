@@ -4,12 +4,14 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS, fetchAnswers } from '../../Actions/postActions';
+import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
-import { Button } from '../CommonStyledComponents';
+import { Button } from '../CommonComponents/Button';
 import QuestionComponent from './QuestionComponent';
 import PageChanger from '../QuestionList/PageChanger';
 import SortDropdown from './SortDropdown';
+import {fetchQuestion} from '../../Actions/questionActions';
+import {fetchAnswers} from '../../Actions/answerActions';
 
 class SingleQuestion extends Component {
     constructor(props) {
@@ -18,7 +20,8 @@ class SingleQuestion extends Component {
             showQuestionForm: false,
             Deleted: false,
             edit: false,
-            pageNumber: 1
+            pageNumber: 1,
+            sortOrder: ""
         }
 
         this.handleVote = this.handleVote.bind(this);
@@ -31,15 +34,14 @@ class SingleQuestion extends Component {
     toggleQuestionform(a) {
         this.setState({
             showQuestionForm: !this.state.showQuestionForm,
-            answer: a,
+            answer: a
         });
 
     }
-
     componentDidMount() {
-        this.props.fetchPost(`${this.props.match.params.questionid}`).then(e =>
+        this.props.fetchQuestion(this.props.match.params.questionid).then(e =>
             this.props.fetchSingleCategory(e.payload.categoryId) |
-            this.props.fetchAnswers(`answers/?questionId=${e.payload.id}`, "FETCH_ANSWERS")
+            this.props.fetchAnswers(e.payload.id, this.state.pageNumber,this.state.sortOrder)
         );
     }
 
@@ -64,7 +66,8 @@ class SingleQuestion extends Component {
     }
 
     onchange(e) {
-        this.props.fetch(`answers/?questionId=${this.props.match.params.questionid}&sortOrder=${e.target.value}`, FETCH_ANSWERS);
+        this.setState({sortOrder: e.target.value});
+        this.props.fetchAnswers(this.props.match.params.questionid, this.state.pageNumber,e.target.value);
         this.setState({
             pageNumber: 1
         });
@@ -76,7 +79,7 @@ class SingleQuestion extends Component {
             this.setState({
                 pageNumber: newPage
             });
-            this.props.fetch(`answers/?questionId=${this.props.post.id}&page=${newPage}`, "FETCH_ANSWERS");
+            this.props.fetchAnswers(this.props.match.params.questionid, newPage,this.state.sortOrder);
             this.scrollToTop();
         }
     }
@@ -120,7 +123,7 @@ class SingleQuestion extends Component {
 
                     <SortDropdown onchange={(e) => this.onchange(e)} />
 
-                    {this.props.post.answer && this.props.post.answer.map((a, key) =>
+                    {this.props.answers && this.props.answers.map((a, key) =>
                         <AnswerComponent answer={a}
                             deleteAnswer={this.props.deleteAnswer}
                             editAnswer={this.props.editAnswer}
@@ -130,12 +133,9 @@ class SingleQuestion extends Component {
                             toggleQuestionform={() => this.toggleQuestionform(a)}
                             key={key} />)}
 
-                    {(<div>
-                        {this.state.showQuestionForm === false ?
-                            <Button color="#49bd39" onClick={this.toggleQuestionform}>New answer</Button> :
-                            <Button color="#f04b4b" onClick={this.toggleQuestionform}>Close</Button>
-                        }
-                    </div>)}
+
+                    <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />
+                    
                     <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
                     {this.state.showQuestionForm && (<AddAnswer answer={this.state.answer} hideForm={this.toggleQuestionform} />)}
 
@@ -156,15 +156,18 @@ const mapDispatchToProps = (dispatch) => {
         editAnswer: (a) => dispatch(editAnswer(a)),
         fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a)),
         fetch: (path, type) => dispatch(fetch(path, type)),
-        fetchAnswers: (id) => dispatch(fetchAnswers(id))
+
+        fetchAnswers: (questionId, pageNumber, sortOrder) => dispatch(fetchAnswers(questionId, pageNumber, sortOrder)),
+        fetchQuestion: (id) => dispatch(fetchQuestion(id))
     };
 };
 
 const mapStateToProps = state => (
     {
-        post: state.posts.activeQuestion,
+        post: state.questions.activeQuestion,
         user: state.user,
-        category: state.category.currentCategory
+        category: state.category.currentCategory,
+        answers : state.answers
     }
 );
 

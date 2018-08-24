@@ -34,3 +34,8 @@ export const PostSubtext = styled.span`
     font-size: 0.8em;
     color:#404040;
 `;
+
+export const InputWrapper = styled.div`
+width:50vw;
+align-items: right;
+`;

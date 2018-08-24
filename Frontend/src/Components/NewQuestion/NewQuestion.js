@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { createPost, editPost } from '../../Actions/postActions';
-import { fetchAllCategories } from '../../Actions/categoryActions';
 import { Redirect } from 'react-router';
 import { NewQuestionComponent } from './NewQuestionComponent';
 
 class NewQuestion extends Component {
-
-  componentDidMount() {
-    this.props.fetchAllCategories();
-  }
 
   constructor(props) {
     super(props);
@@ -48,7 +43,7 @@ class NewQuestion extends Component {
 
     } else {
       post.upvote = 0;
-      this.props.createPost(post, "questions");
+      this.props.createPost(post);
     }
 
   }
@@ -81,7 +76,6 @@ const mapDispatchToProps = (dispatch) => {
 
   return {
     createPost: (post, path) => dispatch(createPost(post, path)),
-    fetchAllCategories: () => dispatch(fetchAllCategories()),
     editPost: (post) => dispatch(editPost(post))
   };
 };

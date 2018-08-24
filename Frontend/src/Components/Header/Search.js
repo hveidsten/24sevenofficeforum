@@ -21,6 +21,7 @@ class Search extends Component {
 
   onClick() {
     this.props.fetch(`search?id=${this.state.query}`, "FETCH_POSTS");
+    this.setState({ query: "" });
   }
 
   render() {
@@ -32,12 +33,9 @@ class Search extends Component {
           onChange={this.handleChange}
         />
         <Link to={`../../sok/alt/${this.state.query}`}><button onClick={this.onClick}>Search</button></Link>
-
       </form>
     )
   }
 }
-
-
 
 export default connect(null, { fetch })(Search);

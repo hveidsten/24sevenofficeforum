@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
-import { Button } from '../CommonStyledComponents';
+import { Button, InputWrapper } from '../CommonStyledComponents';
 
 
 const UserEdit = ({ user, onclick }) => {
     return (
         <Fragment>
             <h2>Edit user</h2>
+            <InputWrapper>
             <form>
-
+                
                 <label>Firstname:
             <input name="firstName" defaultValue={user.firstName} />
                     <br />
@@ -29,6 +30,7 @@ const UserEdit = ({ user, onclick }) => {
                 </label>
                 <Button onClick={onclick} color="#224477">Save</Button>
             </form>
+            </InputWrapper>
         </Fragment>
     );
 }
