@@ -20,8 +20,13 @@ class Search extends Component {
   }
 
   onClick() {
+    if(this.state.query!==''){
     this.props.fetch(`search?id=${this.state.query}`, "FETCH_POSTS");
     this.setState({ query: "" });
+  }else{
+    alert("Fail");
+  }
+   
   }
 
   render() {

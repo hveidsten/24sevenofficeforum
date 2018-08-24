@@ -35,6 +35,7 @@ class AddAnswer extends Component {
       questionId: this.props.post.id,
       upvote: 0
     }
+    console.log(post);
     if (this.props.answer.id) {
       post.id = this.props.answer.id;
       this.props.editAnswer(post);

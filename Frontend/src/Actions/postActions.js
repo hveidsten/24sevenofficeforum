@@ -40,7 +40,7 @@ export const fetchPost = (id) => {
 
 export const createPost = (postData, postUrl) => (dispatch) => {
 
-    axios.post('http://localhost:62152/api/' + postUrl, postData)
+    axios.post('http://localhost:62152/api/questions', postData)
         .then(response => dispatch({
             type: NEW_POST,
             payload: response.data
