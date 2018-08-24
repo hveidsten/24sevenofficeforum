@@ -7,28 +7,26 @@ import PageChanger from '../QuestionList/PageChanger';
 import SortDropdown from '../SingleQuestion/SortDropdown';
 import { fetchQuestions } from '../../Actions/questionActions';
 
-class QuestionsList extends Component {
+class SearchResults extends Component {
   constructor(props) {
     super(props);
-    this.state = { pageNumber: 1 }
+    this.state = { 
+      pageNumber: 1,
+      sortOrder:""
+     }
     this.onchange = this.onchange.bind(this);
     this.changePage = this.changePage.bind(this);
-    this.fetchPosts = this.fetchPosts.bind(this);
     this.myRef = React.createRef();
   }
 
-  fetchPosts(pageNumber) {
-    this.props.fetch(`search?id=${this.props.match.params.searchQuery}`, "FETCH_POSTS");
-
-  }
 
   componentDidMount() {
-    this.fetchPosts(this.state.pageNumber);
+    this.props.fetchQuestions(0,this.state.pageNumber,this.state.sortOrder,this.props.match.params.searchQuery);
   }
 
 
   onchange(e) {
-    this.props.fetchQuestions(this.props.activeCategory, 1, e.target.value);
+    this.props.fetchQuestions(0,this.state.pageNumber,e.target.value,this.props.match.params.searchQuery);
     this.setState({
       pageNumber: 1
     });
@@ -39,7 +37,7 @@ class QuestionsList extends Component {
       this.setState({
         pageNumber: newPage
       });
-      this.fetchPosts(newPage);
+      this.props.fetchQuestions(0,newPage,this.state.sortOrder,this.props.match.params.searchQuery);
       this.scrollToTop();
     }
   }
@@ -78,8 +76,8 @@ class QuestionsList extends Component {
 const mapStateToProps = state => ({
   category: state.category.currentCategory,
   categories: state.category.allCategories,
-  questions: state.posts.allQuestionsInCategory,
+  questions: state.questions.allQuestionsInCategory,
   user: state.user
 });
 
-export default connect(mapStateToProps, { fetchSingleCategory, fetch, fetchQuestions })(QuestionsList);
+export default connect(mapStateToProps, { fetchSingleCategory, fetch, fetchQuestions })(SearchResults);

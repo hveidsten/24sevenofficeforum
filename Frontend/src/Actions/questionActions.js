@@ -15,10 +15,14 @@ export const fetchQuestionsSuccess = (questions) => ({
     questions
 });
 
-export const fetchQuestions = (categoryId, pageNumber, sortOrder) => (dispatch) => {
+export const fetchQuestions = (categoryId, pageNumber, sortOrder,searchQuery) => (dispatch) => {
     dispatch(questionsAreLoaded(false));
-    const url = `http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`;
-
+    let url="";
+    if(searchQuery){
+         url = `http://localhost:62152/api/search?id=${searchQuery}&page=${pageNumber}&sortOrder=${sortOrder}`;
+    }else{
+     url = `http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`;
+    }
     axios.get(url)
         .then((response) => {
             dispatch(questionsAreLoaded(true));

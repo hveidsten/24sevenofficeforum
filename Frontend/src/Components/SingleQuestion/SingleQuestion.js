@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch, FETCH_ANSWERS } from '../../Actions/postActions';
+import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import { Button } from '../CommonComponents/Button';
 import QuestionComponent from './QuestionComponent';
@@ -36,8 +36,8 @@ class SingleQuestion extends Component {
             showQuestionForm: !this.state.showQuestionForm,
             answer: a
         });
-
     }
+    
     componentDidMount() {
         this.props.fetchQuestion(this.props.match.params.questionid).then(e =>
             this.props.fetchSingleCategory(e.payload.categoryId) |

@@ -9,7 +9,7 @@ import Home from './Components/Home/Home';
 import NewQuestion from './Components/NewQuestion/NewQuestion';
 import QuestionList from './Components/QuestionList/QuestionList';
 import SingleQuestion from './Components/SingleQuestion/SingleQuestion';
-import SearchResults from './Components/SearchResults/SearchResults';
+import SearchResults from './Components/QuestionList/SearchResults';
 import User from './Components/User/User';
 
 
