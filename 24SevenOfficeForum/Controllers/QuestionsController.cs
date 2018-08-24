@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,8 @@ namespace _24SevenOfficeForum.Controllers
 			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
 				else if (sortOrder == "vote_asc") sort = sort.OrderBy(s => s.Upvote);
 				else if (sortOrder == "vote_desc") sort = sort.OrderByDescending(s => s.Upvote);
+				else if (sortOrder == "count_asc") sort = sort.OrderBy(s => s.AnswerCount);
+				else if (sortOrder == "count_desc") sort = sort.OrderByDescending(s => s.AnswerCount);
 				else  sort = sort.OrderByDescending(s => s.QuestionCreated);
 
 			if (page == null) page = 1;
@@ -63,7 +66,7 @@ namespace _24SevenOfficeForum.Controllers
 			//This releases the self reference between question and answer
 			//Cleaner.CleanQuestions(questions);
 
-			return (questions);
+			return questions;
 		}
 
 		[HttpGet("{qId}")]

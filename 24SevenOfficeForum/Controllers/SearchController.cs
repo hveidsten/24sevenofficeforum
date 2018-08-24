@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -20,7 +22,7 @@ namespace _24SevenOfficeForum.Controllers
 		//GET: api/Search
 		[HttpGet]
 		[Produces("application/json")]
-		public async System.Threading.Tasks.Task<IQueryable<Question>> SearchAsync([FromQuery]string id, bool searchInAnswer, bool searchInCategory, string sortOrder, int? page)
+		public async Task<List<Question>> SearchAsync([FromQuery]string id, bool searchInAnswer, bool searchInCategory, string sortOrder, int? page)
 		{
 			string searchString = id;
 			var search = from question in _context.Question.Include(q => q.Category).Include(q => q.Answer)
@@ -43,12 +45,14 @@ namespace _24SevenOfficeForum.Controllers
 				if (page == null) page = 1;
 				int pageSize = 10;
 				int skipRows = (page.Value - 1) * pageSize;
-				  await search
+				 var searchList =  await search
 					.Skip(skipRows)
 					.Take(pageSize)
 					.AsNoTracking().ToListAsync();
+
+				return searchList;
 			}
-			return search;
+			return new List<Question>();
 		}
 	}
 }
