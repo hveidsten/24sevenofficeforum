@@ -22,20 +22,20 @@ namespace _24SevenOfficeForum.Controllers
 		//GET: api/Search
 		[HttpGet]
 		[Produces("application/json")]
-		public async Task<List<Question>> SearchAsync([FromQuery]string id, bool searchInAnswer, bool searchInCategory, string sortOrder, int? page)
+		public async Task<List<Question>> SearchAsync([FromQuery]string searchString, bool searchInAnswer, bool searchInCategory, string sortOrder, int? page)
 		{
-			string searchString = id;
-			var search = from question in _context.Question.Include(q => q.Category).Include(q => q.Answer)
-				where question.Body.Contains(searchString) ||
-				      question.Header.Contains(searchString) ||
-				      searchInAnswer && question.Answer.Any(a => a.Body.Contains(searchString)) ||
-				      searchInCategory && question.Category.Description.Contains(searchString) ||
-				      question.Category.CategoryName.Contains(searchString)
-				select question;
+			IQueryable<Question> search = _context.Question.Include(q => q.Answer);
 
 			if (searchString != null)
-			{
-				if (sortOrder == "created_asc") search = search.OrderBy(x => x.QuestionCreated);
+				search = from question in search
+					where question.Body.Contains(searchString) ||
+					      question.Header.Contains(searchString) ||
+					      searchInAnswer && question.Answer.Any(a => a.Body.Contains(searchString)) ||
+					      searchInCategory && question.Category.Description.Contains(searchString) ||
+					      question.Category.CategoryName.Contains(searchString)
+					select question;
+
+			if (sortOrder == "created_asc") search = search.OrderBy(x => x.QuestionCreated);
 				else if (sortOrder == "vote_asc") search = search.OrderBy(x => x.Upvote);
 				else if (sortOrder == "vote_desc") search = search.OrderByDescending(x => x.Upvote);
 				else if (sortOrder == "count_asc") search = search.OrderBy(x => x.AnswerCount);
@@ -45,14 +45,12 @@ namespace _24SevenOfficeForum.Controllers
 				if (page == null) page = 1;
 				int pageSize = 10;
 				int skipRows = (page.Value - 1) * pageSize;
-				 var searchList =  await search
+				var searchList = await search
 					.Skip(skipRows)
 					.Take(pageSize)
 					.AsNoTracking().ToListAsync();
 
 				return searchList;
-			}
-			return new List<Question>();
 		}
 	}
 }
