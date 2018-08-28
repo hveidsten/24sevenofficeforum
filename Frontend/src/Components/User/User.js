@@ -12,7 +12,7 @@ class User extends Component {
         this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.fetchUser(this.props.match.params.userId);
         this.props.userSignIn(1);
     }
