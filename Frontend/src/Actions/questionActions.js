@@ -3,7 +3,7 @@ import axios from 'axios';
 export const QUESTIONS_ARE_LOADED = "QUESTIONS_ARE_LOADED";
 export const FETCH_QUESTIONS_SUCCESS = "FETCH_QUESTIONS_SUCCESS";
 export const NEW_QUESTION = "NEW_QUESTION";
-export const FETCH_QUESTION ="FETCH_QUESTION";
+export const FETCH_QUESTION = "FETCH_QUESTION";
 export const EDIT_QUESTION = "EDIT_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
 
@@ -17,14 +17,17 @@ export const fetchQuestionsSuccess = (questions) => ({
     questions
 });
 
-export const fetchQuestions = (categoryId, pageNumber, sortOrder,searchQuery) => (dispatch) => {
+export const fetchQuestions = (categoryId, pageNumber, sortOrder, searchQuery) => (dispatch) => {
+
     dispatch(questionsAreLoaded(false));
-    let url="";
-    if(searchQuery){
-         url = `http://localhost:62152/api/search?id=${searchQuery}&page=${pageNumber}&sortOrder=${sortOrder}`;
-    }else{
-     url = `http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`;
+
+    let url = "";
+    if (searchQuery) {
+        url = `http://localhost:62152/api/search?id=${searchQuery}&page=${pageNumber}&sortOrder=${sortOrder}`;
+    } else {
+        url = `http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`;
     }
+    console.log(url);
     axios.get(url)
         .then((response) => {
             dispatch(questionsAreLoaded(true));
@@ -34,12 +37,12 @@ export const fetchQuestions = (categoryId, pageNumber, sortOrder,searchQuery) =>
 }
 
 export const fetchQuestion = (id) => (dispatch) => {
-    return(
-    axios.get(`http://localhost:62152/api/questions/${id}`)
-        .then(response => dispatch({
-            type: FETCH_QUESTION,
-            payload: response.data
-        }))
+    return (
+        axios.get(`http://localhost:62152/api/questions/${id}`)
+            .then(response => dispatch({
+                type: FETCH_QUESTION,
+                payload: response.data
+            }))
     );
 }
 

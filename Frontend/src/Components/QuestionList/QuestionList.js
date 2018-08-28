@@ -14,6 +14,7 @@ class QuestionsList extends Component {
     super(props);
     this.state = { 
       pageNumber: 1,
+      numberOfPages: 1,
       sortOrder:""
      }
     this.onchange = this.onchange.bind(this);
