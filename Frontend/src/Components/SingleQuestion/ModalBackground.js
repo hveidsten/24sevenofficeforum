@@ -8,7 +8,7 @@ const ModalBackground = ({ onclick }) => {
             top: '0px',
             left: '0px',
             zIndex: '9998',
-            background: 'rgba(0, 0, 0, 0.1)'}} onClick={onclick}> </div>
+            background: 'rgba(0, 0, 0, 0.2)'}} onClick={onclick}> </div>
     );
 }
 export default ModalBackground;

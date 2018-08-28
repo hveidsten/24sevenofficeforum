@@ -20,7 +20,7 @@ export const NewQuestionComponent = ({ handleSubmit, questionHeading, handleChan
           {categories.map((c, key) => { return <option key={key} value={c.id}>{c.categoryName}</option> })}
         </select>
 
-        <Button color="#49bd39" text={edit ? "Lagre" : "Post"} onclick={handleSubmit}/>
+        <Button color="#49bd39" text={edit ? "Save changes" : "Submit"} onclick={handleSubmit}/>
       </form>
     </Fragment>
   );

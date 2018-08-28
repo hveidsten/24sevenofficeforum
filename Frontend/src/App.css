@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+@font-face {
+  font-family: "Miama";
+  src: url("./Font/Roboto-Regular.ttf");
+  }
 .pageWrapper{
   display: grid;    
 grid-template-columns: repeat(12, 1fr);
