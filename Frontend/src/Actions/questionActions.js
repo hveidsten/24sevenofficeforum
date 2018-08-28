@@ -4,6 +4,8 @@ export const QUESTIONS_ARE_LOADED = "QUESTIONS_ARE_LOADED";
 export const FETCH_QUESTIONS_SUCCESS = "FETCH_QUESTIONS_SUCCESS";
 export const NEW_QUESTION = "NEW_QUESTION";
 export const FETCH_QUESTION ="FETCH_QUESTION";
+export const EDIT_QUESTION = "EDIT_QUESTION";
+export const DELETE_QUESTION = "DELETE_QUESTION";
 
 export const questionsAreLoaded = (isLoaded) => ({
     type: QUESTIONS_ARE_LOADED,
@@ -31,6 +33,17 @@ export const fetchQuestions = (categoryId, pageNumber, sortOrder,searchQuery) =>
         .then(questions => dispatch(fetchQuestionsSuccess(questions)));
 }
 
+export const fetchQuestion = (id) => (dispatch) => {
+    return(
+    axios.get(`http://localhost:62152/api/questions/${id}`)
+        .then(response => dispatch({
+            type: FETCH_QUESTION,
+            payload: response.data
+        }))
+    );
+}
+
+
 export const createQuestion = (postData) => (dispatch) => {
 
     axios.post('http://localhost:62152/api/questions', postData)
@@ -40,12 +53,21 @@ export const createQuestion = (postData) => (dispatch) => {
         }));
 }
 
-export const fetchQuestion = (id) => (dispatch) => {
-    return(
-    axios.get(`http://localhost:62152/api/questions/${id}`)
+
+export const editQuestion = (postData) => (dispatch) => {
+    axios.patch('http://localhost:62152/api/questions/' + postData.id, postData)
         .then(response => dispatch({
-            type: FETCH_QUESTION,
+            type: EDIT_QUESTION,
             payload: response.data
-        }))
-    );
+        }));
+}
+
+export const deleteQuestion = (id) => (dispatch) => {
+    axios.delete('http://localhost:62152/api/questions/' + id)
+        .then(response => {
+            dispatch({
+                type: DELETE_QUESTION,
+                payload: id
+            });
+        });
 }

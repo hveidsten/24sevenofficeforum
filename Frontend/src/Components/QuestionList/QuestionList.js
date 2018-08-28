@@ -59,7 +59,7 @@ class QuestionsList extends Component {
     if (!this.props.questions.allQuestionsInCategory) { return <h2>Loading</h2>; }
     else {
       return (
-        <Fragment  >
+        <Fragment>
           <span ref={(el) => { this.scrollToPoint = el; }} />
 
           <h2>{this.props.category && this.props.category.categoryName}</h2>
@@ -78,7 +78,6 @@ class QuestionsList extends Component {
         </Fragment>
       );
     }
-
   }
 }
 

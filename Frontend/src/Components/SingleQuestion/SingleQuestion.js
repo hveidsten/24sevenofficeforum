@@ -4,13 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-import { editPost, deletePost, deleteAnswer, editAnswer, fetchPost, fetch } from '../../Actions/postActions';
+import { deleteAnswer, editAnswer, fetch } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import { Button } from '../CommonComponents/Button';
 import QuestionComponent from './QuestionComponent';
 import PageChanger from '../QuestionList/PageChanger';
 import SortDropdown from './SortDropdown';
-import {fetchQuestion} from '../../Actions/questionActions';
+import {fetchQuestion, deleteQuestion, editQuestion} from '../../Actions/questionActions';
 import {fetchAnswers} from '../../Actions/answerActions';
 
 class SingleQuestion extends Component {
@@ -25,7 +25,7 @@ class SingleQuestion extends Component {
         }
 
         this.handleVote = this.handleVote.bind(this);
-        this.deletePost = this.deletePost.bind(this);
+        this.deleteQuestion = this.deleteQuestion.bind(this);
         this.editPostRedirect = this.editPostRedirect.bind(this);
         this.toggleQuestionform = this.toggleQuestionform.bind(this);
         this.changePage = this.changePage.bind(this);
@@ -52,15 +52,15 @@ class SingleQuestion extends Component {
             up === 1 ? vote.upvote++ : vote.upvote--;
             this.props.editAnswer(vote);
         } else {
-            let vote = this.props.post;
+            let vote = this.props.question;
             up === 1 ? vote.upvote++ : vote.upvote--;
-            this.props.editPost(vote);
+            this.props.editQuestion(vote);
         }
     }
 
-    deletePost() {
+    deleteQuestion() {
         if (window.confirm("Are you sure you want to delete this question?")) {
-            this.props.deletePost(this.props.post.id);
+            this.props.deleteQuestion(this.props.question.id);
             this.setState({ Deleted: true });
         }
     }
@@ -90,7 +90,7 @@ class SingleQuestion extends Component {
 
 
     editPostRedirect() {
-        this.props.post.hasBeenPosted = false;
+        this.props.question.hasBeenPosted = false;
         this.props.history.push("../edit_question");
     }
 
@@ -104,7 +104,7 @@ class SingleQuestion extends Component {
         }
 
 
-        if (this.props.post === undefined) { return <h2>Vent</h2>; }
+        if (this.props.question === undefined) { return <h2>Loading</h2>; }
 
         else {
             return (
@@ -115,10 +115,10 @@ class SingleQuestion extends Component {
 
                     <QuestionComponent
                         user={this.props.user}
-                        question={this.props.post}
+                        question={this.props.question}
                         handleVote={this.handleVote}
                         categoryId={this.props.match.params.categoryid}
-                        deletePost={this.deletePost}
+                        deleteQuestion={this.deleteQuestion}
                         editPostRedirect={this.editPostRedirect} />
 
                     <SortDropdown onchange={(e) => this.onchange(e)} />
@@ -149,22 +149,22 @@ class SingleQuestion extends Component {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchPost: (a) => dispatch(fetchPost(a)),
-        editPost: (a) => dispatch(editPost(a)),
-        deletePost: (a) => dispatch(deletePost(a)),
+        
         deleteAnswer: (a) => dispatch(deleteAnswer(a)),
         editAnswer: (a) => dispatch(editAnswer(a)),
         fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a)),
         fetch: (path, type) => dispatch(fetch(path, type)),
 
         fetchAnswers: (questionId, pageNumber, sortOrder) => dispatch(fetchAnswers(questionId, pageNumber, sortOrder)),
-        fetchQuestion: (id) => dispatch(fetchQuestion(id))
+        fetchQuestion: (id) => dispatch(fetchQuestion(id)),
+        deleteQuestion: (id) => dispatch(deleteQuestion(id)),
+        editQuestion: (id) => dispatch(editQuestion(id))
     };
 };
 
 const mapStateToProps = state => (
     {
-        post: state.questions.activeQuestion,
+        question: state.questions.activeQuestion,
         user: state.user,
         category: state.category.currentCategory,
         answers : state.answers

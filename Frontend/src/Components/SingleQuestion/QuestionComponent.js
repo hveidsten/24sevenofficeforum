@@ -4,7 +4,7 @@ import { QuestionWrapper, PostSubtext } from '../CommonStyledComponents';
 import Button from '../CommonComponents/Button';
 
 
-const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editPostRedirect }) => {
+const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, editPostRedirect }) => {
   return (
     <QuestionWrapper>
       <Vote
@@ -22,7 +22,7 @@ const QuestionComponent = ({ question, handleVote, categoryId, deletePost, editP
 
         <p>{question.body}</p>
 
-        <Button color="#f04b4b" onclick={deletePost} text="Delete question"/>
+        <Button color="#f04b4b" onclick={deleteQuestion} text="Delete question"/>
         <Button onclick={editPostRedirect} color="#224477" text="Edit question"/>
       </div>
 

@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { createAnswer, editAnswer } from '../../Actions/postActions';
 import { AddAnswerModal } from './styledComponents';
 import ModalBackground from './ModalBackground';
 import { Button } from '../CommonComponents/Button';
+import { createAnswer, editAnswer } from '../../Actions/answerActions';
 
 class AddAnswer extends Component {
   constructor(props) {
@@ -32,10 +32,10 @@ class AddAnswer extends Component {
     event.preventDefault();
     const post = {
       body: this.state.questionBody,
-      questionId: this.props.post.id,
+      questionId:  this.props.question.id,
       upvote: 0
     }
-    console.log(post);
+
     if (this.props.answer.id) {
       post.id = this.props.answer.id;
       this.props.editAnswer(post);
@@ -57,6 +57,7 @@ class AddAnswer extends Component {
         <AddAnswerModal>
 
           <h3>{this.props.answer.id ? "Edit answer" : "New answer"}</h3>
+          
           <form onSubmit={this.handleSubmit}>
 
             <textarea rows="20" cols="75" autoFocus 
@@ -78,7 +79,7 @@ class AddAnswer extends Component {
 
 const mapStateToProps = state => (
   {
-    post: state.posts.activeQuestion
+    question: state.questions.activeQuestion
   }
 );
 

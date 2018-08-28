@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { createPost, editPost } from '../../Actions/postActions';
+import { createQuestion, editQuestion } from '../../Actions/questionActions';
 import { Redirect } from 'react-router';
 import { NewQuestionComponent } from './NewQuestionComponent';
 
@@ -9,11 +9,11 @@ class NewQuestion extends Component {
 
   constructor(props) {
     super(props);
-    const edit = this.props.match.path === "/edit_question" && this.props.post;
+    const edit = this.props.match.path === "/edit_question" && this.props.question;
     this.state = {
-      questionHeading: edit ? this.props.post.header : "",
-      questionBody: edit ? this.props.post.body : "",
-      categoryId: edit ? this.props.post.categoryId : "none"
+      questionHeading: edit ? this.props.question.header : "",
+      questionBody: edit ? this.props.question.body : "",
+      categoryId: edit ? this.props.question.categoryId : "none"
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,16 +34,16 @@ class NewQuestion extends Component {
       body: this.state.questionBody,
       categoryId: this.state.categoryId
     }
-    if (this.props.match.path === "/edit_question" && this.props.post && post.categoryId !== "none") {
-      post.id = this.props.post.id;
-      post.upvote = this.props.post.upvote;
-      this.props.editPost(post);
+    if (this.props.match.path === "/edit_question" && this.props.question && post.categoryId !== "none") {
+      post.id = this.props.question.id;
+      post.upvote = this.props.question.upvote;
+      this.props.editQuestion(post);
     } else if (post.categoryId === "none") {
       alert("Select category");
 
     } else {
       post.upvote = 0;
-      this.props.createPost(post);
+      this.props.createQuestion(post);
     }
 
   }
@@ -59,11 +59,11 @@ class NewQuestion extends Component {
             questionBody={this.state.questionBody}
             categories={this.props.categories}
             categoryId={this.state.categoryId}
-            edit={this.props.match.path === "/edit_question" && this.props.post}
+            edit={this.props.match.path === "/edit_question" && this.props.question}
           />
 
-          {this.props.post && this.props.post.hasBeenPosted &&
-            <Redirect to={this.props.categories.find(c => c.id === this.props.post.categoryId).categoryName.replace(' ', '_') + "/" + this.props.post.id} />}
+          {this.props.question && this.props.question.hasBeenPosted &&
+            <Redirect to={this.props.categories.find(c => c.id === this.props.question.categoryId).categoryName.replace(' ', '_') + "/" + this.props.question.id} />}
 
         </div>
 
@@ -75,14 +75,14 @@ class NewQuestion extends Component {
 const mapDispatchToProps = (dispatch) => {
 
   return {
-    createPost: (post, path) => dispatch(createPost(post, path)),
-    editPost: (post) => dispatch(editPost(post))
+    createQuestion: (post) => dispatch(createQuestion(post)),
+    editQuestion: (post) => dispatch(editQuestion(post))
   };
 };
 
 const mapStateToProps = state => (
   {
-    post: state.posts.activeQuestion,
+    question: state.questions.activeQuestion,
     categories: state.category.allCategories,
     activeCategory: state.category.currentCategory
   }

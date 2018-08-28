@@ -11,42 +11,6 @@ export const DELETE_ANSWER = "DELETE_ANSWER";
 export const EDIT_ANSWER = "EDIT_ANSWER";
 export const FETCH_ANSWERS = "FETCH_ANSWERS";
 
-
-export const fetchPost = (id) => {
-    return (dispatch) => {
-        return (
-            axios.get(`http://localhost:62152/api/questions/${id}`,)
-                .then(response => dispatch({
-                    type: FETCH_POST,
-                    payload: response.data
-                }))
-        );
-    }
-}
-
-/*export const fetchPosts = (catId, sortOrder, ) => {
-    const fetchUrl = `http://localhost:62152/api/questions/?categoryId=${catId}`
-    return (dispatch) => {
-        return (
-            axios.get(`http://localhost:62152/api/questions/?categoryId=${catId}&sortOrder=${sortOrder}`)
-                .then(response => dispatch({
-                    type: FETCH_POST,
-                    payload: response.data
-                }))
-        );
-    }
-}*/
-
-
-export const createPost = (postData, postUrl) => (dispatch) => {
-
-    axios.post('http://localhost:62152/api/questions', postData)
-        .then(response => dispatch({
-            type: NEW_POST,
-            payload: response.data
-        }));
-}
-
 export const createAnswer = (postData, postUrl) => (dispatch) => {
 
     axios.post('http://localhost:62152/api/' + postUrl, postData)
@@ -57,6 +21,7 @@ export const createAnswer = (postData, postUrl) => (dispatch) => {
 }
 
 
+/*
 export const editPost = (postData) => (dispatch) => {
     axios.put('http://localhost:62152/api/questions/' + postData.id, postData)
         .then(response => dispatch({
@@ -73,7 +38,7 @@ export const deletePost = (id) => (dispatch) => {
                 payload: id
             });
         });
-}
+}*/
 
 export const deleteAnswer = (id) => (dispatch) => {
     axios.delete('http://localhost:62152/api/answers/' + id)

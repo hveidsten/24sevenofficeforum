@@ -33,16 +33,17 @@ a {
   color:black;
 
 }
+
 .voteCounter h3 {
   margin:0;
 }
 
-.addPostButton{
+/*.addPostButton{
   background-color:green;
   color:white;
   padding:0.5rem;
   border: 25%;
-}
+}*/
 .newQuestionForm{
   padding:1rem;
 }
