@@ -27,7 +27,7 @@ export const fetchQuestions = (categoryId, pageNumber, sortOrder, searchQuery) =
     } else {
         url = `http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`;
     }
-    console.log(url);
+
     axios.get(url)
         .then((response) => {
             dispatch(questionsAreLoaded(true));

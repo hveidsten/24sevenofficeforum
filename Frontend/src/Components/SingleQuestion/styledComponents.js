@@ -13,11 +13,8 @@ export const AddAnswerModal = styled.div`
 
   animation: 0.2s ease-out 0s 1 slideUp;
 position: fixed;
-right: 25vw;
-bottom: 0;
-width:50vw;
-height:38vh;
-background-color: #BDC8D3;
+right: 35vw;
+bottom: 15vh;
 color: black;
 text-align: center;
 z-index: 9999;
