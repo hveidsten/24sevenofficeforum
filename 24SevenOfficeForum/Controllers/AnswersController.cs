@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
@@ -97,20 +97,18 @@ namespace _24SevenOfficeForum.Controllers
 			setdate.AnswerCreated = localdate;
 			if (model != null)
 			{
-				_context.Answer.Add(model);
-				_context.Question.Where(Q => Q.Id == model.QuestionId).FirstOrDefault().AnswerCount += 1;
+				_context.Answer.Add(setdate);
+				_context.Question.FirstOrDefault(q => q.Id == model.QuestionId).AnswerCount += 1;
 
-				//_context.Question.Where(Q => Q.Id == answer.QuestionId).AnswerCount + 1;
 				await _context.SaveChangesAsync();
 
-				return Ok(model);
+				return Ok(setdate);
 			}
 			return BadRequest();
 		}
 
 		// DELETE: api/Answers/5
 		[HttpDelete("{id}")]
-		//[EnableCors("Delete")]
 		public async Task<IActionResult> DeleteAnswer([FromRoute] int id)
 		{
 			if (!ModelState.IsValid)

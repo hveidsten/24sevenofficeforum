@@ -35,7 +35,7 @@ namespace _24SevenOfficeForum.Controllers
 		//[Authorize("read:questions")]
 		public async Task<IEnumerable<QuestionViewModel>>GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
-			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).AsQueryable() : _context.Question.AsQueryable();
+			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).AsQueryable(): _context.Question.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
 				else if (sortOrder == "vote_asc") sort = sort.OrderBy(s => s.Upvote);
 				else if (sortOrder == "vote_desc") sort = sort.OrderByDescending(s => s.Upvote);
@@ -88,8 +88,7 @@ namespace _24SevenOfficeForum.Controllers
 			return question;
 		}
 
-		// PUT: api/Questions/5
-		//[Authorize(Policy = "admin")]
+		// PUT: api/Questions/
 		[HttpPut("{id}")]
 		public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question model)
 		{
@@ -120,14 +119,14 @@ namespace _24SevenOfficeForum.Controllers
 		{
 			var setdate = model;
 
-			DateTime localDate = Convert.ToDateTime(DateTime.Now.ToString("f"));
+			DateTime localDate = Convert.ToDateTime(DateTime.Now.ToString("G"));
 			setdate.QuestionCreated = localDate;
 			if (model != null)
 			{
-				_context.Question.Add(model);
+				_context.Question.Add(setdate);
 				await _context.SaveChangesAsync();
 
-				return Ok(model);
+				return Ok(setdate);
 
 			}
 
@@ -135,9 +134,8 @@ namespace _24SevenOfficeForum.Controllers
 		}
 
 		// DELETE: api/Questions/5
-		//[Authorize(Policy = "admin")]
 		[HttpDelete("{id}")]
-	
+
 		public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
 		{
 			if (!ModelState.IsValid)
