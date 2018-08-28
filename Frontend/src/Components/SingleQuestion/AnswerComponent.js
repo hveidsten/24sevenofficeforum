@@ -15,7 +15,7 @@ const AnswerComponent = ({ answer, deleteAnswer, editAnswer, handleVote, user, c
                 answer={answer}
             />
             
-            <p>{answer.body}</p>
+            <div style={{width:"100%"}}>{answer.body.split('\n').map((t,i) => <p key={i}>{t}</p>)}</div>
 
             <a style={{ marginRight: "1rem" }} 
             onClick={() => window.confirm("Are you sure you want do delete this answer?")?
