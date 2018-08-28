@@ -28,24 +28,26 @@ class NewQuestion extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    const post = {
-      header: this.state.questionHeading,
-      body: this.state.questionBody,
-      categoryId: this.state.categoryId
-    }
-    if (this.props.match.path === "/edit_question" && this.props.question && post.categoryId !== "none") {
-      post.id = this.props.question.id;
-      post.upvote = this.props.question.upvote;
-      this.props.editQuestion(post);
-    } else if (post.categoryId === "none") {
-      alert("Select category");
-
+    if (this.state.questionHeading === "") {
+      alert("Please type in your question before submitting.");
     } else {
-      post.upvote = 0;
-      this.props.createQuestion(post);
-    }
+      const post = {
+        header: this.state.questionHeading,
+        body: this.state.questionBody,
+        categoryId: this.state.categoryId
+      }
+      if (this.props.match.path === "/edit_question" && this.props.question && post.categoryId !== "none") {
+        post.id = this.props.question.id;
+        post.upvote = this.props.question.upvote;
+        this.props.editQuestion(post);
+      } else if (post.categoryId === "none") {
+        alert("Select category");
 
+      } else {
+        post.upvote = 0;
+        this.props.createQuestion(post);
+      }
+    }
   }
 
   render() {

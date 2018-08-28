@@ -54,7 +54,6 @@ class SingleQuestion extends Component {
         maxPage= Number.isInteger(maxPage)? maxPage : Math.ceil(maxPage);
 
         this.setState({maxPageNumber: maxPage>1? maxPage:1});
-         console.log(this.state.maxPageNumber);
     }
 
 
