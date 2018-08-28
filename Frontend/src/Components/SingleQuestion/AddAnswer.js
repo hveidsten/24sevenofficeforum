@@ -32,7 +32,7 @@ class AddAnswer extends Component {
     event.preventDefault();
     const post = {
       body: this.state.questionBody,
-      questionId:  this.props.question.id,
+      questionId: this.props.question.id,
       upvote: 0
     }
 
@@ -45,9 +45,9 @@ class AddAnswer extends Component {
     this.props.hideForm();
   }
 
-  handleKeyPress(e){
-    e.key==='Enter' &&
-    this.handleSubmit(e);
+  handleKeyPress(e) {
+    e.key === 'Enter' &&
+      this.handleSubmit(e);
   }
 
   render() {
@@ -57,18 +57,18 @@ class AddAnswer extends Component {
         <AddAnswerModal>
 
           <h3>{this.props.answer.id ? "Edit answer" : "New answer"}</h3>
-          
+
           <form onSubmit={this.handleSubmit}>
 
-            <textarea rows="20" cols="75" autoFocus 
-            value={this.state.questionBody} 
-            onChange={this.handleChangeBody}
-            onKeyPress={this.handleKeyPress} 
-             />
+            <textarea rows="20" cols="75" autoFocus
+              value={this.state.questionBody}
+              onChange={this.handleChangeBody}
+              onKeyPress={this.handleKeyPress}
+            />
 
-            <Button color="#49bd39" onclick={this.handleSubmit} 
-            text={this.props.answer.id ? "Save changes" : "Post"} />
-            <Button color="#f04b4b" onclick={this.props.hideForm} text="Close"/>
+            <Button color="#49bd39" onclick={this.handleSubmit}
+              text={this.props.answer.id ? "Save changes" : "Post"} />
+            <Button color="#f04b4b" onclick={this.props.hideForm} text="Close" />
 
           </form>
         </AddAnswerModal>

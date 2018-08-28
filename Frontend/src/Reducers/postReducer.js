@@ -29,7 +29,7 @@ export default function (state = initialState, action) {
 
         case NEW_ANSWER: return {
             ...state,
-            activeQuestion: { ...state.activeQuestion, answer: [ { ...action.payload },...state.activeQuestion.answer] }
+            activeQuestion: { ...state.activeQuestion, answer: [{ ...action.payload }, ...state.activeQuestion.answer] }
         }
 
         case EDIT_POST: return {

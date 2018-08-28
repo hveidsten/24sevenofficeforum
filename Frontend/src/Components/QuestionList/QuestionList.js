@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetch } from '../../Actions/postActions';
 import { Link } from 'react-router-dom';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import QuestionInList from './QuestionInList';
@@ -12,11 +11,11 @@ import { fetchQuestions } from '../../Actions/questionActions';
 class QuestionsList extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       pageNumber: 1,
       numberOfPages: 1,
-      sortOrder:""
-     }
+      sortOrder: ""
+    }
     this.onchange = this.onchange.bind(this);
     this.changePage = this.changePage.bind(this);
     this.fetchPosts = this.fetchPosts.bind(this);
@@ -34,7 +33,7 @@ class QuestionsList extends Component {
 
 
   onchange(e) {
-    this.setState({sortOrder:e.target.value});
+    this.setState({ sortOrder: e.target.value });
     this.props.fetchQuestions(this.props.activeCategory, 1, e.target.value);
     this.setState({
       pageNumber: 1
@@ -89,4 +88,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, { fetchSingleCategory, fetch, fetchQuestions })(QuestionsList);
+export default connect(mapStateToProps, { fetchSingleCategory, fetchQuestions })(QuestionsList);

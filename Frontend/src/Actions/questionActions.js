@@ -23,7 +23,7 @@ export const fetchQuestions = (categoryId, pageNumber, sortOrder, searchQuery) =
 
     let url = "";
     if (searchQuery) {
-        url = `http://localhost:62152/api/search?id=${searchQuery}&page=${pageNumber}&sortOrder=${sortOrder}`;
+        url = `http://localhost:62152/api/search?searchString=${searchQuery}&page=${pageNumber}&sortOrder=${sortOrder}`;
     } else {
         url = `http://localhost:62152/api/questions/?categoryId=${categoryId}&page=${pageNumber}&sortOrder=${sortOrder}`;
     }

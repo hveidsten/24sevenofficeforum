@@ -4,14 +4,14 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-import { deleteAnswer, editAnswer, fetch } from '../../Actions/postActions';
+//import { deleteAnswer, editAnswer, fetch } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import { Button } from '../CommonComponents/Button';
 import QuestionComponent from './QuestionComponent';
 import PageChanger from '../QuestionList/PageChanger';
 import SortDropdown from './SortDropdown';
-import {fetchQuestion, deleteQuestion, editQuestion} from '../../Actions/questionActions';
-import {fetchAnswers} from '../../Actions/answerActions';
+import { fetchQuestion, deleteQuestion, editQuestion } from '../../Actions/questionActions';
+import { fetchAnswers, deleteAnswer, editAnswer } from '../../Actions/answerActions';
 
 class SingleQuestion extends Component {
     constructor(props) {
@@ -37,11 +37,11 @@ class SingleQuestion extends Component {
             answer: a
         });
     }
-    
+
     componentDidMount() {
         this.props.fetchQuestion(this.props.match.params.questionid).then(e =>
             this.props.fetchSingleCategory(e.payload.categoryId) |
-            this.props.fetchAnswers(e.payload.id, this.state.pageNumber,this.state.sortOrder)
+            this.props.fetchAnswers(e.payload.id, this.state.pageNumber, this.state.sortOrder)
         );
     }
 
@@ -66,8 +66,8 @@ class SingleQuestion extends Component {
     }
 
     onchange(e) {
-        this.setState({sortOrder: e.target.value});
-        this.props.fetchAnswers(this.props.match.params.questionid, this.state.pageNumber,e.target.value);
+        this.setState({ sortOrder: e.target.value });
+        this.props.fetchAnswers(this.props.match.params.questionid, this.state.pageNumber, e.target.value);
         this.setState({
             pageNumber: 1
         });
@@ -79,7 +79,7 @@ class SingleQuestion extends Component {
             this.setState({
                 pageNumber: newPage
             });
-            this.props.fetchAnswers(this.props.match.params.questionid, newPage,this.state.sortOrder);
+            this.props.fetchAnswers(this.props.match.params.questionid, newPage, this.state.sortOrder);
             this.scrollToTop();
         }
     }
@@ -135,7 +135,7 @@ class SingleQuestion extends Component {
 
 
                     <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />
-                    
+
                     <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
                     {this.state.showQuestionForm && (<AddAnswer answer={this.state.answer} hideForm={this.toggleQuestionform} />)}
 
@@ -149,16 +149,17 @@ class SingleQuestion extends Component {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        
-        deleteAnswer: (a) => dispatch(deleteAnswer(a)),
-        editAnswer: (a) => dispatch(editAnswer(a)),
         fetchSingleCategory: (a) => dispatch(fetchSingleCategory(a)),
-        fetch: (path, type) => dispatch(fetch(path, type)),
 
-        fetchAnswers: (questionId, pageNumber, sortOrder) => dispatch(fetchAnswers(questionId, pageNumber, sortOrder)),
         fetchQuestion: (id) => dispatch(fetchQuestion(id)),
         deleteQuestion: (id) => dispatch(deleteQuestion(id)),
-        editQuestion: (id) => dispatch(editQuestion(id))
+        editQuestion: (id) => dispatch(editQuestion(id)),
+
+        fetchAnswers: (questionId, pageNumber, sortOrder) => dispatch(fetchAnswers(questionId, pageNumber, sortOrder)),
+        deleteAnswer: (id) => dispatch(deleteAnswer(id)),
+        editAnswer: (id) => dispatch(editAnswer(id))
+
+
     };
 };
 
@@ -167,7 +168,7 @@ const mapStateToProps = state => (
         question: state.questions.activeQuestion,
         user: state.user,
         category: state.category.currentCategory,
-        answers : state.answers
+        answers: state.answers
     }
 );
 

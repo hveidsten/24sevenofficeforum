@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetch } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import QuestionInList from '../QuestionList/QuestionInList';
 import PageChanger from '../QuestionList/PageChanger';
@@ -10,10 +9,10 @@ import { fetchQuestions } from '../../Actions/questionActions';
 class SearchResults extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       pageNumber: 1,
-      sortOrder:""
-     }
+      sortOrder: ""
+    }
     this.onchange = this.onchange.bind(this);
     this.changePage = this.changePage.bind(this);
     this.myRef = React.createRef();
@@ -21,12 +20,12 @@ class SearchResults extends Component {
 
 
   componentDidMount() {
-    this.props.fetchQuestions(0,this.state.pageNumber,this.state.sortOrder,this.props.match.params.searchQuery);
+    this.props.fetchQuestions(0, this.state.pageNumber, this.state.sortOrder, this.props.match.params.searchQuery);
   }
 
 
   onchange(e) {
-    this.props.fetchQuestions(0,this.state.pageNumber,e.target.value,this.props.match.params.searchQuery);
+    this.props.fetchQuestions(0, this.state.pageNumber, e.target.value, this.props.match.params.searchQuery);
     this.setState({
       pageNumber: 1
     });
@@ -37,7 +36,7 @@ class SearchResults extends Component {
       this.setState({
         pageNumber: newPage
       });
-      this.props.fetchQuestions(0,newPage,this.state.sortOrder,this.props.match.params.searchQuery);
+      this.props.fetchQuestions(0, newPage, this.state.sortOrder, this.props.match.params.searchQuery);
       this.scrollToTop();
     }
   }
@@ -80,4 +79,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps, { fetchSingleCategory, fetch, fetchQuestions })(SearchResults);
+export default connect(mapStateToProps, { fetchSingleCategory, fetchQuestions })(SearchResults);
