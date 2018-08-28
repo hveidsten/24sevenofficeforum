@@ -11,7 +11,7 @@ export const Button = ({onclick, text,  color}) => {
   background-color: ${props => props.color};
   color:white;
   padding:0.5rem;
-  margin-right: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;
   border: 25%;
   &:hover {
     opacity: 0.9;

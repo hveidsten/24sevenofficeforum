@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { Button, InputWrapper } from '../CommonStyledComponents';
+import { InputWrapper } from '../CommonStyledComponents';
+import {Button} from '../CommonComponents/Button';
 
 
 const UserEdit = ({ user, onclick }) => {
@@ -32,7 +33,8 @@ const UserEdit = ({ user, onclick }) => {
             </form>
            
             </InputWrapper>
-            <Button onClick={onclick} color="#224477">Save</Button>
+            <Button onclick={onclick} color="#224477" text="Save" />
+            <Button onclick={onclick} color="#224477" text="Back" />
         </Fragment>
     );
 }

@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {Button} from '../CommonStyledComponents';
+import {Button} from '../CommonComponents/Button';
 
 const UserComponent = ({user, onclick, userLoggedin}) => {
     return(
@@ -8,7 +8,9 @@ const UserComponent = ({user, onclick, userLoggedin}) => {
             <p>Name: {user.firstName} {user.lastName}</p>
             <p>E-mail: {user.email}</p>
             <p>Telephone: {user.phone}</p>
-            {userLoggedin? <Button onClick={onclick} color="#224477">Edit profile</Button>:""}
+            {userLoggedin? 
+            <Button onclick={onclick} color="#224477" text="Edit profile"/>:
+            <Button onclick={() => {alert("Not yet implemented.")}} color="#224477" text="Message"/>}
         </Fragment>
     );
 }
