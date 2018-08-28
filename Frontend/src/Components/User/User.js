@@ -9,6 +9,7 @@ class User extends Component {
         super(props);
         this.state = { edit: false }
         this.toggleEdit = this.toggleEdit.bind(this);
+        this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
     }
 
     componentWillMount() {
@@ -21,14 +22,14 @@ class User extends Component {
     }
 
     checkIfUserIsLoggedIn(){
-        return this.props.displayedUser.userId === this.props.loggedInUser.userId;
+        return this.props.loggedInUser && this.props.displayedUser.userId === this.props.loggedInUser.userId;
     }
 
     render() {
         if (this.props.displayedUser) {
             return (
                 <Fragment>
-                   { this.state.edit? <UserEdit user={this.props.loggedInUser} onclick={this.toggleEdit} />:<UserComponent user={this.props.displayedUser} userLoggedin={this.checkIfUserIsLoggedIn} onclick={this.toggleEdit} />}
+                   { this.state.edit? <UserEdit user={this.props.loggedInUser} onclick={this.toggleEdit} />:<UserComponent user={this.props.displayedUser} userLoggedin={this.checkIfUserIsLoggedIn()} onclick={this.toggleEdit} />}
                 </Fragment>
             );
         } else {
