@@ -21,6 +21,7 @@ class SingleQuestion extends Component {
             Deleted: false,
             edit: false,
             pageNumber: 1,
+            maxPageNumber:1,
             sortOrder: ""
         }
 
@@ -29,6 +30,7 @@ class SingleQuestion extends Component {
         this.editPostRedirect = this.editPostRedirect.bind(this);
         this.toggleQuestionform = this.toggleQuestionform.bind(this);
         this.changePage = this.changePage.bind(this);
+        this.setMaxPageNumber = this.setMaxPageNumber.bind(this);
     }
 
     toggleQuestionform(a) {
@@ -42,7 +44,17 @@ class SingleQuestion extends Component {
         this.props.fetchQuestion(this.props.match.params.questionid).then(e =>
             this.props.fetchSingleCategory(e.payload.categoryId) |
             this.props.fetchAnswers(e.payload.id, this.state.pageNumber, this.state.sortOrder)
-        );
+        ).then(this.setMaxPageNumber);
+         
+    }
+
+    setMaxPageNumber() {
+        
+        let maxPage = this.props.question.answerCount/10;
+        maxPage= Number.isInteger(maxPage)? maxPage : Math.ceil(maxPage);
+
+        this.setState({maxPageNumber: maxPage>1? maxPage:1});
+         console.log(this.state.maxPageNumber);
     }
 
 
@@ -75,7 +87,7 @@ class SingleQuestion extends Component {
 
 
     changePage(newPage) {
-        if (newPage > 0) {
+        if (newPage > 0 && newPage <= this.state.maxPageNumber) {
             this.setState({
                 pageNumber: newPage
             });
@@ -136,7 +148,10 @@ class SingleQuestion extends Component {
 
                     <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />
 
-                    <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
+                    <PageChanger onclick={(a) => this.changePage(a)} 
+                        pageNumber={this.state.pageNumber} 
+                        maxPageNumber = {this.state.maxPageNumber }/>
+                        
                     {this.state.showQuestionForm && (<AddAnswer answer={this.state.answer} hideForm={this.toggleQuestionform} />)}
 
                 </Fragment>

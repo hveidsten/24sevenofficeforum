@@ -14,17 +14,23 @@ class QuestionsList extends Component {
     this.state = {
       pageNumber: 1,
       numberOfPages: 1,
+      maxPageNumber:1,
       sortOrder: ""
     }
+
     this.onchange = this.onchange.bind(this);
     this.changePage = this.changePage.bind(this);
     this.fetchPosts = this.fetchPosts.bind(this);
     this.myRef = React.createRef();
+    this.setMaxPageNumber = this.setMaxPageNumber.bind(this);
   }
+
+
 
   fetchPosts(pageNumber) {
     this.props.fetchSingleCategory(this.props.activeCategory);
     this.props.fetchQuestions(this.props.activeCategory, pageNumber, this.state.sortOrder);
+   // this.setMaxPageNumber;
   }
 
   componentDidMount() {
@@ -50,6 +56,16 @@ class QuestionsList extends Component {
     }
   }
 
+  setMaxPageNumber() {
+        
+  /*  let maxPage = this.props.question.answerCount/10;
+   maxPage= Number.isInteger(maxPage)? maxPage : Math.ceil(maxPage);
+
+    this.setState({maxPageNumber: maxPage>1? maxPage:1});*/
+
+     console.log(this.state.maxPageNumber);
+}
+
   scrollToTop = () => {
     this.scrollToPoint.scrollIntoView();
   }
@@ -73,7 +89,10 @@ class QuestionsList extends Component {
               )
             }
           )}
-          <PageChanger onclick={(a) => this.changePage(a)} pageNumber={this.state.pageNumber} />
+          <PageChanger onclick={(a) => this.changePage(a)} 
+            pageNumber={this.state.pageNumber} 
+            maxPageNumber={this.state.maxPageNumber} />
+
           <Link to='./new_question'> <Button color="#49bd39" text="New question" /></Link>
         </Fragment>
       );

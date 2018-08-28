@@ -17,8 +17,9 @@ const AnswerComponent = ({ answer, deleteAnswer, editAnswer, handleVote, user, c
             
             <p>{answer.body}</p>
 
-
-            <a style={{ marginRight: "1rem" }} onClick={() => deleteAnswer(answer.id)}>Delete </a><br />
+            <a style={{ marginRight: "1rem" }} 
+            onClick={() => window.confirm("Are you sure you want do delete this answer?")?
+            deleteAnswer(answer.id):""}>Delete </a><br />
             <a onClick={() => toggleQuestionform(answer)}>Edit </a>
 
         </AnswerWrapper>
