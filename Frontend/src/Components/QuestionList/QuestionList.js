@@ -25,6 +25,9 @@ class QuestionsList extends Component {
     this.setMaxPageNumber = this.setMaxPageNumber.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;    
+  }
 
 
   fetchPosts(pageNumber) {
