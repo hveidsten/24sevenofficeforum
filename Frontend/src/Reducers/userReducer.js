@@ -8,7 +8,7 @@ const userReducer = (state = {}, action) => {
             return { ...state, loggedInUser: action.payload };
 
         case FETCH_USER:
-            return { ...state, displayeduser: action.payload };
+            return { ...state, displayedUser: action.payload };
 
         default: return state;
     }

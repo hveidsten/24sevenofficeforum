@@ -20,11 +20,15 @@ class User extends Component {
         this.setState({edit: !this.state.edit});
     }
 
+    checkIfUserIsLoggedIn(){
+        return this.props.displayedUser.userId === this.props.loggedInUser.userId;
+    }
+
     render() {
-        if (this.props.user) {
+        if (this.props.displayedUser) {
             return (
                 <Fragment>
-                   { this.state.edit? <UserEdit user={this.props.user} onclick={this.toggleEdit} />:<UserComponent user={this.props.user} onclick={this.toggleEdit} />}
+                   { this.state.edit? <UserEdit user={this.props.loggedInUser} onclick={this.toggleEdit} />:<UserComponent user={this.props.displayedUser} userLoggedin={this.checkIfUserIsLoggedIn} onclick={this.toggleEdit} />}
                 </Fragment>
             );
         } else {
@@ -36,7 +40,8 @@ class User extends Component {
 
 const mapStateToProps = state => (
     {
-        user: state.user
+        displayedUser: state.user.displayedUser,
+        loggedInUser: state.user.loggedInUser
     }
 );
 

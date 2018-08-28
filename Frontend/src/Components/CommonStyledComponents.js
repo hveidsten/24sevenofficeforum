@@ -37,5 +37,10 @@ export const PostSubtext = styled.span`
 
 export const InputWrapper = styled.div`
 width:50vw;
-align-items: right;
+align-items: center;
+margin-bottom:1rem;
+form{
+  align-items: center;
+  margin: auto;
+}
 `;

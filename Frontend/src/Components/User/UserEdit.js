@@ -28,9 +28,11 @@ const UserEdit = ({ user, onclick }) => {
             <input name="phone" defaultValue={user.phone} />
                     <br />
                 </label>
-                <Button onClick={onclick} color="#224477">Save</Button>
+               
             </form>
+           
             </InputWrapper>
+            <Button onClick={onclick} color="#224477">Save</Button>
         </Fragment>
     );
 }
