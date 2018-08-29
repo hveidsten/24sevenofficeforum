@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-//import { deleteAnswer, editAnswer, fetch } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import { Button } from '../CommonComponents/Button';
 import QuestionComponent from './QuestionComponent';

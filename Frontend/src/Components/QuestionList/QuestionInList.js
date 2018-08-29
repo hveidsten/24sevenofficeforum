@@ -28,8 +28,5 @@ class QuestionInList extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    post: state.posts.allQuestionsInCategory
-});
 
-export default connect(mapStateToProps)(QuestionInList);
+export default connect()(QuestionInList);
