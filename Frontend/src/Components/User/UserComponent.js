@@ -8,6 +8,7 @@ const UserComponent = ({user, onclick, userLoggedin}) => {
             <p>Name: {user.firstName} {user.lastName}</p>
             <p>E-mail: {user.email}</p>
             <p>Telephone: {user.phone}</p>
+            <p>Company: {user.company}</p>
             {userLoggedin? 
             <Button onclick={onclick} color="#224477" text="Edit profile"/>:
             <Button onclick={() => {alert("Not yet implemented.")}} color="#224477" text="Message"/>}

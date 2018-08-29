@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import UserEdit from './UserEdit';
 import UserComponent from './UserComponent';
 import { connect } from 'react-redux';
-import { userSignIn, fetchUser } from '../../Actions/userActions';
+import { userSignIn, fetchUser, editUser } from '../../Actions/userActions';
 
 class User extends Component {
     constructor(props) {
@@ -10,6 +10,8 @@ class User extends Component {
         this.state = { edit: false }
         this.toggleEdit = this.toggleEdit.bind(this);
         this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -18,11 +20,23 @@ class User extends Component {
     }
 
     toggleEdit() {
-        this.setState({ edit: !this.state.edit });
+        this.setState({ edit: !this.state.edit, user: this.props.loggedInUser});
+        
     }
 
     checkIfUserIsLoggedIn() {
         return this.props.loggedInUser && this.props.displayedUser.userId === this.props.loggedInUser.userId;
+    }
+
+    handleSubmit() {
+        console.log(this.state.user);
+        this.props.editUser(this.state.user);
+    }
+
+    handleChange(event) {
+        
+        this.setState( {user:{ ...this.state.user, [event.target.name]: event.target.value }});
+        console.log(this.state);
     }
 
     render() {
@@ -32,11 +46,14 @@ class User extends Component {
                     {this.state.edit ?
                         <UserEdit
                             user={this.props.loggedInUser}
-                            onclick={this.toggleEdit} /> :
+                            onclick={this.toggleEdit} 
+                            handleChange={this.handleChange}
+                            handleSubmit={this.handleSubmit}/> :
                         <UserComponent
                             user={this.props.displayedUser}
                             userLoggedin={this.checkIfUserIsLoggedIn()}
-                            onclick={this.toggleEdit} />}
+                            onclick={this.toggleEdit}
+                             />}
                 </Fragment>
             );
         } else {
@@ -57,7 +74,8 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         userSignIn: (id) => dispatch(userSignIn(id)),
-        fetchUser: (id) => dispatch(fetchUser(id))
+        fetchUser: (id) => dispatch(fetchUser(id)),
+        editUser: (data) => dispatch(editUser(data))
     };
 };
 

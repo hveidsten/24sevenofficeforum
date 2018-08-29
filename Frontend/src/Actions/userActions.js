@@ -1,21 +1,63 @@
-export const USER_SIGN_IN = "USER_SIGN_IN";
-export const FETCH_USER = "FETCH_USER";
+import axios from 'axios';
 
+export const USER_SIGN_IN = "USER_SIGN_IN";
+export const USER_SIGN_OUT = "USER_SIGN_OUT";
+export const FETCH_USER = "FETCH_USER";
+export const EDIT_USER = "EDIT_USER";
+
+
+
+const url = "https://5b61477507412d00142acdae.mockapi.io/user/";
 
 export const userSignIn = (id) => (dispatch) => {
-
-  dispatch({
-    type: USER_SIGN_IN,
-    payload: dummyUsers.find(u => u.userId === (id))
-  });
-
+  axios.get(url+id).then(
+    response => {
+      dispatch({
+        type: USER_SIGN_IN,
+        payload: response.data
+      });
+    }
+  )
 }
 
+export const userSignOut = () => (dispatch) => {
+      dispatch({
+        type: USER_SIGN_OUT,
+        payload: {userId:0}
+      });
+    }
+
+
+
+
 export const fetchUser = (id) => (dispatch) => {
+  axios.get(url+id).then(
+    response => {
+      dispatch({
+        type: FETCH_USER,
+        payload: response.data
+      });
+    }
+  )
+}
+
+
+export const fetchUsers = (id) => (dispatch) => {
   dispatch({
     type: FETCH_USER,
     payload: dummyUsers.find(u => u.userId === parseInt(id, 10))
   });
+}
+
+export const editUser = (data) => (dispatch) => {
+  axios.put(url + data.userId, data).then(
+    response => {
+      dispatch({
+        type: EDIT_USER,
+        payload: response.data
+      });
+    }
+  )
 }
 
 
