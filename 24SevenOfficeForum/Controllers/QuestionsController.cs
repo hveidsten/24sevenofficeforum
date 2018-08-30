@@ -32,10 +32,9 @@ namespace _24SevenOfficeForum.Controllers
 		///</Summary>
 		// GET: api/Questions
 		[HttpGet]
-		//[Authorize("read:questions")]
 		public async Task<IEnumerable<QuestionViewModel>>GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
-			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).AsQueryable(): _context.Question.AsQueryable();
+			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).Include(u => u.User.FirstName).AsQueryable(): _context.Question.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
 				else if (sortOrder == "vote_asc") sort = sort.OrderBy(s => s.Upvote);
 				else if (sortOrder == "vote_desc") sort = sort.OrderByDescending(s => s.Upvote);
@@ -59,9 +58,10 @@ namespace _24SevenOfficeForum.Controllers
 					CategoryId = q.CategoryId,
 					QuestionCreated = q.QuestionCreated,
 					AnswerCount = q.AnswerCount,
+					FirstName = q.User.FirstName,
+					LastName = q.User.LastName
 				})
 				.ToListAsync();
-
 
 			//This releases the self reference between question and answer
 			//Cleaner.CleanQuestions(questions);
@@ -83,8 +83,10 @@ namespace _24SevenOfficeForum.Controllers
 					CategoryId = q.CategoryId,
 					QuestionCreated = q.QuestionCreated,
 					AnswerCount = q.AnswerCount,
+					FirstName = q.User.FirstName,
+					LastName = q.User.LastName
 				})
-				.Where(x =>  x.Id == qId).FirstOrDefaultAsync();
+				.Where(x => x.Id == qId).FirstOrDefaultAsync();
 			return question;
 		}
 

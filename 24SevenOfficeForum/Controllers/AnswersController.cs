@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _24SevenOfficeForum.Models;
+using _24SevenOfficeForum.Models.ViewModels;
 
 namespace _24SevenOfficeForum.Controllers
 {
@@ -25,10 +26,12 @@ namespace _24SevenOfficeForum.Controllers
 
 		// GET: api/Answers
 		[HttpGet]
-		public async Task<IEnumerable<Answer>> GetAnswers(int? page, string sortOrder, int questionId)
+		public async Task<List<AnswerViewModel>> GetAnswers(int? page, string sortOrder, int questionId)
 		{
+			var sort = questionId != 0 ? _context.Answer.Where(q => q.QuestionId == questionId)
+				.Include(u => u.User.FirstName )
+				.AsQueryable() : _context.Answer.AsQueryable();
 
-			var sort = questionId != 0 ? _context.Answer.Where(q => q.QuestionId == questionId).AsQueryable() : _context.Answer.AsQueryable();
 			if (sortOrder == "created_asc") sort = sort.OrderBy(x => x.AnswerCreated);
 			else if (sortOrder == "vote_asc") sort = sort.OrderBy(x => x.Upvote);
 			else if (sortOrder == "vote_desc") sort = sort.OrderByDescending(x => x.Upvote);
@@ -40,7 +43,18 @@ namespace _24SevenOfficeForum.Controllers
 			var answers = await sort
 				.Skip(skipRows)
 				.Take(pageSize)
-				.AsNoTracking().ToListAsync();
+				.AsNoTracking()
+				.Select(a => new AnswerViewModel()
+				{
+					Id = a.Id,
+					Upvote = a.Upvote,
+					Body = a.Body,
+					QuestionId = a.QuestionId,
+					AnswerCreated = a.AnswerCreated,
+					FirstName = a.User.FirstName,
+					LastName = a.User.LastName
+				})
+				.ToListAsync();
 
 			return answers;
 		}
@@ -48,17 +62,22 @@ namespace _24SevenOfficeForum.Controllers
 		// GET: api/Answers/5
 		[HttpGet("{id}")]
 
-		public async Task<IActionResult> GetAnswer([FromRoute] int id)
+		public async Task<AnswerViewModel> GetAnswer([FromRoute] int id)
 		{
-			if (!ModelState.IsValid) // Overflødig?
-				return BadRequest(ModelState);
+			var answer = await _context.Answer
+				.Select(a => new AnswerViewModel()
+				{
+					Id = a.Id,
+					Upvote = a.Upvote,
+					Body = a.Body,
+					QuestionId = a.QuestionId,
+					AnswerCreated = a.AnswerCreated,
+					FirstName = a.User.FirstName,
+					LastName = a.User.LastName
+				})
+				.Where(m => m.Id == id).SingleOrDefaultAsync();
 
-			var answer = await _context.Answer.SingleOrDefaultAsync(m => m.Id == id);
-
-			if (answer == null)
-				return NotFound();
-
-			return Ok(answer);
+			return answer;
 		}
 
 		// PUT: api/Answers/5

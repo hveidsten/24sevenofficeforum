@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Models
 {
-    public class Category
+    public partial class Category
     {
         public Category()
         {
