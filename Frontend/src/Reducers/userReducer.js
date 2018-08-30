@@ -1,6 +1,4 @@
-import { USER_SIGN_IN } from '../Actions/userActions';
-import { USER_SIGN_OUT } from '../Actions/userActions';
-import { FETCH_USER, EDIT_USER } from '../Actions/userActions';
+import { FETCH_USER, EDIT_USER, FETCH_USERS, USER_SIGN_OUT, USER_SIGN_IN } from '../Actions/userActions';
 
 const userReducer = (state = {}, action) => {
 
@@ -16,6 +14,9 @@ const userReducer = (state = {}, action) => {
 
         case EDIT_USER:
             return { ...state, loggedInUser: action.payload };
+
+        case FETCH_USERS:
+            return { ...state, allUsers: action.payload };
 
         default: return state;
     }

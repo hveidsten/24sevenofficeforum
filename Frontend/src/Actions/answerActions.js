@@ -23,7 +23,6 @@ export const createAnswer = (postData, user) => (dispatch) => {
             
             firstName: user.firstName,
             lastName: user.lastName
-
         }));
 }
 

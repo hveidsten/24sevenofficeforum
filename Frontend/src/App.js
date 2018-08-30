@@ -11,6 +11,7 @@ import QuestionList from './Components/QuestionList/QuestionList';
 import SingleQuestion from './Components/SingleQuestion/SingleQuestion';
 import SearchResults from './Components/QuestionList/SearchResults';
 import User from './Components/User/User';
+import Login from './Components/Login/Login';
 
 
 import { fetchAllCategories, fetchSingleCategory } from './Actions/categoryActions';
@@ -43,6 +44,7 @@ class App extends Component {
               <Route exact path="/:categoryid/:questionid" component={SingleQuestion} />
               <Route exact path="/new_question" component={NewQuestion} />
               <Route exact path="/edit_question" component={NewQuestion} />
+              <Route exact path="/login" component={Login} />
             </Switch>
           </div>
         </div>

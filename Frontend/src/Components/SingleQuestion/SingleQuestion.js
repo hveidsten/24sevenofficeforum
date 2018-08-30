@@ -144,7 +144,7 @@ class SingleQuestion extends Component {
                             key={key} />)}
 
 
-                    <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />
+                     {this.props.user.loggedInUser && <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />}
 
                     <PageChanger onclick={(a) => this.changePage(a)} 
                         pageNumber={this.state.pageNumber} 

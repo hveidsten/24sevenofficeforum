@@ -97,7 +97,7 @@ class QuestionsList extends Component {
             pageNumber={this.state.pageNumber} 
             maxPageNumber={this.state.maxPageNumber} />
 
-          <Link to='./new_question'> <Button color="#49bd39" text="New question" /></Link>
+         {this.props.user.loggedInUser && <Link to='./new_question'> <Button color="#49bd39" text="New question" /></Link>}
         </Fragment>
       );
     }

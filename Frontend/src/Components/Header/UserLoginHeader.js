@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
 class UserLoginHeader extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.userNameOnclick = this.userNameOnclick.bind(this);
     }
 
-    userNameOnclick(){
+    userNameOnclick() {
         this.props.fetchUser(this.props.user.loggedInUser.userId);
-        this.props.history.push('../../user/'+this.props.user.loggedInUser.userId);
+        this.props.history.push('../../user/' + this.props.user.loggedInUser.userId);
     }
 
     render() {
@@ -20,16 +20,15 @@ class UserLoginHeader extends Component {
             <div className="userLoginHeader">
                 {this.props.user && this.props.user.loggedInUser ?
                     <p>
-                    <span onClick={this.userNameOnclick}>
-                        Hello {this.props.user.loggedInUser.firstName}  
+                        <span onClick={this.userNameOnclick}>
+                            Hello {this.props.user.loggedInUser.firstName}
                         </span>
-                         <span onClick={this.props.userSignOut}>-log out </span>
-                         </p> :
+                        <span onClick={this.props.userSignOut}>-log out </span>
+                    </p> :
 
                     <div>
-                        <a onClick={() => this.props.userSignIn(10011)}>Sign in </a>
-                        or
-                        <a> Sign up</a>
+                        <a onClick={() => this.props.history.push('../../login/')}>
+                            Sign in or Sign up</a>
 
                     </div>
                 }
@@ -46,5 +45,5 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(connect(
-    mapStateToProps, { userSignIn,fetchUser,userSignOut }
+    mapStateToProps, { userSignIn, fetchUser, userSignOut }
 )(UserLoginHeader));
