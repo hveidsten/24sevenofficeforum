@@ -21,7 +21,7 @@ const UserEdit = ({ user, onclick, handleSubmit, handleChange }) => {
                     </label>
 
                     <label>E-Mail:
-            <input onChange={handleChange} name="mail" defaultValue={user.email} />
+            <input onChange={handleChange} name="email" defaultValue={user.email} />
                         <br />
                     </label>
 

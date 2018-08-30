@@ -5,6 +5,7 @@ export const USER_SIGN_OUT = "USER_SIGN_OUT";
 export const FETCH_USER = "FETCH_USER";
 export const EDIT_USER = "EDIT_USER";
 export const FETCH_USERS = "FETCH_USERS";
+export const CREATE_USER = "CREATE_USER";
 
 
 
@@ -64,3 +65,16 @@ export const editUser = (data) => (dispatch) => {
     }
   )
 }
+
+
+export const createUser = (data) => (dispatch) => {
+  axios.post(url, data).then(
+    response => {
+      dispatch({
+        type: CREATE_USER,
+        payload: response.data
+      });
+    }
+  )
+}
+

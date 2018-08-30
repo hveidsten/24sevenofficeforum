@@ -1,21 +1,27 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { fetchUsers, userSignIn } from '../../Actions/userActions';
+import { fetchUsers, userSignIn, createUser } from '../../Actions/userActions';
 
 class Login extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.userSelected = this.userSelected.bind(this);
+        this.createUser = this.createUser.bind(this);
     }
     componentDidMount() {
         this.props.fetchUsers();
     }
 
-userSelected(id){
-    this.props.userSignIn(id) 
-    this.props.history.goBack();
+    userSelected(id) {
+        this.props.userSignIn(id)
+        this.props.history.goBack();
+    }
 
-}
+    createUser(){
+        this.props.createUser({ "userName": "", "email": "", "firstName": "Please click edit.", "lastName": " ", "company": " ", "userVote": 1, "userRole": "a                                                 ", "userClaim": "a" });
+        
+
+    }
 
     render() {
         if (this.props.users) {
@@ -35,7 +41,7 @@ userSelected(id){
                             )}
 
                         </select></p>
-
+                    <button onClick={ this.createUser}>Create new user</button>
                 </Fragment>
             );
         } else {
@@ -45,11 +51,11 @@ userSelected(id){
 }
 
 
-
 const mapStateToProps = state => (
     {
-        users: state.user.allUsers
+        users: state.user.allUsers,
+        user: state.user.loggedInUser
     }
 );
 
-export default connect(mapStateToProps, { fetchUsers, userSignIn })(Login);
+export default connect(mapStateToProps, { fetchUsers, userSignIn, createUser })(Login);
