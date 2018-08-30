@@ -12,7 +12,7 @@ class UserLoginHeader extends Component {
 
     userNameOnclick() {
         this.props.fetchUser(this.props.user.loggedInUser.userId);
-        this.props.history.push('../../user/' + this.props.user.loggedInUser.userId);
+        this.props.history.push('../../user/' + this.props.user.loggedInUser.id);
     }
 
     render() {
