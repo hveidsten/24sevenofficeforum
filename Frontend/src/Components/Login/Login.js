@@ -17,9 +17,9 @@ class Login extends Component {
         this.props.history.goBack();
     }
 
-    createUser(){
-        this.props.createUser({ "userName": "", "email": "", "firstName": "Please click edit.", "lastName": " ", "company": " ", "userVote": 1, "userRole": "a                                                 ", "userClaim": "a" });
-        
+    createUser() {
+        this.props.createUser({ "userName": "", "email": "", "firstName": "Please click edit.", "lastName": " ", "company": " ", "userVote": 1, "userRole": "a", "userClaim": "a" });
+
 
     }
 
@@ -41,7 +41,7 @@ class Login extends Component {
                             )}
 
                         </select></p>
-                    <button onClick={ this.createUser}>Create new user</button>
+                    <button onClick={this.createUser}>Create new user</button>
                 </Fragment>
             );
         } else {
