@@ -15,7 +15,7 @@ export const HomeComponent = ({ posts, categories, user }) => {
                             text="New question" />
                     </Link>
 
-                    <Link to={`./user/${user.loggedInUser.userId}`}>
+                    <Link to={`./user/${user.loggedInUser.id}`}>
                         <Button color="#224477" text="My Profile" />
                     </Link>
                 </div>}

@@ -20,7 +20,7 @@ class SingleQuestion extends Component {
             Deleted: false,
             edit: false,
             pageNumber: 1,
-            maxPageNumber:1,
+            maxPageNumber: 1,
             sortOrder: ""
         }
 
@@ -44,15 +44,15 @@ class SingleQuestion extends Component {
             this.props.fetchSingleCategory(e.payload.categoryId) |
             this.props.fetchAnswers(e.payload.id, this.state.pageNumber, this.state.sortOrder)
         ).then(this.setMaxPageNumber);
-         
+
     }
 
     setMaxPageNumber() {
-        
-        let maxPage = this.props.question.answerCount/10;
-        maxPage= Number.isInteger(maxPage)? maxPage : Math.ceil(maxPage);
 
-        this.setState({maxPageNumber: maxPage>1? maxPage:1});
+        let maxPage = this.props.question.answerCount / 10;
+        maxPage = Number.isInteger(maxPage) ? maxPage : Math.ceil(maxPage);
+
+        this.setState({ maxPageNumber: maxPage > 1 ? maxPage : 1 });
     }
 
 
@@ -130,7 +130,7 @@ class SingleQuestion extends Component {
                         categoryId={this.props.match.params.categoryid}
                         deleteQuestion={this.deleteQuestion}
                         editPostRedirect={this.editPostRedirect}
-                        historyPush = {this.props.history.push} />
+                        historyPush={this.props.history.push} />
 
                     <SortDropdown onchange={(e) => this.onchange(e)} />
 
@@ -139,19 +139,20 @@ class SingleQuestion extends Component {
                             deleteAnswer={this.props.deleteAnswer}
                             editAnswer={this.props.editAnswer}
                             handleVote={this.handleVote}
-                            user={this.props.user}
+                            user={this.props.user && this.props.user.loggedInUser}
                             categoryId={this.props.match.params.categoryid}
                             toggleQuestionform={() => this.toggleQuestionform(a)}
-                            key={key} 
-                            historyPush={this.props.history.push}/>)}
+                            key={key}
+                            historyPush={this.props.history.push}
+                        />)}
 
 
-                     {this.props.user.loggedInUser && <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />}
+                    {this.props.user.loggedInUser && <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />}
 
-                    <PageChanger onclick={(a) => this.changePage(a)} 
-                        pageNumber={this.state.pageNumber} 
-                        maxPageNumber = {this.state.maxPageNumber }/>
-                        
+                    <PageChanger onclick={(a) => this.changePage(a)}
+                        pageNumber={this.state.pageNumber}
+                        maxPageNumber={this.state.maxPageNumber} />
+
                     {this.state.showQuestionForm && (<AddAnswer answer={this.state.answer} hideForm={this.toggleQuestionform} />)}
 
                 </Fragment>

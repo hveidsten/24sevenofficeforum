@@ -4,8 +4,7 @@ import {Button} from '../CommonComponents/Button';
 const UserComponent = ({user, onclick, userLoggedin}) => {
     return(
         <Fragment>
-            <h2>{user.userName}</h2>
-            <p>Name: {user.firstName} {user.lastName}</p>
+            <h2>{user.firstName} {user.lastName}</h2>
             <p>E-mail: {user.email}</p>
             <p>Telephone: {user.phone}</p>
             <p>Company: {user.company}</p>

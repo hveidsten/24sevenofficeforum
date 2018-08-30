@@ -3,11 +3,19 @@ import { connect } from 'react-redux';
 import { fetchUsers, userSignIn } from '../../Actions/userActions';
 
 class Login extends Component {
+    constructor(props){
+        super(props);
+        this.userSelected = this.userSelected.bind(this);
+    }
     componentDidMount() {
         this.props.fetchUsers();
     }
 
+userSelected(id){
+    this.props.userSignIn(id) 
+    this.props.history.goBack();
 
+}
 
     render() {
         if (this.props.users) {
@@ -16,7 +24,7 @@ class Login extends Component {
                 <Fragment>
                     <h2>Absolutly secure login:</h2>
                     <p>Please choose a user:
-                 <select onChange={(e) => { this.props.userSignIn(e.target.value) }}>
+                 <select onChange={(e) => { this.userSelected(e.target.value) }}>
                             <option>Select user</option>
                             {this.props.users.map(
                                 (u, i) => {
