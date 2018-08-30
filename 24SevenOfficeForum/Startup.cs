@@ -43,8 +43,8 @@ namespace _24SevenOfficeForum
 				options.AddPolicy("CorsPolicy",
 					builder => builder
 						.WithOrigins("http://localhost:3000")
-						.WithHeaders("accept", "content-type", "origin", "x-custom-header")
-						.WithMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+						.WithHeaders("Accept", "content-type", "Origin", "X-custom-header")
+						.WithMethods("POST", "PUT", "DELETE", "PATCH", "OPTIONS")
 						.AllowCredentials());
 			});
 			services.Configure<MvcOptions>(options =>
