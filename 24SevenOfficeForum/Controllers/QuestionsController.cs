@@ -34,7 +34,9 @@ namespace _24SevenOfficeForum.Controllers
 		[HttpGet]
 		public async Task<IEnumerable<QuestionViewModel>>GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
-			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId).Include(u => u.User.FirstName).AsQueryable(): _context.Question.AsQueryable();
+			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId)
+				.AsQueryable(): _context.Question.AsQueryable();
+
 			if (sortOrder == "created_asc") sort = sort.OrderBy(s => s.QuestionCreated);
 				else if (sortOrder == "vote_asc") sort = sort.OrderBy(s => s.Upvote);
 				else if (sortOrder == "vote_desc") sort = sort.OrderByDescending(s => s.Upvote);

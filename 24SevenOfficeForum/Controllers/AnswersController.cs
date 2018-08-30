@@ -29,7 +29,6 @@ namespace _24SevenOfficeForum.Controllers
 		public async Task<List<AnswerViewModel>> GetAnswers(int? page, string sortOrder, int questionId)
 		{
 			var sort = questionId != 0 ? _context.Answer.Where(q => q.QuestionId == questionId)
-				.Include(u => u.User.FirstName )
 				.AsQueryable() : _context.Answer.AsQueryable();
 
 			if (sortOrder == "created_asc") sort = sort.OrderBy(x => x.AnswerCreated);
