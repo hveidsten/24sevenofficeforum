@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import Button from '../CommonComponents/Button';
 
 export const NewQuestionComponent = ({ handleSubmit, questionHeading, handleChange, questionBody, categories, categoryId, edit }) => {
+
   return (
     <Fragment>
       <h2>{edit ? "Edit question" : "New question"}</h2>

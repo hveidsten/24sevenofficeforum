@@ -43,4 +43,5 @@ const mapStateToProps = state => (
         users: state.user.allUsers
     }
 );
+
 export default connect(mapStateToProps, { fetchUsers, userSignIn })(Login);

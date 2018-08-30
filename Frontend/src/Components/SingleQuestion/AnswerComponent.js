@@ -1,11 +1,12 @@
 import React from 'react';
 import { PostSubtext, AnswerWrapper } from '../CommonStyledComponents';
 import Vote from '../CommonComponents/Vote';
+import { withRouter } from 'react-router-dom';
 
-const AnswerComponent = ({ answer, deleteAnswer, editAnswer, handleVote, user, categoryId, toggleQuestionform }) => {
+const AnswerComponent = ({ answer, deleteAnswer, handleVote, categoryId, toggleQuestionform, historyPush }) => {
     return (
         <AnswerWrapper>
-            <PostSubtext> By {answer.firstName? answer.firstName + " "+ answer.lastName : "Navn Navnesen"}  {answer.answerCreated && "at " + answer.answerCreated.substring(0, 10)}</PostSubtext>
+            <PostSubtext> <p onClick={() => historyPush("../../user/"+answer.userId)}>By {answer.firstName ? answer.firstName + " " + answer.lastName : "Navn Navnesen"} </p>  {answer.answerCreated && "at " + answer.answerCreated.substring(0, 10)}</PostSubtext>
 
             <Vote
                 isLoggedIn={true}
@@ -14,16 +15,16 @@ const AnswerComponent = ({ answer, deleteAnswer, editAnswer, handleVote, user, c
                 id={categoryId}
                 answer={answer}
             />
-            
-            <div style={{width:"100%"}}>{answer.body.split('\n').map((t,i) => <p key={i}>{t}</p>)}</div>
 
-            <a style={{ marginRight: "1rem" }} 
-            onClick={() => window.confirm("Are you sure you want do delete this answer?")?
-            deleteAnswer(answer.id):""}>Delete </a><br />
+            <div style={{ width: "100%" }}>{answer.body.split('\n').map((t, i) => <p key={i}>{t}</p>)}</div>
+
+            <a style={{ marginRight: "1rem" }}
+                onClick={() => window.confirm("Are you sure you want do delete this answer?") ?
+                    deleteAnswer(answer.id) : ""}>Delete </a><br />
             <a onClick={() => toggleQuestionform(answer)}>Edit </a>
 
         </AnswerWrapper>
     );
 };
 
-export default AnswerComponent;
+export default withRouter(AnswerComponent);

@@ -4,7 +4,7 @@ import { QuestionWrapper, PostSubtext } from '../CommonStyledComponents';
 import Button from '../CommonComponents/Button';
 
 
-const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, editPostRedirect }) => {
+const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, editPostRedirect, historyPush }) => {
   return (
     <QuestionWrapper>
       <Vote
@@ -16,7 +16,7 @@ const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, e
 
       <div>
         <h2>{question.header}</h2>
-        <PostSubtext> By {question.firstName? question.firstName + " " + question.lastName : "Navn Navnesen"} 
+        <PostSubtext> <p onClick={() => historyPush("../../user/"+question.userId)}>By {question.firstName? question.firstName + " " + question.lastName : "Navn Navnesen"} </p>
           {question.questionCreated ? " at " + question.questionCreated.substring(0, 10) : ""}
           {"  "+question.answerCount +"  answers"}</PostSubtext>
 

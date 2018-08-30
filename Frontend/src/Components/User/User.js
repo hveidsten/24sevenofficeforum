@@ -16,7 +16,7 @@ class User extends Component {
 
     componentDidMount() {
         this.props.fetchUser(this.props.match.params.userId);
-        this.props.userSignIn(1);
+     
     }
 
     toggleEdit() {

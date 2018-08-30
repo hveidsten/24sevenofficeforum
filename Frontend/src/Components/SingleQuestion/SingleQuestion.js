@@ -129,7 +129,8 @@ class SingleQuestion extends Component {
                         handleVote={this.handleVote}
                         categoryId={this.props.match.params.categoryid}
                         deleteQuestion={this.deleteQuestion}
-                        editPostRedirect={this.editPostRedirect} />
+                        editPostRedirect={this.editPostRedirect}
+                        historyPush = {this.props.history.push} />
 
                     <SortDropdown onchange={(e) => this.onchange(e)} />
 
@@ -141,7 +142,8 @@ class SingleQuestion extends Component {
                             user={this.props.user}
                             categoryId={this.props.match.params.categoryid}
                             toggleQuestionform={() => this.toggleQuestionform(a)}
-                            key={key} />)}
+                            key={key} 
+                            historyPush={this.props.history.push}/>)}
 
 
                      {this.props.user.loggedInUser && <Button color="#49bd39" onclick={this.toggleQuestionform} text="New answer" />}
