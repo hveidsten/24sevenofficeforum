@@ -55,11 +55,11 @@ export const fetchUsers = () => (dispatch) => {
 }
 
 export const editUser = (data) => (dispatch) => {
-  axios.put(url + data.userId, data).then(
+  axios.put(url + data.id, data).then(
     response => {
       dispatch({
         type: EDIT_USER,
-        payload: response.data
+        payload: data
       });
     }
   )
