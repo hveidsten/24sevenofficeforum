@@ -17,10 +17,10 @@ const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, e
       <div>
         <h2>{question.header}</h2>
         <PostSubtext> By Navn Navnesen
-          {question.questionCreated ? "at " + question.questionCreated.substring(0, 10) : ""}
+          {question.questionCreated ? " at " + question.questionCreated.substring(0, 10) : ""}
           {"  "+question.answerCount +"  answers"}</PostSubtext>
 
-        <p>{question.body}</p>
+        <div>{question.body.split('\n').map((t,i) => <p key={i}>{t}</p>)}</div>
 
         <Button color="#f04b4b" onclick={deleteQuestion} text="Delete question"/>
         <Button onclick={editPostRedirect} color="#224477" text="Edit question"/>

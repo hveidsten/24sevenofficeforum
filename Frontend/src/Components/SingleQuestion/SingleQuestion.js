@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddAnswer from './AddAnswer';
 import AnswerComponent from './AnswerComponent';
-//import { deleteAnswer, editAnswer, fetch } from '../../Actions/postActions';
 import { fetchSingleCategory } from '../../Actions/categoryActions';
 import { Button } from '../CommonComponents/Button';
 import QuestionComponent from './QuestionComponent';
@@ -54,7 +53,6 @@ class SingleQuestion extends Component {
         maxPage= Number.isInteger(maxPage)? maxPage : Math.ceil(maxPage);
 
         this.setState({maxPageNumber: maxPage>1? maxPage:1});
-         console.log(this.state.maxPageNumber);
     }
 
 

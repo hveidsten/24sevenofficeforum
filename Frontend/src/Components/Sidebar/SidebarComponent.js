@@ -4,13 +4,20 @@ import styled from 'styled-components';
 
 
 class Sidebar extends Component {
+
     render() {
         return (
             <Fragment>
                 <StyledNavlink exact to="/" activeStyle={{ color: '#ffffff', fontWeight: 'bold' }}>Hjem<hr /></StyledNavlink>
-
                 {this.props.categories.map(
-                    (c, key) => { return <StyledNavlink exact to={"/" + c.categoryName.replace(' ', '_')} key={key} style={this.props.currentCategoryId === c.id ? { color: '#ffffff', fontWeight: 'bold' } : {}}>{c.categoryName}<hr /></StyledNavlink> })}
+                    (c, key) => {
+                        return <StyledNavlink
+                            exact to={"/" + c.categoryName.replace(' ', '_')}
+                            key={key}
+                            style={this.props.currentCategoryId === c.id ? { color: '#ffffff', fontWeight: 'bold' } : {}}>
+                            {c.categoryName}<hr />
+                        </StyledNavlink>
+                    })}
             </Fragment>
         );
     }

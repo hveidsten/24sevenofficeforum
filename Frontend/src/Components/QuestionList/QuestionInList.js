@@ -17,7 +17,10 @@ class QuestionInList extends Component {
                     <h2 style={{ marginBottom: 5 }}>{this.props.question.header}</h2>
                     <PostSubtext> By Navn Navnesen  {this.props.question.questionCreated ? "at " + this.props.question.questionCreated.substring(0, 10) : ""}
                         {" " + this.props.question.answerCount + " answers"}</PostSubtext>
-                    <p>{this.props.question.body}</p>
+
+                    <p>{this.props.question.body.length>500? 
+                        this.props.question.body.substring(0,500)+"... Click to read more.":
+                        this.props.question.body }</p>
                 </NavLink>
             </QuestionWrapper>
 
@@ -25,8 +28,5 @@ class QuestionInList extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    post: state.posts.allQuestionsInCategory
-});
 
-export default connect(mapStateToProps)(QuestionInList);
+export default connect()(QuestionInList);

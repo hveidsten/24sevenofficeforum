@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { userSignIn, fetchUser } from '../../Actions/userActions';
+import { userSignIn, userSignOut, fetchUser } from '../../Actions/userActions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
@@ -21,9 +21,9 @@ class UserLoginHeader extends Component {
                 {this.props.user && this.props.user.loggedInUser ?
                     <p>
                     <span onClick={this.userNameOnclick}>
-                        Hello {this.props.user.loggedInUser.userName}  
+                        Hello {this.props.user.loggedInUser.firstName}  
                         </span>
-                         <span onClick={() => this.props.userSignIn(0)}>-log out </span>
+                         <span onClick={this.props.userSignOut}>-log out </span>
                          </p> :
 
                     <div>
@@ -46,5 +46,5 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(connect(
-    mapStateToProps, { userSignIn,fetchUser }
+    mapStateToProps, { userSignIn,fetchUser,userSignOut }
 )(UserLoginHeader));

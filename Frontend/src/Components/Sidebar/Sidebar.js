@@ -5,6 +5,10 @@ import './SidebarStyles.css';
 
 
 class Sidebar extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;    
+  }
   
   render() {
     return (

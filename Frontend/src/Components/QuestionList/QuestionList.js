@@ -25,6 +25,9 @@ class QuestionsList extends Component {
     this.setMaxPageNumber = this.setMaxPageNumber.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;    
+  }
 
 
   fetchPosts(pageNumber) {
@@ -78,9 +81,10 @@ class QuestionsList extends Component {
         <Fragment>
           <span ref={(el) => { this.scrollToPoint = el; }} />
 
-          <h2>{this.props.category && this.props.category.categoryName}</h2>
-
-          <SortDropdown onchange={(e) => this.onchange(e)} />
+          <h2>{this.props.category && this.props.category.categoryName} </h2>
+          
+        
+          <SortDropdown onchange={(e) => this.onchange(e)} sortByAnswers />
 
           {this.props.questions.allQuestionsInCategory.map(
             (c, key) => {

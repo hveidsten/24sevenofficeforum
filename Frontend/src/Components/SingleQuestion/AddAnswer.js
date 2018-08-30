@@ -30,24 +30,28 @@ class AddAnswer extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const post = {
-      body: this.state.questionBody,
-      questionId: this.props.question.id,
-      upvote: 0
-    }
-
-    if (this.props.answer.id) {
-      post.id = this.props.answer.id;
-      this.props.editAnswer(post);
+    if (this.state.questionBody === "") {
+      alert("Please type in your answer to submit.")
     } else {
-      this.props.createAnswer(post, "answers");
+      const post = {
+        body: this.state.questionBody,
+        questionId: this.props.question.id,
+        upvote: 0
+      }
+
+      if (this.props.answer.id) {
+        post.id = this.props.answer.id;
+        this.props.editAnswer(post);
+      } else {
+        this.props.createAnswer(post, "answers");
+      }
+      this.props.hideForm();
     }
-    this.props.hideForm();
   }
 
   handleKeyPress(e) {
-    e.key === 'Enter' &&
-      this.handleSubmit(e);
+    if (e.key === 'Enter' && !e.shiftKey) { this.handleSubmit(e); }
+
   }
 
   render() {
@@ -56,21 +60,20 @@ class AddAnswer extends Component {
         <ModalBackground onclick={this.props.hideForm} />
         <AddAnswerModal>
 
-          <h3>{this.props.answer.id ? "Edit answer" : "New answer"}</h3>  
-          <div style={{margin:"1em"}}>
-          <Button color="#49bd39" onclick={this.handleSubmit}
-              text={this.props.answer.id ? "Save changes" : "Post"} />
+          <h3>{this.props.answer.id ? "Edit answer" : "New answer"}</h3>
+          <div style={{ margin: "1em" }}>
+            <Button color="#49bd39" onclick={this.handleSubmit}
+              text={this.props.answer.id ? "Save changes" : "Submit"} />
             <Button color="#f04b4b" onclick={this.props.hideForm} text="Close" />
-            </div>
+          </div>
           <form onSubmit={this.handleSubmit}>
 
             <textarea rows="20" cols="75" autoFocus
+              placeholder="Type here"
               value={this.state.questionBody}
               onChange={this.handleChangeBody}
               onKeyPress={this.handleKeyPress}
             />
-
-           
 
           </form>
         </AddAnswerModal>
