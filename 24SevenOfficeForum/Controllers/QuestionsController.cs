@@ -34,6 +34,9 @@ namespace _24SevenOfficeForum.Controllers
 		[HttpGet]
 		public async Task<IEnumerable<QuestionViewModel>>GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
+
+			//var count = _context.Question.Count(q => q.CategoryId == categoryId);
+
 			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId)
 				.AsQueryable(): _context.Question.AsQueryable();
 
@@ -61,7 +64,8 @@ namespace _24SevenOfficeForum.Controllers
 					QuestionCreated = q.QuestionCreated,
 					AnswerCount = q.AnswerCount,
 					FirstName = q.User.FirstName,
-					LastName = q.User.LastName
+					LastName = q.User.LastName,
+					UserId = q.User.Id
 				})
 				.ToListAsync();
 
@@ -86,7 +90,8 @@ namespace _24SevenOfficeForum.Controllers
 					QuestionCreated = q.QuestionCreated,
 					AnswerCount = q.AnswerCount,
 					FirstName = q.User.FirstName,
-					LastName = q.User.LastName
+					LastName = q.User.LastName,
+					UserId = q.User.Id
 				})
 				.Where(x => x.Id == qId).FirstOrDefaultAsync();
 			return question;

@@ -51,7 +51,8 @@ namespace _24SevenOfficeForum.Controllers
 					QuestionId = a.QuestionId,
 					AnswerCreated = a.AnswerCreated,
 					FirstName = a.User.FirstName,
-					LastName = a.User.LastName
+					LastName = a.User.LastName,
+					UserId = a.User.Id
 				})
 				.ToListAsync();
 
@@ -72,7 +73,8 @@ namespace _24SevenOfficeForum.Controllers
 					QuestionId = a.QuestionId,
 					AnswerCreated = a.AnswerCreated,
 					FirstName = a.User.FirstName,
-					LastName = a.User.LastName
+					LastName = a.User.LastName,
+					UserId = a.User.Id
 				})
 				.Where(m => m.Id == id).SingleOrDefaultAsync();
 
@@ -137,6 +139,7 @@ namespace _24SevenOfficeForum.Controllers
 				return NotFound();
 
 			_context.Answer.Remove(answer);
+			_context.Question.FirstOrDefault(q => q.Id == answer.QuestionId).AnswerCount -= 1;
 			await _context.SaveChangesAsync();
 
 			return Ok(answer);

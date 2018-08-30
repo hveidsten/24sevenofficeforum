@@ -15,11 +15,8 @@ namespace _24SevenOfficeForum.Models.ViewModels
 	    public DateTime? QuestionCreated { get; set; }
 	    public int? AnswerCount { get; set; }
 
-	    public string UserName { get; set; }
-	    public string Email { get; set; }
+	    public int? UserId { get; set; }
 	    public string FirstName { get; set; }
 	    public string LastName { get; set; }
-	    public string Company { get; set; }
-	    public string UserRole { get; set; }
 	}
 }
