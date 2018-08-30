@@ -7,7 +7,7 @@ export const EDIT_USER = "EDIT_USER";
 
 
 
-const url = "https://5b61477507412d00142acdae.mockapi.io/user/";
+const url = "http://localhost:62152/api/forumUsers/";
 
 export const userSignIn = (id) => (dispatch) => {
   axios.get(url+id).then(

@@ -16,7 +16,7 @@ const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, e
 
       <div>
         <h2>{question.header}</h2>
-        <PostSubtext> By Navn Navnesen
+        <PostSubtext> By {question.firstName? question.firstName + " " + question.lastName : "Navn Navnesen"} 
           {question.questionCreated ? " at " + question.questionCreated.substring(0, 10) : ""}
           {"  "+question.answerCount +"  answers"}</PostSubtext>
 

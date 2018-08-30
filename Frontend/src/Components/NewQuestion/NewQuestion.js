@@ -45,7 +45,7 @@ class NewQuestion extends Component {
 
       } else {
         post.upvote = 0;
-        this.props.createQuestion(post);
+        this.props.createQuestion(post, this.props.user);
       }
     }
   }
@@ -77,7 +77,7 @@ class NewQuestion extends Component {
 const mapDispatchToProps = (dispatch) => {
 
   return {
-    createQuestion: (post) => dispatch(createQuestion(post)),
+    createQuestion: (post, user) => dispatch(createQuestion(post, user)),
     editQuestion: (post) => dispatch(editQuestion(post))
   };
 };
@@ -86,7 +86,8 @@ const mapStateToProps = state => (
   {
     question: state.questions.activeQuestion,
     categories: state.category.allCategories,
-    activeCategory: state.category.currentCategory
+    activeCategory: state.category.currentCategory,
+    user: state.user.loggedInUser
   }
 );
 export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion);

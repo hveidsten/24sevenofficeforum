@@ -43,7 +43,7 @@ class AddAnswer extends Component {
         post.id = this.props.answer.id;
         this.props.editAnswer(post);
       } else {
-        this.props.createAnswer(post, "answers");
+        this.props.createAnswer(post, this.props.user);
       }
       this.props.hideForm();
     }
@@ -84,7 +84,8 @@ class AddAnswer extends Component {
 
 const mapStateToProps = state => (
   {
-    question: state.questions.activeQuestion
+    question: state.questions.activeQuestion,
+    user: state.user.loggedInUser
   }
 );
 

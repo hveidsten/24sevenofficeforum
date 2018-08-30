@@ -47,9 +47,9 @@ export const fetchQuestion = (id) => (dispatch) => {
 }
 
 
-export const createQuestion = (postData) => (dispatch) => {
-
-    axios.post('http://localhost:62152/api/questions', postData)
+export const createQuestion = (postData, user) => (dispatch) => {
+    const newQuestion = {...postData, firstName: user.firstName, lastName: user.lastName,  UserId: user.id}
+    axios.post('http://localhost:62152/api/questions', newQuestion)
         .then(response => dispatch({
             type: NEW_QUESTION,
             payload: response.data

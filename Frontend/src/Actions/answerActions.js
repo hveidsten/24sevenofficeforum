@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const FETCH_ANSWERS = "FETCH_ANSWERS";
-export const CREATE_ANSWER ="CREATE_ANSWER";
-export const EDIT_ANSWER ="EDIT_ANSWER";
+export const CREATE_ANSWER = "CREATE_ANSWER";
+export const EDIT_ANSWER = "EDIT_ANSWER";
 export const DELETE_ANSWER = "DELETE_ANSWER";
 
 export const fetchAnswers = (questionId, pageNumber, sortOrder) => (dispatch) => {
@@ -13,12 +13,17 @@ export const fetchAnswers = (questionId, pageNumber, sortOrder) => (dispatch) =>
         }));
 }
 
-export const createAnswer = (postData) => (dispatch) => {
+export const createAnswer = (postData, user) => (dispatch) => {
+    const newAnswer = { ...postData, firstName: user.firstName, lastName: user.lastName, UserId: user.id };
 
-    axios.post('http://localhost:62152/api/answers/', postData)
+    axios.post('http://localhost:62152/api/answers/', newAnswer)
         .then(response => dispatch({
             type: CREATE_ANSWER,
-            payload: response.data
+            payload: response.data,
+            
+            firstName: user.firstName,
+            lastName: user.lastName
+
         }));
 }
 

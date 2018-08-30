@@ -27,7 +27,7 @@ class UserLoginHeader extends Component {
                          </p> :
 
                     <div>
-                        <a onClick={() => this.props.userSignIn(1)}>Sign in </a>
+                        <a onClick={() => this.props.userSignIn(10011)}>Sign in </a>
                         or
                         <a> Sign up</a>
 

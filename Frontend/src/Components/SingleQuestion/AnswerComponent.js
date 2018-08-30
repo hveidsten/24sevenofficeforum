@@ -5,7 +5,7 @@ import Vote from '../CommonComponents/Vote';
 const AnswerComponent = ({ answer, deleteAnswer, editAnswer, handleVote, user, categoryId, toggleQuestionform }) => {
     return (
         <AnswerWrapper>
-            <PostSubtext> By Navn Navnesen  {answer.answerCreated ? "at " + answer.answerCreated.substring(0, 10) : ""}</PostSubtext>
+            <PostSubtext> By {answer.firstName? answer.firstName + " "+ answer.lastName : "Navn Navnesen"}  {answer.answerCreated && "at " + answer.answerCreated.substring(0, 10)}</PostSubtext>
 
             <Vote
                 isLoggedIn={true}
