@@ -34,9 +34,6 @@ namespace _24SevenOfficeForum.Controllers
 		[HttpGet]
 		public async Task<IEnumerable<QuestionViewModel>>GetQuestions(int? page, string sortOrder, int? categoryId)
 		{
-
-			//var count = _context.Question.Count(q => q.CategoryId == categoryId);
-
 			var sort = categoryId != null ? _context.Question.Where(q => q.CategoryId == categoryId)
 				.AsQueryable(): _context.Question.AsQueryable();
 
@@ -75,6 +72,9 @@ namespace _24SevenOfficeForum.Controllers
 			return questions;
 		}
 
+		///<Summary>
+		/// Gets the Question by Id
+		///</Summary>
 		[HttpGet("{qId}")]
 		//{catId}/
 		public async Task<QuestionViewModel> GetQuestion([FromRoute] int catId, int qId)
@@ -97,6 +97,10 @@ namespace _24SevenOfficeForum.Controllers
 			return question;
 		}
 
+
+		///<Summary>
+		/// Put Question, Not in use
+		///</Summary>
 		// PUT: api/Questions/
 		[HttpPut("{id}")]
 		public async Task<IActionResult> PutQuestion([FromRoute] int id, [FromBody] Question model)
@@ -122,6 +126,9 @@ namespace _24SevenOfficeForum.Controllers
 
 			return NoContent();
 		}
+		///<Summary>
+		/// Posts the question
+		///</Summary>
 		// POST: api/Questions
 		[HttpPost]
 		public async Task<IActionResult> PostQuestion([FromBody] Question model)
@@ -133,15 +140,18 @@ namespace _24SevenOfficeForum.Controllers
 			if (model != null)
 			{
 				_context.Question.Add(setdate);
+				_context.Category.FirstOrDefault(q => q.Id == model.CategoryId).QuestionCount += 1;
 				await _context.SaveChangesAsync();
 
 				return Ok(setdate);
 
 			}
-
 			return BadRequest();
 		}
 
+		///<Summary>
+		/// Deletes a Question
+		///</Summary>
 		// DELETE: api/Questions/5
 		[HttpDelete("{id}")]
 
@@ -151,10 +161,12 @@ namespace _24SevenOfficeForum.Controllers
 				return BadRequest(ModelState);
 
 			var question = await _context.Question.SingleOrDefaultAsync(m => m.Id == id);
+
 			if (question == null)
 				return NotFound();
 
 			_context.Question.Remove(question);
+			_context.Category.FirstOrDefault(q => q.Id == question.CategoryId).QuestionCount -= 1;
 			await _context.SaveChangesAsync();
 
 			return Ok(question);
@@ -165,6 +177,9 @@ namespace _24SevenOfficeForum.Controllers
 			return _context.Question.Any(e => e.Id == id);
 		}
 
+		///<Summary>
+		/// Edits a Question.
+		///</Summary>
 		// PATCH: api/Queistions/5
 		[HttpPatch("{id}")]
 		public async Task<IActionResult> PatchQuestion(int id, [FromBody] PatchQuestion model)
@@ -177,7 +192,7 @@ namespace _24SevenOfficeForum.Controllers
 
 			if (model.Body != null) question.Body = model.Body;
 
-			if (model.UpVote != 0) question.Upvote = model.UpVote;
+			 question.Upvote = model.UpVote;
 
 			if (model.CategoryId != 0) question.CategoryId = model.CategoryId;
 

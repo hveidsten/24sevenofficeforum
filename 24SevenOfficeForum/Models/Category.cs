@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _24SevenOfficeForum.Models;
 
 namespace _24SevenOfficeForum.Models
 {
@@ -14,6 +13,7 @@ namespace _24SevenOfficeForum.Models
         public int Id { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
+        public int? QuestionCount { get; set; }
 
         public ICollection<Question> Question { get; set; }
     }

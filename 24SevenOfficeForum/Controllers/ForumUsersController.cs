@@ -78,7 +78,7 @@ namespace _24SevenOfficeForum.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(forumUser);
         }
 
         // POST: api/ForumUsers
