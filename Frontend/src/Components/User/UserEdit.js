@@ -5,46 +5,47 @@ import { Redirect } from 'react-router-dom';
 
 
 const UserEdit = ({ user, onclick, handleSubmit, handleChange }) => {
-    if(user){
-    return (
-        <Fragment>
-            <h2>Edit user</h2>
-            <InputWrapper>
-                <form>
+    if (user) {
+        return (
+            <Fragment>
+                <h2>Edit user</h2>
+                <InputWrapper>
+                    <form>
 
-                    <label>Firstname:
+                        <label>Firstname:
             <input onChange={handleChange} name="firstName" defaultValue={user.firstName} />
-                        <br />
-                    </label>
+                            <br />
+                        </label>
 
-                    <label>Lastname:
+                        <label>Lastname:
             <input onChange={handleChange} name="lastName" defaultValue={user.lastName} />
-                        <br />
-                    </label>
+                            <br />
+                        </label>
 
-                    <label>E-Mail:
+                        <label>E-Mail:
             <input onChange={handleChange} name="email" defaultValue={user.email} />
-                        <br />
-                    </label>
+                            <br />
+                        </label>
 
-                    <label>Telephone:
+                        <label>Telephone:
             <input onChange={handleChange} name="phone" defaultValue={user.phone} />
-                        <br />
-                    </label>
+                            <br />
+                        </label>
 
-                    <label>Company:
+                        <label>Company:
             <input onChange={handleChange} name="company" defaultValue={user.company} />
-                        <br />
-                    </label>
+                            <br />
+                        </label>
 
-                </form>
+                    </form>
 
-            </InputWrapper>
-            <Button onclick={handleSubmit} color="#224477" text="Save" />
-            <Button onclick={onclick} color="#224477" text="Back" />
-        </Fragment>
-    );}
-    else {return (<Redirect to="../../" />);}
+                </InputWrapper>
+                <Button onclick={handleSubmit} color="#224477" text="Save" />
+                <Button onclick={onclick} color="#224477" text="Back" />
+            </Fragment>
+        );
+    }
+    else { return (<Redirect to="../../" />); }
 }
 
 export default UserEdit;

@@ -12,7 +12,7 @@ export const CREATE_USER = "CREATE_USER";
 const url = "http://localhost:62152/api/forumUsers/";
 
 export const userSignIn = (id) => (dispatch) => {
-  axios.get(url+id).then(
+  axios.get(url + id).then(
     response => {
       dispatch({
         type: USER_SIGN_IN,
@@ -23,17 +23,17 @@ export const userSignIn = (id) => (dispatch) => {
 }
 
 export const userSignOut = () => (dispatch) => {
-      dispatch({
-        type: USER_SIGN_OUT,
-        payload: {userId:0}
-      });
-    }
+  dispatch({
+    type: USER_SIGN_OUT,
+    payload: { userId: 0 }
+  });
+}
 
 
 
 
 export const fetchUser = (id) => (dispatch) => {
-  axios.get(url+id).then(
+  axios.get(url + id).then(
     response => {
       dispatch({
         type: FETCH_USER,

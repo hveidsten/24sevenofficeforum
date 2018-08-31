@@ -14,7 +14,7 @@ class QuestionsList extends Component {
     this.state = {
       pageNumber: 1,
       numberOfPages: 1,
-      maxPageNumber:1,
+      maxPageNumber: 1,
       sortOrder: ""
     }
 
@@ -26,20 +26,22 @@ class QuestionsList extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props !== nextProps;    
+    return this.props !== nextProps;
   }
 
 
   fetchPosts(pageNumber) {
     this.props.fetchSingleCategory(this.props.activeCategory);
     this.props.fetchQuestions(this.props.activeCategory, pageNumber, this.state.sortOrder);
-   // this.setMaxPageNumber;
+
   }
 
   componentDidMount() {
     this.fetchPosts(this.state.pageNumber);
   }
-
+  componentDidUpdate() {
+    this.setMaxPageNumber();
+  }
 
   onchange(e) {
     this.setState({ sortOrder: e.target.value });
@@ -50,7 +52,7 @@ class QuestionsList extends Component {
   }
 
   changePage(newPage) {
-    if (newPage > 0) {
+    if (newPage > 0 && newPage <= this.state.maxPageNumber) {
       this.setState({
         pageNumber: newPage
       });
@@ -60,14 +62,14 @@ class QuestionsList extends Component {
   }
 
   setMaxPageNumber() {
-        
-  /*  let maxPage = this.props.question.answerCount/10;
-   maxPage= Number.isInteger(maxPage)? maxPage : Math.ceil(maxPage);
+    let maxPage = this.props.category && this.props.category.questionCount / 10;
+    console.log(maxPage);
+    maxPage = Number.isInteger(maxPage) ? maxPage : Math.ceil(maxPage);
 
-    this.setState({maxPageNumber: maxPage>1? maxPage:1});*/
+    this.setState({ maxPageNumber: maxPage });
 
-     console.log(this.state.maxPageNumber);
-}
+    console.log(this.state.maxPageNumber);
+  }
 
   scrollToTop = () => {
     this.scrollToPoint.scrollIntoView();
@@ -77,13 +79,14 @@ class QuestionsList extends Component {
   render() {
     if (!this.props.questions.allQuestionsInCategory) { return <h2>Loading</h2>; }
     else {
+
       return (
         <Fragment>
           <span ref={(el) => { this.scrollToPoint = el; }} />
 
           <h2>{this.props.category && this.props.category.categoryName} </h2>
-          
-        
+
+
           <SortDropdown onchange={(e) => this.onchange(e)} sortByAnswers />
 
           {this.props.questions.allQuestionsInCategory.map(
@@ -93,11 +96,11 @@ class QuestionsList extends Component {
               )
             }
           )}
-          <PageChanger onclick={(a) => this.changePage(a)} 
-            pageNumber={this.state.pageNumber} 
+          <PageChanger onclick={(a) => this.changePage(a)}
+            pageNumber={this.state.pageNumber}
             maxPageNumber={this.state.maxPageNumber} />
 
-         {this.props.user.loggedInUser && <Link to='./new_question'> <Button color="#49bd39" text="New question" /></Link>}
+          {this.props.user.loggedInUser && <Link to='./new_question'> <Button color="#49bd39" text="New question" /></Link>}
         </Fragment>
       );
     }

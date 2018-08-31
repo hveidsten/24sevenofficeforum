@@ -16,12 +16,12 @@ class User extends Component {
 
     componentDidMount() {
         this.props.fetchUser(this.props.match.params.userId);
-     
+
     }
 
     toggleEdit() {
-        this.setState({ edit: !this.state.edit, user: this.props.loggedInUser});
-        
+        this.setState({ edit: !this.state.edit, user: this.props.loggedInUser });
+
     }
 
     checkIfUserIsLoggedIn() {
@@ -34,27 +34,27 @@ class User extends Component {
     }
 
     handleChange(event) {
-        
-        this.setState( {user:{ ...this.state.user, [event.target.name]: event.target.value }});
+
+        this.setState({ user: { ...this.state.user, [event.target.name]: event.target.value } });
         console.log(this.state);
     }
 
     render() {
-        
+
         if (this.props.displayedUser) {
             return (
                 <Fragment>
                     {this.state.edit ?
                         <UserEdit
                             user={this.props.loggedInUser}
-                            onclick={this.toggleEdit} 
+                            onclick={this.toggleEdit}
                             handleChange={this.handleChange}
-                            handleSubmit={this.handleSubmit}/> :
+                            handleSubmit={this.handleSubmit} /> :
                         <UserComponent
                             user={this.props.displayedUser}
                             userLoggedin={this.checkIfUserIsLoggedIn()}
                             onclick={this.toggleEdit}
-                             />}
+                        />}
                 </Fragment>
             );
         } else {
@@ -62,7 +62,6 @@ class User extends Component {
         }
     }
 }
-
 
 const mapStateToProps = state => (
     {
