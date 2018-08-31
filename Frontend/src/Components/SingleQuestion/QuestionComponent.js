@@ -5,6 +5,7 @@ import Button from '../CommonComponents/Button';
 
 
 const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, editPostRedirect, historyPush,user }) => {
+  console.log(user);
   return (
     <QuestionWrapper>
       <Vote
@@ -22,7 +23,7 @@ const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, e
 
         <div>{question.body.split('\n').map((t,i) => <p key={i}>{t}</p>)}</div>
         
-        {user && user.id === question.userId ?<div>
+        {user.loggedInUser && user.loggedInUser.id === question.userId ?<div>
         <Button color="#f04b4b" onclick={deleteQuestion} text="Delete question"/>
         <Button onclick={editPostRedirect} color="#224477" text="Edit question"/>
         </div> :""}
