@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import { InputWrapper } from '../CommonStyledComponents';
 import { Button } from '../CommonComponents/Button';
+import { Redirect } from 'react-router-dom';
 
 
 const UserEdit = ({ user, onclick, handleSubmit, handleChange }) => {
+    if(user){
     return (
         <Fragment>
             <h2>Edit user</h2>
@@ -41,7 +43,8 @@ const UserEdit = ({ user, onclick, handleSubmit, handleChange }) => {
             <Button onclick={handleSubmit} color="#224477" text="Save" />
             <Button onclick={onclick} color="#224477" text="Back" />
         </Fragment>
-    );
+    );}
+    else {return (<Redirect to="../../" />);}
 }
 
 export default UserEdit;

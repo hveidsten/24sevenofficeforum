@@ -40,6 +40,7 @@ class User extends Component {
     }
 
     render() {
+        
         if (this.props.displayedUser) {
             return (
                 <Fragment>
