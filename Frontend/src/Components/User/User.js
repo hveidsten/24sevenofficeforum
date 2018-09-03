@@ -29,14 +29,11 @@ class User extends Component {
     }
 
     handleSubmit() {
-        console.log(this.state.user);
         this.props.editUser(this.state.user);
     }
 
     handleChange(event) {
-
         this.setState({ user: { ...this.state.user, [event.target.name]: event.target.value } });
-        console.log(this.state);
     }
 
     render() {

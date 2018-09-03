@@ -5,7 +5,7 @@ import Button from '../CommonComponents/Button';
 
 
 const QuestionComponent = ({ question, handleVote, categoryId, deleteQuestion, editPostRedirect, historyPush,user }) => {
-  console.log(user);
+
   return (
     <QuestionWrapper>
       <Vote

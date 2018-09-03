@@ -62,13 +62,11 @@ class QuestionsList extends Component {
   }
 
   setMaxPageNumber() {
+
     let maxPage = this.props.category && this.props.category.questionCount / 10;
-    console.log(maxPage);
     maxPage = Number.isInteger(maxPage) ? maxPage : Math.ceil(maxPage);
 
     this.setState({ maxPageNumber: maxPage });
-
-    console.log(this.state.maxPageNumber);
   }
 
   scrollToTop = () => {
